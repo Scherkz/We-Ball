@@ -821,7 +821,7 @@ GameObject:
   - component: {fileID: 1438594064}
   - component: {fileID: 1438594063}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -958,7 +958,7 @@ GameObject:
   - component: {fileID: 1728767875}
   - component: {fileID: 1728767877}
   m_Layer: 0
-  m_Name: Dummy Victory Zone
+  m_Name: DummyVictoryZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

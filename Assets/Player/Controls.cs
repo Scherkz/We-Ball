@@ -131,7 +131,6 @@ public class Controlls : MonoBehaviour
             isCharging = true;
             chargeTimer = 0f;
             
-
             lockedAim = aimInput;
             if (lockedAim.sqrMagnitude < 0.01f) return;
         }
@@ -162,7 +161,6 @@ public class Controlls : MonoBehaviour
         {
             if (!isTiming)
             {
-                
                 lockedAim = aimInput;
                 if (lockedAim.sqrMagnitude < 0.01f) return;
 
@@ -170,7 +168,6 @@ public class Controlls : MonoBehaviour
                 selectorPosition = 0f;
                 selectorDirection = 1;
 
-                
                 Vector2 barCenter = body.position + Vector2.up * 0.5f;
                 Vector2 left = barCenter + Vector2.left * (timingBarWidth / 2f);
                 Vector2 right = barCenter + Vector2.right * (timingBarWidth / 2f);
@@ -203,15 +200,9 @@ public class Controlls : MonoBehaviour
             }
             else
             {
-                
                 float distanceFromCenter = Mathf.Abs(selectorPosition - 0.5f) * 2f;
-
-                
                 float centerProximity = 1f - distanceFromCenter;
-
-               
                 float powerMultiplier = Mathf.Lerp(0.5f, perfectPowerMultiplier, centerProximity);
-
                 body.AddForce(lockedAim.normalized * shootForce * lockedAim.magnitude * powerMultiplier, ForceMode2D.Impulse);
 
                 timingBar.enabled = false;
@@ -240,8 +231,6 @@ public class Controlls : MonoBehaviour
             selectorDot.transform.position = pos;
         }
     }
-
-
 
     private void ShowAimArrow(Vector2 input)
     {
