@@ -17,11 +17,13 @@ public class BuildGrid : MonoBehaviour
     [SerializeField] private GameObject buildingPrefab;
 
     private GridData[] grid;
+    private Vector3 offset;
     private SpriteRenderer gridVisualisation;
 
     private void Awake()
     {
         grid = new GridData[cellCount.x * cellCount.y];
+        offset = new Vector3(-cellCount.x * cellSize * 0.5f, -cellCount.y * cellSize * 0.5f, 0);
 
         gridVisualisation = transform.Find("GridVisualisation").GetComponent<SpriteRenderer>();
     }
@@ -29,12 +31,17 @@ public class BuildGrid : MonoBehaviour
     private void Start()
     {
         gridVisualisation.size = cellCount;
+        gridVisualisation.transform.localPosition = offset;
         gridVisualisation.transform.localScale = new Vector3(cellSize, -cellSize, 1);
     }
 
     public bool CanPlaceBuilding(Vector3 position, BuildingData buildingData)
     {
-        var cellCoords = GetCellCoords(position);
+        var localPosition = transform.InverseTransformPoint(position);
+        if (!IsPositionInsideGrid(localPosition))
+            return false;
+
+        var cellCoords = GetCellCoords(localPosition);
         var cellIndex = GetCellIndex(cellCoords.x, cellCoords.y);
         foreach (var cellOffset in IterateBuildingCells(buildingData))
         {
@@ -81,6 +88,12 @@ public class BuildGrid : MonoBehaviour
         return true;
     }
 
+    public Vector3 GetCellPosition(Vector3 position)
+    {
+        var cellCoords = GetCellCoords(position);
+        return new Vector3(cellCoords.x * cellSize, cellCoords.y * cellSize, position.z);
+    }
+
     private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData)
     {
         for (int x = 0; x < buildingData.cellCount.x; x++)
@@ -92,9 +105,9 @@ public class BuildGrid : MonoBehaviour
         }
     }
 
-    private int GetCellIndex(Vector3 position)
+    private int GetCellIndex(Vector3 localPosition)
     {
-        var cellCoords = GetCellCoords(position);
+        var cellCoords = GetCellCoords(localPosition);
         return GetCellIndex(cellCoords.x, cellCoords.y);
     }
 
@@ -103,16 +116,28 @@ public class BuildGrid : MonoBehaviour
         return x + y * cellCount.x;
     }
 
-    private Vector3 GetCellPosition(Vector3 position)
+    private bool IsPositionInsideGrid(Vector3 localPosition)
     {
-        var cellCoords = GetCellCoords(position);
-        return new Vector3(cellCoords.x * cellSize, cellCoords.y * cellSize, position.z);
+        if (localPosition.x < offset.x)
+            return false;
+
+        if (localPosition.y < offset.y)
+            return false;
+
+        var farCorner = offset + new Vector3(cellCount.x * cellSize, cellCount.y * cellSize, 0);
+        if (localPosition.x >= farCorner.x)
+            return false;
+
+        if (localPosition.y >= farCorner.y)
+            return false;
+
+        return true;
     }
 
-    private Vector2Int GetCellCoords(Vector3 position)
+    private Vector2Int GetCellCoords(Vector3 localPosition)
     {
-        int x = (int) Mathf.Floor(position.x / cellSize);
-        int y = (int) Mathf.Floor(position.y / cellSize);
+        int x = (int) Mathf.Floor((localPosition.x - offset.x) / cellSize);
+        int y = (int) Mathf.Floor((localPosition.y - offset.y) / cellSize);
         return new Vector2Int(x, y);
     }
 }
