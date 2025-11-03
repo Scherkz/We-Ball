@@ -28,4 +28,9 @@ public class Building : MonoBehaviour
         name = data.name;
         spriteRenderer.sprite = data.sprite;
     }
+
+    public void SetTint(Color tint)
+    {
+        spriteRenderer.material.color = tint;
+    }
 }

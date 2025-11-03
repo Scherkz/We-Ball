@@ -38,7 +38,7 @@ public class BuildGrid : MonoBehaviour
     public bool CanPlaceBuilding(Vector3 position, BuildingData buildingData)
     {
         var localPosition = transform.InverseTransformPoint(position);
-        if (!IsPositionInsideGrid(localPosition))
+        if (!_IsPositionInsideGrid(localPosition))
             return false;
 
         var cellCoords = GetCellCoords(localPosition);
@@ -88,10 +88,18 @@ public class BuildGrid : MonoBehaviour
         return true;
     }
 
+    public bool IsPositionInsideGrid(Vector3 position)
+    {
+        var localPosition = transform.InverseTransformPoint(position);
+        return _IsPositionInsideGrid(localPosition);
+    }
+
     public Vector3 GetCellPosition(Vector3 position)
     {
-        var cellCoords = GetCellCoords(position);
-        return new Vector3(cellCoords.x * cellSize, cellCoords.y * cellSize, position.z);
+        var localPosition = transform.InverseTransformPoint(position);
+        var cellCoords = GetCellCoords(localPosition);
+        var localCellPosition = new Vector3(offset.x + cellCoords.x * cellSize, offset.y + cellCoords.y * cellSize, localPosition.z);
+        return transform.TransformPoint(localCellPosition);
     }
 
     private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData)
@@ -116,7 +124,7 @@ public class BuildGrid : MonoBehaviour
         return x + y * cellCount.x;
     }
 
-    private bool IsPositionInsideGrid(Vector3 localPosition)
+    private bool _IsPositionInsideGrid(Vector3 localPosition)
     {
         if (localPosition.x < offset.x)
             return false;
