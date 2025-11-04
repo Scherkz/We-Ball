@@ -10,12 +10,12 @@ public class BuildManager : MonoBehaviour
 
     [SerializeField] private Camera mainCamera;
 
-    private Building building;
+    private BuildingGhost building;
     [SerializeField] private BuildingData currentBuildingData;
 
     private void Awake()
     {
-        building = transform.Find("DisplayBuilding").GetComponent<Building>();
+        building = transform.Find("BuildingGhost").GetComponent<BuildingGhost>();
     }
 
     private void Start()
@@ -23,13 +23,13 @@ public class BuildManager : MonoBehaviour
         building.transform.localScale = new Vector3(grid.cellSize, grid.cellSize, 1);
 
         if (currentBuildingData != null)
-            building.Init(currentBuildingData);
+            building.ShowBuilding(currentBuildingData);
     }
 
     public void SetBuildingData(BuildingData buildingData)
     {
         currentBuildingData = buildingData;
-        building.Init(buildingData);
+        building.ShowBuilding(buildingData);
     }
 
     private void Update()

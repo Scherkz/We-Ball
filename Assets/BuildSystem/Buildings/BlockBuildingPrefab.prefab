@@ -103,4 +103,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e12d0e52f682fc4aa91f2a6914ea02f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Building
-  data: {fileID: 0}
+  spriteRenderer: {fileID: 1544847929386954055}
