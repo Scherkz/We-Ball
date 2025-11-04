@@ -244,7 +244,7 @@ MonoBehaviour:
   validColor: {r: 1, g: 1, b: 1, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
   mainCamera: {fileID: 1263402550}
-  currentBuildingData: {fileID: 11400000, guid: a611068c21d8e294f84f5916f5918e57, type: 2}
+  currentBuildingData: {fileID: 11400000, guid: e350fb932468d1c41b52d76fb6774e0a, type: 2}
 --- !u!4 &1123175067
 Transform:
   m_ObjectHideFlags: 0
