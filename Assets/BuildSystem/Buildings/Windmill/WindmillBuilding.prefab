@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 151092759018211522}
-  - component: {fileID: 3578903466937864053}
   m_Layer: 0
   m_Name: Anchor
   m_TagString: Untagged
@@ -34,19 +33,6 @@ Transform:
   - {fileID: 3899771823412555221}
   m_Father: {fileID: 1620851587231191193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3578903466937864053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 195988970741532443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1047b3890d21df74687d6e39832670f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Windmill
-  rotationSpeed: 15
 --- !u!1 &1539615380003317300
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1620851587231191193}
   - component: {fileID: 7711286332873396046}
-  - component: {fileID: 2723149647764439424}
+  - component: {fileID: 5793148161791036529}
   m_Layer: 0
   m_Name: WindmillBuilding
   m_TagString: Untagged
@@ -323,7 +309,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 3
---- !u!114 &2723149647764439424
+--- !u!114 &5793148161791036529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -332,7 +318,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8212586786751340706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e12d0e52f682fc4aa91f2a6914ea02f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1047b3890d21df74687d6e39832670f7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Building
+  m_EditorClassIdentifier: Assembly-CSharp::Windmill
   spriteRenderer: {fileID: 7293939932764660765}
+  rotationSpeed: -15
