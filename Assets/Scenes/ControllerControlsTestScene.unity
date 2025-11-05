@@ -305,34 +305,40 @@ MonoBehaviour:
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
   mainCamera: {fileID: 1263402550}
   currentBuildingData: {fileID: 11400000, guid: a611068c21d8e294f84f5916f5918e57, type: 2}
-  moveCursorAction:
-    m_Name: Move Cursor
+  cursorPositionAction:
+    m_Name: Cursor Position
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 37b0fb7a-96f2-4790-b1c6-fe5827af03a3
+    m_Id: 060888b2-08ec-41f9-879e-2e9539baf7cf
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 5da92fbe-9060-4d58-9f62-3aa455416918
+      m_Id: 02adfc55-6b0a-49da-918c-1452e3a7b4d8
       m_Path: <Gamepad>/leftStick
+      m_Interactions: 
+      m_Processors: AxisDeadzone,ScaleVector2(x=700,y=700)
+      m_Groups: 
+      m_Action: Cursor Position
+      m_Flags: 0
+    m_Flags: 0
+  placeAction:
+    m_Name: Place
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4f8c46e3-3eaa-4d02-a228-e1b89a49451e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 04ce7859-9dd7-4595-a1b4-c1ed4040dd39
+      m_Path: <Gamepad>/buttonSouth
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Move Cursor
+      m_Action: Place
       m_Flags: 0
     m_Flags: 0
-  clickAction:
-    m_Name: Click
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: bf502f34-98c6-42d2-b266-00af1d996ab9
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  sensitivity: 1000
-  deadzone: 0.1
 --- !u!4 &1123175067
 Transform:
   m_ObjectHideFlags: 0
