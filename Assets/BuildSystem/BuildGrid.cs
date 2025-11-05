@@ -14,8 +14,6 @@ public class BuildGrid : MonoBehaviour
     public float cellSize = 0.25f;
     public Vector2Int cellCount;
 
-    [SerializeField] private GameObject buildingPrefab;
-
     private GridData[] grid;
     private Vector3 offset;
     private SpriteRenderer gridVisualisation;
@@ -43,14 +41,11 @@ public class BuildGrid : MonoBehaviour
         var localPosition = transform.InverseTransformPoint(position);
 
         // instanciate building at position
-        var instance = Instantiate(buildingPrefab);
+        var instance = Instantiate(buildingData.prefab);
 
         instance.transform.SetParent(transform);
         instance.transform.localPosition = InternalGetCellPosition(localPosition);
         instance.transform.localScale = new Vector3(cellSize, cellSize, 1);
-
-        var building = instance.GetComponent<Building>();
-        building.Init(buildingData);
 
         var GridData = new GridData
         {

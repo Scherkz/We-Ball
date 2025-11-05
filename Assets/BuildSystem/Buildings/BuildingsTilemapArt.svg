@@ -26,15 +26,33 @@
      inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.42041015"
-     inkscape:cx="451.93961"
-     inkscape:cy="403.17771"
+     inkscape:zoom="1.1890995"
+     inkscape:cx="642.50302"
+     inkscape:cy="1417.4592"
      inkscape:window-width="1858"
      inkscape:window-height="1057"
      inkscape:window-x="54"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="g46"
+     showgrid="true">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="67.733334"
+       spacingy="67.733334"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="5"
+       dotted="false"
+       gridanglex="30"
+       gridanglez="30"
+       visible="true" />
+  </sodipodi:namedview>
   <defs
      id="defs1" />
   <g
@@ -51,5 +69,286 @@
        rx="4.2333331"
        ry="4.2333331"
        inkscape:label="SolidBlock" />
+    <g
+       id="g10"
+       inkscape:label="Windmill"
+       transform="translate(65.425364,-26.030317)">
+      <g
+         id="g16"
+         inkscape:label="Wing">
+        <rect
+           style="fill:#f4ebe1;fill-opacity:1;stroke-width:1.78809;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+           id="rect10"
+           width="43.391666"
+           height="74.083336"
+           x="217.67879"
+           y="30.792816"
+           rx="1.8510138"
+           inkscape:label="Sail"
+           inkscape:transform-center-y="-64.766865" />
+        <rect
+           style="fill:#a4713c;fill-opacity:1;stroke-width:2.05436;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+           id="rect2"
+           width="9.5249996"
+           height="84.666664"
+           x="234.61212"
+           y="42.963642"
+           rx="2.0331135"
+           inkscape:label="Wood"
+           inkscape:transform-center-y="-42.282085" />
+      </g>
+      <g
+         id="g17"
+         inkscape:label="Wing"
+         transform="rotate(180,239.37462,127.63031)">
+        <rect
+           style="fill:#f4ebe1;fill-opacity:1;stroke-width:1.78809;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+           id="rect16"
+           width="43.391666"
+           height="74.083336"
+           x="217.67879"
+           y="30.792816"
+           rx="1.8510138"
+           inkscape:label="Sail"
+           inkscape:transform-center-y="-64.766865" />
+        <rect
+           style="fill:#a4713c;fill-opacity:1;stroke-width:2.05436;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+           id="rect17"
+           width="9.5249996"
+           height="84.666664"
+           x="234.61212"
+           y="42.963642"
+           rx="2.0331135"
+           inkscape:label="Wood"
+           inkscape:transform-center-y="-42.282085" />
+      </g>
+      <g
+         id="g19"
+         inkscape:label="Wing"
+         transform="rotate(90,239.37462,127.63031)">
+        <rect
+           style="fill:#f4ebe1;fill-opacity:1;stroke-width:1.78809;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+           id="rect18"
+           width="43.391666"
+           height="74.083336"
+           x="217.67879"
+           y="30.792816"
+           rx="1.8510138"
+           inkscape:label="Sail"
+           inkscape:transform-center-y="-64.766865" />
+        <rect
+           style="fill:#a4713c;fill-opacity:1;stroke-width:2.05436;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+           id="rect19"
+           width="9.5249996"
+           height="84.666664"
+           x="234.61212"
+           y="42.963642"
+           rx="2.0331135"
+           inkscape:label="Wood"
+           inkscape:transform-center-y="-42.282085" />
+      </g>
+      <g
+         id="g21"
+         inkscape:label="Wing"
+         transform="rotate(-90,239.37462,127.63031)">
+        <rect
+           style="fill:#f4ebe1;fill-opacity:1;stroke-width:1.78809;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+           id="rect20"
+           width="43.391666"
+           height="74.083336"
+           x="217.67879"
+           y="30.792816"
+           rx="1.8510138"
+           inkscape:label="Sail"
+           inkscape:transform-center-y="-64.766865" />
+        <rect
+           style="fill:#a4713c;fill-opacity:1;stroke-width:2.05436;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+           id="rect21"
+           width="9.5249996"
+           height="84.666664"
+           x="234.61212"
+           y="42.963642"
+           rx="2.0331135"
+           inkscape:label="Wood"
+           inkscape:transform-center-y="-42.282085" />
+      </g>
+      <circle
+         style="fill:#a4713c;fill-opacity:1;stroke-width:2.06517;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+         id="path1"
+         cx="304.79999"
+         cy="101.59999"
+         inkscape:label="Center"
+         r="16.933332"
+         transform="translate(-65.425364,26.030317)"
+         inkscape:transform-center-x="-3.3553467e-06"
+         inkscape:transform-center-y="0.05124896" />
+    </g>
+    <g
+       id="g46"
+       inkscape:label="Fan">
+      <g
+         id="g37"
+         inkscape:label="Fan_Frame1">
+        <g
+           id="g26"
+           transform="translate(0.20643304,2.1734274)"
+           style="fill:#797979;fill-opacity:1"
+           inkscape:label="Blades">
+          <rect
+             style="fill:#797979;fill-opacity:1;stroke-width:1.50968;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             id="rect23"
+             width="21.58321"
+             height="21.58321"
+             x="56.941738"
+             y="238.75034"
+             ry="4.9197049"
+             inkscape:label="Motor" />
+          <rect
+             style="fill:#797979;fill-opacity:1;stroke-width:1.50968;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             id="rect24"
+             width="56.655926"
+             height="18.885309"
+             x="72.858604"
+             y="240.0993"
+             ry="7.3001952"
+             rx="28.327963"
+             inkscape:label="Blade" />
+          <rect
+             style="fill:#797979;fill-opacity:1;stroke-width:1.50968;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             id="rect25"
+             width="56.655926"
+             height="18.885309"
+             x="5.9521575"
+             y="240.0993"
+             ry="7.3001952"
+             rx="28.327963"
+             inkscape:label="Blade" />
+        </g>
+        <g
+           id="g36"
+           inkscape:label="Cage">
+          <path
+             id="rect22"
+             style="fill:none;stroke:#545454;stroke-width:4.35342;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             d="M 12.729189,219.58916 H 122.73749 c 5.84608,0 10.55248,4.7064 10.55248,10.55248 v 28.06251 c 0,5.84608 -4.7064,10.55248 -10.55248,10.55248 H 12.729189 c -5.8460747,0 -10.5524815,-4.7064 -10.5524815,-10.55248 v -28.06251 c 0,-5.84608 4.7064068,-10.55248 10.5524815,-10.55248 z"
+             inkscape:label="Border" />
+          <path
+             id="path27"
+             style="fill:none;fill-opacity:1;stroke:#545454;stroke-width:4.23333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+             d="M 16.686837 219.58918 L 2.5006226 244.16081 L 16.686837 219.58918 z M 32.996952 219.58918 L 6.1221069 266.13776 L 32.996952 219.58918 z M 49.307068 219.58918 L 20.92017 268.75672 L 49.307068 219.58918 z M 65.616667 219.58918 L 37.230286 268.75672 L 65.616667 219.58918 z M 81.926782 219.58918 L 53.539884 268.75672 L 81.926782 219.58918 z M 98.236898 219.58918 L 69.85 268.75672 L 98.236898 219.58918 z M 114.54701 219.58918 L 86.160116 268.75672 L 114.54701 219.58918 z M 129.5709 221.81695 L 102.46971 268.75672 L 129.5709 221.81695 z M 133.37894 243.47041 L 118.77983 268.75672 L 133.37894 243.47041 z "
+             inkscape:label="Grid" />
+        </g>
+      </g>
+      <g
+         id="g41"
+         inkscape:label="Fan_Frame2"
+         transform="translate(0,67.733344)">
+        <g
+           id="g39"
+           transform="translate(0.20643304,2.1734274)"
+           style="fill:#797979;fill-opacity:1"
+           inkscape:label="Blades">
+          <rect
+             style="fill:#797979;fill-opacity:1;stroke-width:1.50968;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             id="rect37"
+             width="21.58321"
+             height="21.58321"
+             x="56.941738"
+             y="238.75034"
+             ry="4.9197049"
+             inkscape:label="Motor" />
+          <rect
+             style="fill:#797979;fill-opacity:1;stroke-width:1.27937;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             id="rect38"
+             width="40.688164"
+             height="18.885309"
+             x="71.414116"
+             y="240.0993"
+             ry="7.3001952"
+             rx="20.344082"
+             inkscape:label="Blade" />
+          <rect
+             style="fill:#797979;fill-opacity:1;stroke-width:1.27937;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             id="rect39"
+             width="40.688164"
+             height="18.885309"
+             x="23.364408"
+             y="240.0993"
+             ry="7.3001952"
+             rx="20.344082"
+             inkscape:label="Blade" />
+        </g>
+        <g
+           id="g40"
+           inkscape:label="Cage">
+          <path
+             id="path39"
+             style="fill:none;stroke:#545454;stroke-width:4.35342;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             d="M 12.729189,219.58916 H 122.73749 c 5.84608,0 10.55248,4.7064 10.55248,10.55248 v 28.06251 c 0,5.84608 -4.7064,10.55248 -10.55248,10.55248 H 12.729189 c -5.8460747,0 -10.5524815,-4.7064 -10.5524815,-10.55248 v -28.06251 c 0,-5.84608 4.7064068,-10.55248 10.5524815,-10.55248 z"
+             inkscape:label="Border" />
+          <path
+             id="path40"
+             style="fill:none;fill-opacity:1;stroke:#545454;stroke-width:4.23333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+             d="M 16.686837,219.58918 2.5006226,244.16081 Z m 16.310115,0 -26.8748451,46.54858 z m 16.310116,0 -28.386898,49.16754 z m 16.309599,0 -28.386381,49.16754 z m 16.310115,0 -28.386898,49.16754 z m 16.310116,0 L 69.85,268.75672 Z m 16.310112,0 -28.386894,49.16754 z m 15.02389,2.22777 -27.10119,46.93977 z m 3.80804,21.65346 -14.59911,25.28631 z"
+             inkscape:label="Grid" />
+        </g>
+      </g>
+      <g
+         id="g45"
+         inkscape:label="Fan_Frame3"
+         transform="translate(0,135.46668)">
+        <g
+           id="g43"
+           transform="translate(0.20643304,2.1734274)"
+           style="fill:#797979;fill-opacity:1"
+           inkscape:label="Blades">
+          <rect
+             style="fill:#797979;fill-opacity:1;stroke-width:1.50968;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             id="rect41"
+             width="21.58321"
+             height="21.58321"
+             x="56.941738"
+             y="238.75034"
+             ry="4.9197049"
+             inkscape:label="Motor" />
+          <rect
+             style="fill:#797979;fill-opacity:1;stroke-width:0.754203;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             id="rect42"
+             width="14.140077"
+             height="18.885309"
+             x="-66.454193"
+             y="240.0993"
+             ry="7.3001952"
+             rx="7.0700383"
+             inkscape:label="Blade"
+             transform="scale(-1,1)" />
+          <rect
+             style="fill:#797979;fill-opacity:1;stroke-width:0.754203;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             id="rect43"
+             width="14.140077"
+             height="18.885309"
+             x="-83.152573"
+             y="240.0993"
+             ry="7.3001952"
+             rx="7.0700383"
+             inkscape:label="Blade"
+             transform="scale(-1,1)" />
+        </g>
+        <g
+           id="g44"
+           inkscape:label="Cage">
+          <path
+             id="path43"
+             style="fill:none;stroke:#545454;stroke-width:4.35342;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+             d="M 12.729189,219.58916 H 122.73749 c 5.84608,0 10.55248,4.7064 10.55248,10.55248 v 28.06251 c 0,5.84608 -4.7064,10.55248 -10.55248,10.55248 H 12.729189 c -5.8460747,0 -10.5524815,-4.7064 -10.5524815,-10.55248 v -28.06251 c 0,-5.84608 4.7064068,-10.55248 10.5524815,-10.55248 z"
+             inkscape:label="Border" />
+          <path
+             id="path44"
+             style="fill:none;fill-opacity:1;stroke:#545454;stroke-width:4.23333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+             d="M 16.686837,219.58918 2.5006226,244.16081 Z m 16.310115,0 -26.8748451,46.54858 z m 16.310116,0 -28.386898,49.16754 z m 16.309599,0 -28.386381,49.16754 z m 16.310115,0 -28.386898,49.16754 z m 16.310116,0 L 69.85,268.75672 Z m 16.310112,0 -28.386894,49.16754 z m 15.02389,2.22777 -27.10119,46.93977 z m 3.80804,21.65346 -14.59911,25.28631 z"
+             inkscape:label="Grid" />
+        </g>
+      </g>
+    </g>
   </g>
 </svg>
