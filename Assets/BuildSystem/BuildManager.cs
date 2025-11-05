@@ -69,19 +69,11 @@ public class BuildManager : MonoBehaviour
         building.transform.position = cellPos;
         building.SetTint(canBuild ? validColor : invalidColor);
 
+        var placeActionPressed = enableMouseControls ? Mouse.current.leftButton.wasPressedThisFrame : placeAction.WasPressedThisFrame();
 
-        if (enableMouseControls)
+        if (placeActionPressed)
         {
-            if (canBuild && Mouse.current.leftButton.wasPressedThisFrame)
-            {
-                grid.AddBuilding(cellPos, currentBuildingData);
-            }
-        } else
-        {
-            if (canBuild && placeAction.WasPressedThisFrame())
-            {
-                grid.AddBuilding(cellPos, currentBuildingData);
-            }
+            grid.AddBuilding(cellPos, currentBuildingData);
         }
     }
 
@@ -90,7 +82,6 @@ public class BuildManager : MonoBehaviour
         if (enableMouseControls)
         {
             Vector2 mousePos = Mouse.current.position.ReadValue();
-            Vector2 mouseDelta = Mouse.current.delta.ReadValue();
             virtualCursorPosition = mousePos;
         }
         else
