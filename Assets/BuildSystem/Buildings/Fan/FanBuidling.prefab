@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fan
   spriteRenderer: {fileID: 5245990255430029326}
-  force: 10
+  force: 32
 --- !u!1 &7496706841639806864
 GameObject:
   m_ObjectHideFlags: 0
