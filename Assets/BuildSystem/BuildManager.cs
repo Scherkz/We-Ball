@@ -71,7 +71,7 @@ public class BuildManager : MonoBehaviour
 
         var placeActionPressed = enableMouseControls ? Mouse.current.leftButton.wasPressedThisFrame : placeAction.WasPressedThisFrame();
 
-        if (placeActionPressed)
+        if (placeActionPressed && canBuild)
         {
             grid.AddBuilding(cellPos, currentBuildingData);
         }

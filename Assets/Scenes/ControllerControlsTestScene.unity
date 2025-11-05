@@ -305,16 +305,17 @@ MonoBehaviour:
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
   mainCamera: {fileID: 1263402550}
   currentBuildingData: {fileID: 11400000, guid: a611068c21d8e294f84f5916f5918e57, type: 2}
+  enableMouseControls: 1
   cursorPositionAction:
     m_Name: Cursor Position
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 060888b2-08ec-41f9-879e-2e9539baf7cf
+    m_Id: f18bb092-1f12-4551-806c-743dd9abc4bf
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 02adfc55-6b0a-49da-918c-1452e3a7b4d8
+      m_Id: aedf2555-6f0e-4656-827c-4fc2626d3486
       m_Path: <Gamepad>/leftStick
       m_Interactions: 
       m_Processors: AxisDeadzone,ScaleVector2(x=700,y=700)
@@ -326,12 +327,12 @@ MonoBehaviour:
     m_Name: Place
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 4f8c46e3-3eaa-4d02-a228-e1b89a49451e
+    m_Id: 9129e958-d92b-463e-8482-a87cdd50d622
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 
-      m_Id: 04ce7859-9dd7-4595-a1b4-c1ed4040dd39
+      m_Id: 0501840a-6a1e-4b09-be17-f5b24ffb5dca
       m_Path: <Gamepad>/buttonSouth
       m_Interactions: 
       m_Processors: 
