@@ -6,21 +6,28 @@ public class PlayerInputManager : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform[] spawnPoints;
+
     private HashSet<Gamepad> joinedGamepads = new HashSet<Gamepad>();
 
-    void Update()
+    void Start()
     {
-        foreach (var gamepad in Gamepad.all)
+        for (int i = 0; i < Gamepad.all.Count && i < spawnPoints.Length; i++)
         {
-            if (gamepad.buttonSouth.wasPressedThisFrame && !joinedGamepads.Contains(gamepad))
-            {
-                var player = PlayerInput.Instantiate(playerPrefab, 
-                    controlScheme: "Gamepad", 
-                    pairWithDevice: gamepad);
-                player.GetComponent<Renderer>().material.color = GetRandomColor();
-                joinedGamepads.Add(gamepad);
-            }
+            var gamepad = Gamepad.all[i];
+            SpawnPlayer(gamepad, spawnPoints[i].position);
         }
+    }
+    private void SpawnPlayer(Gamepad gamepad, Vector3 spawnPosition)
+    {
+        var player = PlayerInput.Instantiate(
+            playerPrefab,
+            controlScheme: "Gamepad",
+            pairWithDevice: gamepad
+        );
+
+        player.transform.position = spawnPosition;
+        player.GetComponent<Renderer>().material.color = GetRandomColor();
+        joinedGamepads.Add(gamepad);
     }
 
     private static Color GetRandomColor()
