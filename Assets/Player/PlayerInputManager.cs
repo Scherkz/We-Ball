@@ -7,8 +7,8 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform spawnPointsParents;
 
-    private HashSet<Gamepad> joinedGamepads = new();
-    private List<PlayerInput> players = new();
+    private readonly HashSet<Gamepad> joinedGamepads = new();
+    private readonly List<PlayerInput> players = new();
 
     private void Update()
     {
@@ -34,14 +34,32 @@ public class PlayerInputManager : MonoBehaviour
             pairWithDevice: gamepad
         );
 
+        player.notificationBehavior = PlayerNotifications.InvokeUnityEvents;
+        player.deviceLostEvent.AddListener(RemovePlayer);
+
         player.transform.position = spawnPointsParents.GetChild(players.Count).position;
-        player.GetComponent<Renderer>().material.color = GetRandomColor();
+        player.GetComponent<Renderer>().material.color = GetPlayerColor();
 
         players.Add(player);
     }
 
-    private static Color GetRandomColor()
+    private void RemovePlayer(PlayerInput player)
     {
-        return Color.HSVToRGB(Random.Range(0f, 1f), 1f, 1f);
+        Debug.Log("Lost Player: " + player.devices[0].name);
+
+        players.Remove(player);
+
+        this.CallNextFrame(Destroy, player.gameObject);
+
+        foreach (var device in player.devices)
+        {
+            joinedGamepads.RemoveWhere((gamepad) => gamepad.device == device);
+        }
+    }
+
+    private Color GetPlayerColor()
+    {
+        float maxPlayerCount = spawnPointsParents.childCount;
+        return Color.HSVToRGB(players.Count / maxPlayerCount, 1f, 1f);
     }
 }
