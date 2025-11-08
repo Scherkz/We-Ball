@@ -41,8 +41,18 @@ public class PlayerInputManager : MonoBehaviour
     {
         foreach (var gamepad in Gamepad.all)
         {
+            // gamepad already connected to player
             if (players.Any((player) => player.gamepad == gamepad))
+            {
+                // TODO: Maybe add better method of starting the round
+                if (gamepad.buttonEast.wasPressedThisFrame)
+                {
+                    var playerControllers = players.Select(player => player.playerInput.GetComponent<PlayerController>());
+                    EventBus.Instance.OnStartGame?.Invoke(playerControllers.ToArray());
+                }
+
                 continue;
+            }
 
             if (gamepad.buttonSouth.wasPressedThisFrame)
             {
