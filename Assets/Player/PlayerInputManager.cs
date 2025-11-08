@@ -5,19 +5,28 @@ using UnityEngine.InputSystem;
 public class PlayerInputManager : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Transform spawnPointsParents;
 
-    private HashSet<Gamepad> joinedGamepads = new HashSet<Gamepad>();
+    private HashSet<Gamepad> joinedGamepads = new();
+    private List<PlayerInput> players = new();
 
-    void Start()
+    private void Update()
     {
-        for (int i = 0; i < Gamepad.all.Count && i < spawnPoints.Length; i++)
+        foreach (var gamepad in Gamepad.all)
         {
-            var gamepad = Gamepad.all[i];
-            SpawnPlayer(gamepad, spawnPoints[i].position);
+            if (joinedGamepads.Contains(gamepad))
+                continue;
+
+            if (gamepad.buttonSouth.wasPressedThisFrame)
+            {
+                joinedGamepads.Add(gamepad);
+
+                SpawnPlayer(gamepad);
+            }
         }
     }
-    private void SpawnPlayer(Gamepad gamepad, Vector3 spawnPosition)
+
+    private void SpawnPlayer(Gamepad gamepad)
     {
         var player = PlayerInput.Instantiate(
             playerPrefab,
@@ -25,13 +34,14 @@ public class PlayerInputManager : MonoBehaviour
             pairWithDevice: gamepad
         );
 
-        player.transform.position = spawnPosition;
+        player.transform.position = spawnPointsParents.GetChild(players.Count).position;
         player.GetComponent<Renderer>().material.color = GetRandomColor();
-        joinedGamepads.Add(gamepad);
+
+        players.Add(player);
     }
 
     private static Color GetRandomColor()
     {
-        return new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        return Color.HSVToRGB(Random.Range(0f, 1f), 1f, 1f);
     }
 }
