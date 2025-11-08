@@ -1,26 +1,51 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviour
 {
+    private struct SpawnPoint
+    {
+        public Vector3 position;
+        public bool occupied;
+    }
+
+    private struct JoinedPlayer
+    {
+        public SpawnPoint spawnpoint;
+        public Gamepad gamepad;
+        public PlayerInput playerInput;
+    }
+
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform spawnPointsParents;
 
-    private readonly HashSet<Gamepad> joinedGamepads = new();
-    private readonly List<PlayerInput> players = new();
+    private readonly List<JoinedPlayer> players = new();
+    private SpawnPoint[] spawnPoints;
+
+    private void Awake()
+    {
+        spawnPoints = new SpawnPoint[spawnPointsParents.childCount];
+        for (int i = 0; i < spawnPointsParents.childCount; i++)
+        {
+            spawnPoints[i] = new SpawnPoint()
+            {
+                position = spawnPointsParents.GetChild(i).position,
+                occupied = false
+            };
+        }
+    }
 
     private void Update()
     {
         foreach (var gamepad in Gamepad.all)
         {
-            if (joinedGamepads.Contains(gamepad))
+            if (players.Any((player) => player.gamepad == gamepad))
                 continue;
 
             if (gamepad.buttonSouth.wasPressedThisFrame)
             {
-                joinedGamepads.Add(gamepad);
-
                 SpawnPlayer(gamepad);
             }
         }
@@ -28,33 +53,54 @@ public class PlayerInputManager : MonoBehaviour
 
     private void SpawnPlayer(Gamepad gamepad)
     {
-        var player = PlayerInput.Instantiate(
+        Debug.Log("Player joined: " + gamepad.device.name);
+
+        var playerInput = PlayerInput.Instantiate(
             playerPrefab,
             controlScheme: "Gamepad",
             pairWithDevice: gamepad
         );
 
-        player.notificationBehavior = PlayerNotifications.InvokeUnityEvents;
-        player.deviceLostEvent.AddListener(RemovePlayer);
+        playerInput.notificationBehavior = PlayerNotifications.InvokeUnityEvents;
+        playerInput.deviceLostEvent.AddListener(RemovePlayer);
 
-        player.transform.position = spawnPointsParents.GetChild(players.Count).position;
-        player.GetComponent<Renderer>().material.color = GetPlayerColor();
+        var spawnpoint = GetNextFreeSpawnpoint();
+        spawnpoint.occupied = true;
 
-        players.Add(player);
+        playerInput.transform.position = spawnpoint.position;
+        playerInput.GetComponent<Renderer>().material.color = GetPlayerColor();
+
+        players.Add(new JoinedPlayer()
+        {
+            spawnpoint = spawnpoint,
+            gamepad = gamepad,
+            playerInput = playerInput
+        });
     }
 
-    private void RemovePlayer(PlayerInput player)
+    private void RemovePlayer(PlayerInput playerInput)
     {
-        Debug.Log("Lost Player: " + player.devices[0].name);
+        Debug.Log("Lost Player: " + playerInput.devices[0].name);
 
+
+        var player = players.Find((player) => player.playerInput = playerInput);
         players.Remove(player);
 
-        this.CallNextFrame(Destroy, player.gameObject);
+        this.CallNextFrame(Destroy, playerInput.gameObject);
+    }
 
-        foreach (var device in player.devices)
+    private SpawnPoint GetNextFreeSpawnpoint()
+    {
+        for (int i = 0; i < spawnPoints.Length; i++)
         {
-            joinedGamepads.RemoveWhere((gamepad) => gamepad.device == device);
+            var spawnpoint = spawnPoints[i];
+            if (!spawnpoint.occupied)
+            {
+                return spawnpoint;
+            }
         }
+
+        return spawnPoints[0];
     }
 
     private Color GetPlayerColor()
