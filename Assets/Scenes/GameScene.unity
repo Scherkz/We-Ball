@@ -162,12 +162,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34c3eac6bcca5947b04b688c4b53a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  players: []
   buildGrid: {fileID: 613503300}
   buildings:
   - {fileID: 11400000, guid: a611068c21d8e294f84f5916f5918e57, type: 2}
   - {fileID: 11400000, guid: 04fa0426341b1a74290371ba78fc53fb, type: 2}
   - {fileID: 11400000, guid: e350fb932468d1c41b52d76fb6774e0a, type: 2}
+  spawnPointsParent: {fileID: 1548342403}
 --- !u!4 &70403030
 Transform:
   m_ObjectHideFlags: 0

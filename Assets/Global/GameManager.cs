@@ -8,11 +8,12 @@ public class GameManager : MonoBehaviour
         Playing,
     }
 
-    public Player[] players;
-
     [SerializeField] private BuildGrid buildGrid;
     [SerializeField] private BuildingData[] buildings;
 
+    [SerializeField] private Transform spawnPointsParent;
+
+    private Player[] players;
     private GamePhase currentPhase;
 
     private void OnEnable()
@@ -68,9 +69,10 @@ public class GameManager : MonoBehaviour
     {
         currentPhase = GamePhase.Playing;
 
-        foreach (var player in players)
+        for (int i = 0; i < players.Length; i++)
         {
-            player.StartPlayingPhase();
+            var spawnPosition = spawnPointsParent.GetChild(i).position;
+            players[i].StartPlayingPhase(spawnPosition);
         }
     }
 

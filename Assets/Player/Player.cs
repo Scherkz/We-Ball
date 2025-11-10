@@ -32,13 +32,14 @@ public class Player : MonoBehaviour
         buildController.Init(buildGrid, buildingData);
     }
 
-    public void StartPlayingPhase()
+    public void StartPlayingPhase(Vector3 spawnPosition)
     {
         buildController.gameObject.SetActive(false);
 
         hasFinishedRound = false;
 
         playerController.gameObject.SetActive(true);
+        playerController.transform.position = spawnPosition;
     }
 
     // TODO: REMOVE AFTER TESTING
