@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,8 @@ public class PlayerBuildController : MonoBehaviour
 {
     public BuildGrid grid;
     public BuildingData currentBuildingData;
+
+    public Action OnBuildingPlaced;
 
     [SerializeField] private InputAction cursorPositionAction;
     [SerializeField] private InputAction placeAction;
@@ -81,6 +84,7 @@ public class PlayerBuildController : MonoBehaviour
         if (canBuild && placeAction.WasPressedThisFrame())
         {
             grid.AddBuilding(cellPos, currentBuildingData);
+            OnBuildingPlaced?.Invoke();
         }
     }
 }
