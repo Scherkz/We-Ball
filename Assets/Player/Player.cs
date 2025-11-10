@@ -38,8 +38,17 @@ public class Player : MonoBehaviour
 
         hasFinishedRound = false;
 
+        playerController.enabled = true;
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
+    }
+
+    public void OnEnterFinishArea()
+    {
+        hasFinishedRound = true;
+        playerController.enabled = false;
+
+        OnFinishedRound.Invoke();
     }
 
     // TODO: REMOVE AFTER TESTING
