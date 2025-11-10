@@ -33,6 +33,11 @@ public class BuildGrid : MonoBehaviour
         gridVisualisation.transform.localScale = new Vector3(cellSize, -cellSize, 1);
     }
 
+    public void ShowGrid(bool enabled)
+    {
+        gridVisualisation.enabled = enabled;
+    }
+
     public bool AddBuilding(Vector3 position, BuildingData buildingData)
     {
         if (!CanPlaceBuilding(position, buildingData))

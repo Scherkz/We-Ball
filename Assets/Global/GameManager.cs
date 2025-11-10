@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     {
         currentPhase = GamePhase.Building;
 
+        buildGrid.ShowGrid(true);
+
         foreach (var player in players)
         {
             player.StartBuildingPhase(buildGrid, buildings[Random.Range(0, buildings.Length)]);
@@ -68,6 +70,8 @@ public class GameManager : MonoBehaviour
     private void StartPlayingPhase()
     {
         currentPhase = GamePhase.Playing;
+
+        buildGrid.ShowGrid(false);
 
         for (int i = 0; i < players.Length; i++)
         {
