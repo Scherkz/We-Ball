@@ -9,8 +9,6 @@ public class PlayerBuildController : MonoBehaviour
 
     public Action OnBuildingPlaced;
 
-    [SerializeField] private InputAction cursorPositionAction;
-    [SerializeField] private InputAction placeAction;
     [SerializeField] private float cursorSpeed = 400f;
     [SerializeField] private float screenMargin = 20f;
 
@@ -19,6 +17,9 @@ public class PlayerBuildController : MonoBehaviour
 
     private Camera mainCamera;
     private Vector2 screenPos;
+
+    private Vector2 moveInput;
+    private bool placeInput;
 
     private BuildingGhost buildingGhost;
 
@@ -37,18 +38,24 @@ public class PlayerBuildController : MonoBehaviour
             buildingGhost.ShowBuilding(currentBuildingData);
     }
 
-    private void OnEnable()
+    public void Move(InputAction.CallbackContext context)
     {
-        cursorPositionAction.Enable();
-        placeAction.Enable();
-
-        screenPos = new Vector2(Screen.width * .5f, Screen.height * .5f);
+        if (context.canceled)
+        {
+            moveInput = Vector2.zero;
+        }
+        else
+        {
+            moveInput = context.ReadValue<Vector2>();
+        }
     }
 
-    private void OnDisable()
+    public void Place(InputAction.CallbackContext context)
     {
-        cursorPositionAction.Disable();
-        placeAction.Disable();
+        if (context.canceled)
+        {
+            placeInput = true;
+        }
     }
 
     public void Init(BuildGrid buildGrid, BuildingData buildingData)
@@ -64,7 +71,6 @@ public class PlayerBuildController : MonoBehaviour
         if (grid == null || currentBuildingData == null)
             return;
 
-        Vector2 moveInput = cursorPositionAction.ReadValue<Vector2>();
         if (moveInput != Vector2.zero)
         {
             screenPos += cursorSpeed * Time.deltaTime * moveInput;
@@ -81,10 +87,13 @@ public class PlayerBuildController : MonoBehaviour
         buildingGhost.transform.position = cellPos;
         buildingGhost.SetTint(canBuild ? validColor : invalidColor);
 
-        if (canBuild && placeAction.WasPressedThisFrame())
+        if (canBuild && placeInput)
         {
             grid.AddBuilding(cellPos, currentBuildingData);
             OnBuildingPlaced?.Invoke();
         }
+
+        // reset inputs
+        placeInput = false;
     }
 }

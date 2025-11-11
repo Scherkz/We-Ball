@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
     public bool hasPlacedBuilding;
@@ -10,11 +11,16 @@ public class Player : MonoBehaviour
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
 
+    [SerializeField] private string buildingActionMapName = "Building";
+    [SerializeField] private string playingActionMapName = "Playing";
+
+    private PlayerInput playerInput;
     private PlayerBuildController buildController;
     private PlayerController playerController;
 
     private void Awake()
     {
+        playerInput = GetComponent<PlayerInput>();
         buildController = transform.Find("PlayerBuilding").GetComponent<PlayerBuildController>();
         playerController = transform.Find("PlayerBall").GetComponent<PlayerController>();
 
@@ -34,6 +40,8 @@ public class Player : MonoBehaviour
 
     public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
     {
+        playerInput.SwitchCurrentActionMap(buildingActionMapName);
+
         playerController.gameObject.SetActive(false);
 
         hasPlacedBuilding = false;
@@ -45,6 +53,8 @@ public class Player : MonoBehaviour
 
     public void StartPlayingPhase(Vector3 spawnPosition)
     {
+        playerInput.SwitchCurrentActionMap(playingActionMapName);
+
         buildController.gameObject.SetActive(false);
 
         hasFinishedRound = false;

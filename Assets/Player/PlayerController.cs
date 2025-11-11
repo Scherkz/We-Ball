@@ -11,10 +11,6 @@ public class PlayerController : MonoBehaviour
     public float maxChargeTime = 2f;
     public float maxChargeMultiplier = 2f;
 
-    [Header("Input Actions")]
-    [SerializeField] private InputAction aimAction;
-    [SerializeField] private InputAction shootAction;
-
     private Rigidbody2D body;
     private LineRenderer aimLine;
 
@@ -40,37 +36,26 @@ public class PlayerController : MonoBehaviour
         aimLine.endColor = Color.red;
     }
 
-    private void OnEnable()
+    public void Aim(InputAction.CallbackContext context)
     {
-        aimAction.Enable();
-        shootAction.Enable();
-    }
-
-    private void OnDisable()
-    {
-        aimAction.Disable();
-        shootAction.Disable();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Handle aim input
         if (!isCharging)
         {
-            aimInput = -1 * aimAction.ReadValue<Vector2>();
+            aimInput = -1 * context.ReadValue<Vector2>();
         }
+    }
 
-        // Handle charging input
-        if (shootAction.WasPressedThisFrame())
+    public void Shoot(InputAction.CallbackContext context)
+    {
+        if (context.started)
         {
             isCharging = true;
             chargeTimer = 0f;
 
             lockedAim = aimInput;
+            if (lockedAim.sqrMagnitude < 0.01f) return;
         }
 
-        if (shootAction.WasReleasedThisFrame() && isCharging)
+        if (context.canceled && isCharging)
         {
             float chargePercent = chargeTimer / maxChargeTime;
             float chargeMultiplier = maxChargeMultiplier * chargePercent;
@@ -78,9 +63,14 @@ public class PlayerController : MonoBehaviour
 
             isCharging = false;
             chargeTimer = 0f;
+            aimInput = Vector2.zero;
+            aimLine.enabled = false;
             aimLine.startColor = Color.yellow;
         }
+    }
 
+    void Update()
+    {
         // Handle visuals
         if (aimInput.sqrMagnitude > 0.01f)
             ShowAimArrow(aimInput);

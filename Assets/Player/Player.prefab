@@ -92,72 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBuildController
   grid: {fileID: 0}
   currentBuildingData: {fileID: 0}
-  cursorPositionAction:
-    m_Name: Cursor Position
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: a4f351f5-e301-48ad-8b25-7b6e87516a94
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 2D Vector
-      m_Id: 7d6eb333-75fa-4070-a4e4-d453409377f7
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cursor Position
-      m_Flags: 4
-    - m_Name: up
-      m_Id: 625daaf3-af78-46d2-9ebb-b38f7bf63655
-      m_Path: <Gamepad>/leftStick/up
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cursor Position
-      m_Flags: 8
-    - m_Name: down
-      m_Id: e020b1e9-88b4-41df-96f4-d5798ad15a82
-      m_Path: <Gamepad>/leftStick/down
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cursor Position
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 241c2395-c365-4e58-873a-1ad3a9a51386
-      m_Path: <Gamepad>/leftStick/left
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cursor Position
-      m_Flags: 8
-    - m_Name: right
-      m_Id: f7a9f148-321b-45e2-b06b-e6195d7ea4b7
-      m_Path: <Gamepad>/leftStick/right
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Cursor Position
-      m_Flags: 8
-    m_Flags: 0
-  placeAction:
-    m_Name: Place
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 2ab3eedf-d5eb-4d90-bfbc-d07d022d80d0
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 93da07ad-3683-48a5-a95c-acce044094d7
-      m_Path: <Gamepad>/buttonSouth
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Place
-      m_Flags: 0
-    m_Flags: 0
+  cursorSpeed: 400
   screenMargin: 20
   validColor: {r: 1, g: 1, b: 1, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
@@ -208,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 4191a0d6b4e312f40b21f9ee96a9ec87, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: d1740597e4ce842409cfe37346cb4c93, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -222,8 +157,48 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fbbcd995-bb3d-4c05-a061-a06031b3f8d1
+    m_ActionName: 'UI/Navigate[/XInputControllerWindows/leftStick/up,/XInputControllerWindows1/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows1/rightStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows1/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows1/rightStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows1/leftStick/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows1/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows1/leftStick/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows1/rightStick/right,/XInputControllerWindows/dpad,/XInputControllerWindows1/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0ff15c99-a362-4bbf-9c1a-f58bb4ba7066
+    m_ActionName: 'UI/Submit[/Keyboard/enter,/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e423a56f-d8bc-46d1-be37-0d1d9b5865b1
+    m_ActionName: 'UI/Cancel[/Keyboard/escape,/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fc028094-c22c-4edd-9164-3d79ec87e437
+    m_ActionName: 'UI/Point[/Mouse/position,/Pen/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 36332821-2c25-44bb-848c-5d84266cebf4
+    m_ActionName: 'UI/Click[/Mouse/leftButton,/Pen/tip]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 684b6092-45e1-4de2-92cc-0f5403524a84
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a87bb550-d536-4572-b223-b618f5f35f01
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 44f8e024-35e4-4c38-b130-766be41dce61
+    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1efab31-1168-4ef6-9817-6ceede2bdbb7
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 706f70f2-d732-4613-91b8-1a8198937302
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 9034874507591948678}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: Aim
         m_Mode: 0
@@ -235,11 +210,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: fbe7a5b3-3f3e-4f4f-ae5a-2bad9f64fbe7
-    m_ActionName: 'Gameplay/Aim[/DualShock4GamepadHID/leftStick,/Mouse/position]'
+    m_ActionId: 95820a51-b6ff-453d-a13c-730a48994c2a
+    m_ActionName: 'Player/Aim[/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 9034874507591948678}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: Shoot
         m_Mode: 0
@@ -251,11 +226,43 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 2308352d-e645-4734-8bf0-2b56b475a988
-    m_ActionName: 'Gameplay/Shoot[/DualShock4GamepadHID/buttonSouth,/Mouse/leftButton]'
+    m_ActionId: 112850ee-7a57-49c3-bcdc-43080ebf0a63
+    m_ActionName: 'Player/Shoot[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620588198494942541}
+        m_TargetAssemblyTypeName: PlayerBuildController, Assembly-CSharp
+        m_MethodName: Move
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ae25bee1-1fd7-42ac-a60d-bcfe38a266dc
+    m_ActionName: 'Building/Move[/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620588198494942541}
+        m_TargetAssemblyTypeName: PlayerBuildController, Assembly-CSharp
+        m_MethodName: Place
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9070e9e6-6785-49a2-b18e-c609bf2e33e2
+    m_ActionName: 'Building/Place[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]'
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Gameplay
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: Playing
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &-4227592457166521561
@@ -336,3 +343,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2710516337572897243, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
   m_PrefabInstance: {fileID: 2232769831847898041}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9034874507591948678 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7178234418610352703, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+  m_PrefabInstance: {fileID: 2232769831847898041}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46548b65fd594f34a90bf63ca24e9901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
