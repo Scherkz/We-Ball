@@ -11,8 +11,11 @@ public class PlayerController : MonoBehaviour
     public float maxChargeTime = 2f;
     public float maxChargeMultiplier = 2f;
 
+    [Header("AimArrow")]
+    public Transform aimArrow;
+    public float aimArrowMaxLengthMultiplier = 1.5f;
+
     private Rigidbody2D body;
-    private LineRenderer aimLine;
 
     private Vector2 aimInput;
     private Vector2 lockedAim;
@@ -25,15 +28,6 @@ public class PlayerController : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
 
         GetComponent<Renderer>().material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
-
-        // Aim line
-        aimLine = GetComponent<LineRenderer>();
-        aimLine.positionCount = 2;
-        aimLine.startWidth = 0.1f;
-        aimLine.endWidth = 0.05f;
-        aimLine.material = new Material(Shader.Find("Sprites/Default"));
-        aimLine.startColor = Color.yellow;
-        aimLine.endColor = Color.red;
     }
 
     public void Aim(InputAction.CallbackContext context)
@@ -64,8 +58,7 @@ public class PlayerController : MonoBehaviour
             isCharging = false;
             chargeTimer = 0f;
             aimInput = Vector2.zero;
-            aimLine.enabled = false;
-            aimLine.startColor = Color.yellow;
+            aimArrow.gameObject.SetActive(false);
         }
     }
 
@@ -75,25 +68,27 @@ public class PlayerController : MonoBehaviour
         if (aimInput.sqrMagnitude > 0.01f)
             ShowAimArrow(aimInput);
         else
-            aimLine.enabled = false;
+            aimArrow.gameObject.SetActive(false);
 
         if (isCharging)
         {
             chargeTimer += Time.deltaTime;
             chargeTimer = Mathf.Min(chargeTimer, maxChargeTime);
-            float chargePercent = chargeTimer / maxChargeTime;
-            aimLine.startColor = Color.Lerp(Color.yellow, Color.red, chargePercent);
         }
     }
 
     private void ShowAimArrow(Vector2 input)
     {
-        aimLine.enabled = true;
+        aimArrow.gameObject.SetActive(true);
+
         Vector2 dir = input.normalized;
-        float scaledLength = arrowLength * input.magnitude;
-        Vector2 start = body.position;
-        Vector2 end = start + dir * scaledLength;
-        aimLine.SetPosition(0, start);
-        aimLine.SetPosition(1, end);
+        float chargePercent = isCharging ? (chargeTimer / maxChargeTime) : 0f;
+        float lengthMultiplier = Mathf.Lerp(1f, aimArrowMaxLengthMultiplier, chargePercent);
+        float scaledLength = arrowLength * lengthMultiplier;
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        aimArrow.rotation = Quaternion.Euler(0, 0, angle);
+
+        aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
     }
 }
