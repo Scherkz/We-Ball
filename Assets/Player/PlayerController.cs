@@ -52,25 +52,6 @@ public class PlayerController : MonoBehaviour
         shootAction.Disable();
     }
 
-    public void Shoot(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            
-        }
-
-        if (context.canceled && isCharging)
-        {
-            float chargePercent = chargeTimer / maxChargeTime;
-            float chargeMultiplier = maxChargeMultiplier * chargePercent;
-            body.AddForce(lockedAim.normalized * shootForce * chargeMultiplier, ForceMode2D.Impulse);
-
-            isCharging = false;
-            chargeTimer = 0f;
-            aimLine.startColor = Color.yellow;
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
