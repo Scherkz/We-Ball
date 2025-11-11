@@ -5,17 +5,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    private struct SpawnPoint
+    private record SpawnPoint
     {
         public Vector3 position;
         public bool occupied;
     }
 
-    private struct JoinedPlayer
+    private record JoinedPlayer
     {
         public SpawnPoint spawnpoint;
         public Gamepad gamepad;
         public PlayerInput playerInput;
+        public int ID;
     }
 
     [SerializeField] private GameObject playerPrefab;
@@ -45,9 +46,7 @@ public class PlayerSpawner : MonoBehaviour
         {
             // gamepad already connected to player
             if (joinedPlayers.Any((player) => player.gamepad == gamepad))
-            {
                 continue;
-            }
 
             if (gamepad.buttonSouth.wasPressedThisFrame)
             {
@@ -58,40 +57,40 @@ public class PlayerSpawner : MonoBehaviour
 
     private void SpawnPlayer(Gamepad gamepad)
     {
-        Debug.Log($"Player {playerLastID} joining: {gamepad.device.name}");
-
         var playerInput = PlayerInput.Instantiate(
             playerPrefab,
             controlScheme: "Gamepad",
             pairWithDevice: gamepad
         );
-
         playerInput.notificationBehavior = PlayerNotifications.InvokeUnityEvents;
         playerInput.deviceLostEvent.AddListener(RemovePlayer);
 
-        var spawnpoint = GetNextFreeSpawnpoint();
-        spawnpoint.occupied = true;
+        var joinedPlayer = new JoinedPlayer()
+        {
+            spawnpoint = GetNextFreeSpawnpoint(),
+            gamepad = gamepad,
+            playerInput = playerInput,
+            ID = playerLastID++
+        };
 
         var player = playerInput.GetComponent<Player>();
         player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
-        player.StartPlayingPhase(spawnpoint.position);
+        player.StartPlayingPhase(joinedPlayer.spawnpoint.position);
+        player.gameObject.name = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";
 
-        playerInput.gameObject.name = $"Player {playerLastID++} [{gamepad.device.displayName}]";
+        joinedPlayers.Add(joinedPlayer);
+        joinedPlayer.spawnpoint.occupied = true;
 
-        joinedPlayers.Add(new JoinedPlayer()
-        {
-            spawnpoint = spawnpoint,
-            gamepad = gamepad,
-            playerInput = playerInput
-        });
+        Debug.Log($"Player {joinedPlayer.ID} joined: {joinedPlayer.gamepad.name}");
     }
 
     private void RemovePlayer(PlayerInput playerInput)
     {
-        Debug.Log("Lost Player: " + playerInput.devices[0].name);
+        var joinedPlayer = joinedPlayers.Find((player) => player.playerInput = playerInput);
+        joinedPlayer.spawnpoint.occupied = false;
+        joinedPlayers.Remove(joinedPlayer);
 
-        var player = joinedPlayers.Find((player) => player.playerInput = playerInput);
-        joinedPlayers.Remove(player);
+        Debug.Log($"Lost Player {joinedPlayer.ID}: {joinedPlayer.gamepad.name}");
 
         this.CallNextFrame(Destroy, playerInput.gameObject);
     }
