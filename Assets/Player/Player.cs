@@ -54,12 +54,12 @@ public class Player : MonoBehaviour
         playerController.transform.position = spawnPosition;
     }
 
-    public void OnEnterFinishArea()
+    private void OnEnterFinishArea()
     {
         hasFinishedRound = true;
         playerController.enabled = false;
 
-        OnFinishedRound.Invoke();
+        OnFinishedRound?.Invoke();
     }
 
     private void OnBuildingPlaced()
@@ -67,6 +67,6 @@ public class Player : MonoBehaviour
         hasPlacedBuilding = true;
         buildController.enabled = false;
 
-        OnPlacedBuilding.Invoke();
+        OnPlacedBuilding?.Invoke();
     }
 }

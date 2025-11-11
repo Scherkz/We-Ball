@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
     private Player[] players;
     private GamePhase currentPhase;
 
+    private void Start()
+    {
+        buildGrid.ShowGrid(false);
+    }
+
     private void OnEnable()
     {
         EventBus.Instance.OnStartGame += StartRound;

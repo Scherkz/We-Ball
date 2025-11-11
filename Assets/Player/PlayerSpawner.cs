@@ -46,13 +46,6 @@ public class PlayerSpawner : MonoBehaviour
             // gamepad already connected to player
             if (joinedPlayers.Any((player) => player.gamepad == gamepad))
             {
-                // TODO: Maybe add better method of starting the round
-                if (gamepad.buttonEast.wasPressedThisFrame)
-                {
-                    var players = joinedPlayers.Select(player => player.playerInput.GetComponent<Player>());
-                    EventBus.Instance.OnStartGame?.Invoke(players.ToArray());
-                }
-
                 continue;
             }
 
@@ -79,7 +72,10 @@ public class PlayerSpawner : MonoBehaviour
         var spawnpoint = GetNextFreeSpawnpoint();
         spawnpoint.occupied = true;
 
-        playerInput.transform.position = spawnpoint.position;
+        var player = playerInput.GetComponent<Player>();
+        player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
+        player.StartPlayingPhase(spawnpoint.position);
+
         playerInput.gameObject.name = $"Player {playerLastID++} [{gamepad.device.displayName}]";
 
         joinedPlayers.Add(new JoinedPlayer()
@@ -112,5 +108,12 @@ public class PlayerSpawner : MonoBehaviour
         }
 
         return spawnPoints[0];
+    }
+
+    private void OnAnyPlayerEnterFinishArea()
+    {
+        // Start game if any player enter the finish area
+        var players = joinedPlayers.Select(player => player.playerInput.GetComponent<Player>());
+        EventBus.Instance?.OnStartGame?.Invoke(players.ToArray());
     }
 }
