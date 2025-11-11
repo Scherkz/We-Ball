@@ -63,6 +63,7 @@ public class PlayerBuildController : MonoBehaviour
         grid = buildGrid;
         currentBuildingData = buildingData;
 
+        buildingGhost.gameObject.SetActive(true);
         buildingGhost.ShowBuilding(buildingData);
     }
 
@@ -91,6 +92,8 @@ public class PlayerBuildController : MonoBehaviour
         {
             grid.AddBuilding(cellPos, currentBuildingData);
             OnBuildingPlaced?.Invoke();
+
+            buildingGhost.gameObject.SetActive(false);
         }
 
         // reset inputs
