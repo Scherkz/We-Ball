@@ -42,4 +42,14 @@ public class EventBus : MonoBehaviour
     /// </list>
     /// </summary>
     public Action<int, int> OnRoundStart;
+
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>Player</term>
+    ///         <description>The winning player.</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
+    public Action<Player> OnWinnerDicided;
 }

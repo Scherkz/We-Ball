@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -132,8 +131,15 @@ public class GameManager : MonoBehaviour
             player.OnFinishedRound -= OnPlayerFinishedRound;
         }
 
-        // TODO: show results
-        // Reload current level
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // declare winner
+        var winner = players[0];
+        for (int i = 1; i < players.Length; i++)
+        {
+            if (players[i].numberOfSwings < winner.numberOfSwings)
+            {
+                winner = players[i];
+            }
+        }
+        EventBus.Instance?.OnWinnerDicided?.Invoke(winner);
     }
 }
