@@ -2932,11 +2932,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameoverScreen
   taunts:
-  - He's not just putting, but <i>putting</i> yall to shame!
-  - He's not just good, he's <i>hole</i>some!
+  - They's not just putting, but <i>putting</i> yall to shame!
+  - They's not just good, they's <i>hole</i>some!
   - Fewer swings, more <i>putting</i> yall in your place!
-  - You call that a score? He calls it a <i>putt</i>down!
-  - He's practically on a <i>hole</i> new level!
+  - You call that a score? They calls it a <i>putt</i>down!
+  - They's practically on a <i>hole</i> new level!
   rematchInputAction:
     m_Name: Rematch Input
     m_Type: 0
