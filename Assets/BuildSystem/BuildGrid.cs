@@ -17,6 +17,13 @@ public class BuildGrid : MonoBehaviour
     private GridData[] grid;
     private SpriteRenderer gridVisualisation;
 
+    private void OnValidate()
+    {
+        var gridVis = transform.Find("GridVisualisation").GetComponent<SpriteRenderer>();
+        gridVis.size = cellCount;
+        gridVis.transform.localScale = new Vector3(cellSize, -cellSize, 1);
+    }
+
     private void Awake()
     {
         grid = new GridData[cellCount.x * cellCount.y];
