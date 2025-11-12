@@ -60,6 +60,8 @@ public class PlayerBuildController : MonoBehaviour
 
         buildingGhost.gameObject.SetActive(true);
         buildingGhost.ShowBuilding(currentBuildingData);
+
+        screenPos = new Vector2(Screen.width * .5f, Screen.height * .5f);
     }
 
     private void Update()
