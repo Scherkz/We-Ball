@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
         Playing,
     }
 
+    [SerializeField] private int maxRoundsPerGame = 6;
+
     [SerializeField] private BuildGrid buildGrid;
     [SerializeField] private BuildingData[] buildings;
 
@@ -15,6 +17,13 @@ public class GameManager : MonoBehaviour
 
     private Player[] players;
     private GamePhase currentPhase;
+
+    private int roundCount;
+
+    private void Awake()
+    {
+        roundCount = 0;
+    }
 
     private void Start()
     {
@@ -40,6 +49,8 @@ public class GameManager : MonoBehaviour
         {
             player.OnPlacedBuilding += OnPlayerPlacesBuilding;
             player.OnFinishedRound += OnPlayerFinishedRound;
+
+            player.StartNewRound();
         }
 
         StartBuildingPhase();
@@ -48,6 +59,10 @@ public class GameManager : MonoBehaviour
     private void StartBuildingPhase()
     {
         currentPhase = GamePhase.Building;
+
+        // building phase begins a new round
+        roundCount++;
+        EventBus.Instance?.OnRoundStart?.Invoke(maxRoundsPerGame, roundCount);
 
         buildGrid.ShowGrid(true);
 
@@ -97,7 +112,34 @@ public class GameManager : MonoBehaviour
         }
 
         // all players finsihed the round
-        // TODO: check if max rounds are played
-        this.CallNextFrame(StartBuildingPhase);
+        if (roundCount >= maxRoundsPerGame)
+        {
+            this.CallNextFrame(OnGameOver);
+        }
+        else
+        {
+            this.CallNextFrame(StartBuildingPhase);
+        }
+    }
+
+    private void OnGameOver()
+    {
+        // clean up event subscriptions
+        foreach (var player in players)
+        {
+            player.OnPlacedBuilding -= OnPlayerPlacesBuilding;
+            player.OnFinishedRound -= OnPlayerFinishedRound;
+        }
+
+        // declare winner
+        var winner = players[0];
+        for (int i = 1; i < players.Length; i++)
+        {
+            if (players[i].numberOfSwings < winner.numberOfSwings)
+            {
+                winner = players[i];
+            }
+        }
+        EventBus.Instance?.OnWinnerDicided?.Invoke(winner);
     }
 }

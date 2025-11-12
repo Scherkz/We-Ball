@@ -8,8 +8,11 @@ public class Player : MonoBehaviour
     public bool hasPlacedBuilding;
     public bool hasFinishedRound;
 
+    public int numberOfSwings;
+
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
+    public Action<int> OnSwingsChanges;
 
     [SerializeField] private string buildingActionMapName = "Building";
     [SerializeField] private string playingActionMapName = "Playing";
@@ -31,11 +34,21 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         buildController.OnBuildingPlaced += OnBuildingPlaced;
+        playerController.OnSwing += OnPlayerSwings;
     }
 
     private void OnDisable()
     {
         buildController.OnBuildingPlaced -= OnBuildingPlaced;
+        playerController.OnSwing -= OnPlayerSwings;
+    }
+
+    public void StartNewRound()
+    {
+        hasPlacedBuilding = false;
+        hasFinishedRound = true; // this means we are currently in building phase
+        numberOfSwings = 0;
+        OnSwingsChanges?.Invoke(numberOfSwings);
     }
 
     public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
@@ -64,6 +77,11 @@ public class Player : MonoBehaviour
         playerController.transform.position = spawnPosition;
     }
 
+    public Color GetColor()
+    {
+        return playerController.GetComponent<Renderer>().material.color;
+    }
+
     // is called via Unity's messaging system
     private void OnEnterFinishArea()
     {
@@ -82,5 +100,11 @@ public class Player : MonoBehaviour
         buildController.enabled = false;
 
         OnPlacedBuilding?.Invoke();
+    }
+
+    private void OnPlayerSwings()
+    {
+        numberOfSwings++;
+        OnSwingsChanges?.Invoke(numberOfSwings);
     }
 }

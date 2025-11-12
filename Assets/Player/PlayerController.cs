@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [Header("AimArrow")]
     public Transform aimArrow;
     public float aimArrowMaxLengthMultiplier = 1.5f;
+    
+    public Action OnSwing;
 
     private Rigidbody2D body;
 
@@ -27,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
 
-        GetComponent<Renderer>().material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
+        GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
     }
 
     public void Aim(InputAction.CallbackContext context)
@@ -59,6 +62,8 @@ public class PlayerController : MonoBehaviour
             chargeTimer = 0f;
             aimInput = Vector2.zero;
             aimArrow.gameObject.SetActive(false);
+            
+            OnSwing?.Invoke();
         }
     }
 
