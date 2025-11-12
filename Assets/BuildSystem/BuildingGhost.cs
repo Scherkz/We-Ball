@@ -4,6 +4,9 @@ public class BuildingGhost : MonoBehaviour
 {
     public BuildingData data;
 
+    [SerializeField] private string sortingLayerName;
+    [SerializeField] private int sortingLayerOrder;
+
     private Building currentBuilding;
 
     private void Awake()
@@ -28,6 +31,7 @@ public class BuildingGhost : MonoBehaviour
 
         currentBuilding.transform.SetParent(transform, false);
         currentBuilding.name = data.name;
+        currentBuilding.SetRenderingOrder(SortingLayer.NameToID(sortingLayerName), sortingLayerOrder);
     }
 
     public void SetTint(Color tint)
