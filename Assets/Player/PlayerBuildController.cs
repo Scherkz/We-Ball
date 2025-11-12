@@ -31,11 +31,6 @@ public class PlayerBuildController : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-
-        buildingGhost.transform.localScale = new Vector3(grid.cellSize, grid.cellSize, 1);
-
-        if (currentBuildingData != null)
-            buildingGhost.ShowBuilding(currentBuildingData);
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -64,7 +59,7 @@ public class PlayerBuildController : MonoBehaviour
         currentBuildingData = buildingData;
 
         buildingGhost.gameObject.SetActive(true);
-        buildingGhost.ShowBuilding(buildingData);
+        buildingGhost.ShowBuilding(currentBuildingData);
     }
 
     private void Update()
