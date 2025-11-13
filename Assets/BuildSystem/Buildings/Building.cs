@@ -9,6 +9,9 @@ public class Building : MonoBehaviour
         spriteRenderer.color = tint;
     }
 
+    public virtual void Init()
+    { }
+
     public virtual void SetRenderingOrder(int sortingLayerId, int sortingOrder)
     {
         spriteRenderer.sortingLayerID = sortingLayerId;

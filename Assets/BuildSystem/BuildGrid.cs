@@ -49,14 +49,28 @@ public class BuildGrid : MonoBehaviour
         instance.transform.localPosition = InternalGetCellPosition(localPosition);
         instance.transform.localScale = new Vector3(cellSize, cellSize, 1);
 
+        var building = instance.GetComponent<Building>();
+        building.CallNextFrame(building.Init);
+
+        var cellIndex = GetCellIndex(localPosition);
+
+        // in case of an anti building clear all the cell instead of storing the building
+        if (buildingData.isAntiBuilding)
+        {
+            foreach (var cellOffset in IterateBuildingCells(buildingData))
+            {
+                RemoveBuildingFromCell(cellIndex + GetCellIndex(cellOffset.x, cellOffset.y));
+            }
+            return true;
+        }
+
+        // store building reference in grid
         var GridData = new GridData
         {
             buildingData = buildingData,
             instance = instance,
         };
 
-        // store building reference in grid
-        var cellIndex = GetCellIndex(localPosition);
         foreach (var cellOffset in IterateBuildingCells(buildingData))
         {
             grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)] = GridData;
@@ -70,6 +84,9 @@ public class BuildGrid : MonoBehaviour
         var localPosition = transform.InverseTransformPoint(position);
         if (!InternalIsPositionInsideGrid(localPosition))
             return false;
+
+        if (buildingData.isAntiBuilding)
+            return true;
 
         var cellCoords = GetCellCoords(localPosition);
         var cellIndex = GetCellIndex(cellCoords.x, cellCoords.y);
@@ -99,6 +116,32 @@ public class BuildGrid : MonoBehaviour
         var localPosition = transform.InverseTransformPoint(position);
         var localCellPosition = InternalGetCellPosition(localPosition);
         return transform.TransformPoint(localCellPosition);
+    }
+
+    private void RemoveBuildingFromCell(int cellIndex)
+    {
+        // find cell of building origin
+        var cellData = grid[cellIndex];
+        if (!cellData.IsOccupied)
+            return;
+
+        var instancePosition = cellData.instance.transform.position;
+        var localPosition = transform.InverseTransformPoint(instancePosition);
+
+        // clear all the occupied cells
+        var originCellIndex = GetCellIndex(localPosition);
+        foreach (var cellOffset in IterateBuildingCells(cellData.buildingData))
+        {
+            var index = originCellIndex + GetCellIndex(cellOffset.x, cellOffset.y);
+            if (!grid[index].IsOccupied)
+                continue;
+
+            grid[index].buildingData = null;
+            grid[index].instance = null;
+        }
+
+        // destroy building instance
+        Destroy(cellData.instance);
     }
 
     private Vector3 InternalGetCellPosition(Vector3 localPosition)

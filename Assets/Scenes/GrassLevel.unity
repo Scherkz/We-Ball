@@ -169,6 +169,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 04fa0426341b1a74290371ba78fc53fb, type: 2}
   - {fileID: 11400000, guid: e350fb932468d1c41b52d76fb6774e0a, type: 2}
   - {fileID: 11400000, guid: 8e834cef814c4024d8976b2e9320e57f, type: 2}
+  - {fileID: 11400000, guid: 378d3e43f834d2f41ba2ff8714666e39, type: 2}
   spawnPointsParent: {fileID: 1548342403}
 --- !u!4 &70403030
 Transform:

@@ -244,6 +244,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: BuildingsBomb
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9a92d3e31c917347b9138cc63f78233
+      internalID: -953383292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -262,6 +284,7 @@ TextureImporter:
     nameFileIdTable:
       BuildingsBlackhole: 1049909109
       BuildingsBlock: 3651934981238733184
+      BuildingsBomb: -953383292
       BuildingsFanWindEffect: -358048681
       BuildingsFan_Frame1: 1593744147
       BuildingsFan_Frame2: -1190384712
