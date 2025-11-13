@@ -26,15 +26,15 @@
      inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.1890995"
-     inkscape:cx="642.50302"
-     inkscape:cy="1417.4592"
+     inkscape:zoom="0.59454975"
+     inkscape:cx="849.38224"
+     inkscape:cy="1021.7816"
      inkscape:window-width="1858"
      inkscape:window-height="1057"
      inkscape:window-x="54"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g46"
+     inkscape:current-layer="layer1"
      showgrid="true">
     <inkscape:grid
        id="grid1"
@@ -54,7 +54,40 @@
        visible="true" />
   </sodipodi:namedview>
   <defs
-     id="defs1" />
+     id="defs1">
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect9"
+       is_visible="true"
+       lpeversion="1"
+       pattern="M 0,4.9921384 C 0,2.236478 2.236478,0 4.9921384,0 c 2.7556604,0 4.9921384,2.236478 4.9921384,4.9921384 0,2.7556604 -2.236478,4.9921384 -4.9921384,4.9921384 C 2.236478,9.9842768 0,7.7477988 0,4.9921384 Z"
+       copytype="single_stretched"
+       prop_scale="0.5"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       hide_knot="false"
+       fuse_tolerance="0" />
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect8"
+       is_visible="true"
+       lpeversion="1"
+       pattern="M 0,4.9921384 C 0,2.236478 2.236478,0 4.9921384,0 c 2.7556604,0 4.9921384,2.236478 4.9921384,4.9921384 0,2.7556604 -2.236478,4.9921384 -4.9921384,4.9921384 C 2.236478,9.9842768 0,7.7477988 0,4.9921384 Z"
+       copytype="single_stretched"
+       prop_scale="0.5"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       hide_knot="false"
+       fuse_tolerance="0" />
+  </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
@@ -349,6 +382,39 @@
              inkscape:label="Grid" />
         </g>
       </g>
+    </g>
+    <g
+       id="g20"
+       inkscape:label="Backhole">
+      <circle
+         style="fill:#000000;stroke-width:3.62657;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;paint-order:markers fill stroke"
+         id="path2"
+         cx="237.06668"
+         cy="237.06668"
+         r="10.108868"
+         inkscape:transform-center-x="-0.056602191"
+         inkscape:transform-center-y="-0.65418052" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 228.4409,208.39396 c -9.22851,7.97366 -7.56046,17.05587 -1.48309,22.22001 -1.24583,-6.14027 0,-27.27881 42.03867,-21.0418 -5.93922,-0.76601 -31.32707,-9.15187 -40.55558,-1.17821 z"
+         id="path12"
+         sodipodi:nodetypes="zccz"
+         inkscape:transform-center-x="-8.4678817"
+         inkscape:transform-center-y="-19.924381" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 213.98492,254.70169 c 10.32275,8.92533 17.1061,2.11476 19.03736,-4.73287 -5.06399,3.68931 -26.28,1.98872 -23.81843,-36.65614 -0.26692,5.98247 -5.54168,32.46367 4.78107,41.38901 z"
+         id="path13"
+         sodipodi:nodetypes="zccz"
+         inkscape:transform-center-x="16.588984"
+         inkscape:transform-center-y="-1.4462924" />
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 262.95955,231.67213 c -4.54928,-7.83041 -9.24758,-7.97624 -16.75793,-5.29339 5.94102,1.98982 22.15596,16.33367 -4.09967,38.77169 14.96011,-6.6494 25.40689,-25.64789 20.8576,-33.4783 z"
+         id="path14"
+         sodipodi:nodetypes="zccz"
+         inkscape:transform-center-x="-19.780321"
+         inkscape:transform-center-y="7.2595188" />
     </g>
   </g>
 </svg>
