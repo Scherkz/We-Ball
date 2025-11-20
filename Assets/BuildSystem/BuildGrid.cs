@@ -35,8 +35,10 @@ public class BuildGrid : MonoBehaviour
 
                 if (cell.IsOccupied)
                 {
-                    var globalBLPosition = transform.TransformPoint(new Vector3(x, y, 0));
-                    var globalTRPosition = transform.TransformPoint(new Vector3(x + cellSize, y + cellSize, 0));
+                    var cellBLPosition = new Vector3(x, y, 0);
+                    var cellTRPosition = new Vector3(x + 1, y + 1, 0);
+                    var globalBLPosition = transform.TransformPoint(cellBLPosition * cellSize);
+                    var globalTRPosition = transform.TransformPoint(cellTRPosition * cellSize);
                     Debug.DrawLine(globalBLPosition, globalTRPosition, Color.red);
                 }
             }
