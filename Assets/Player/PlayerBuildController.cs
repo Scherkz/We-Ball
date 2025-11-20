@@ -78,6 +78,7 @@ public class PlayerBuildController : MonoBehaviour
 
         buildingGhost.gameObject.SetActive(true);
         buildingGhost.ShowBuilding(currentBuildingData);
+        buildingGhost.currentBuilding.transform.localScale = new Vector3(buildGrid.cellSize, buildGrid.cellSize, 1);
 
         screenPos = new Vector2(Screen.width * .5f, Screen.height * .5f);
     }
