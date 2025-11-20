@@ -35,9 +35,9 @@ public class BuildGrid : MonoBehaviour
         gridVisualisation.enabled = enabled;
     }
 
-    public bool AddBuilding(Vector3 position, BuildingData buildingData)
+    public bool AddBuilding(Vector3 position, BuildingData buildingData, Building.Rotation rotation = Building.Rotation.Degree0)
     {
-        if (!CanPlaceBuilding(position, buildingData))
+        if (!CanPlaceBuilding(position, buildingData, rotation))
             return false;
 
         var localPosition = transform.InverseTransformPoint(position);
@@ -50,6 +50,7 @@ public class BuildGrid : MonoBehaviour
         instance.transform.localScale = new Vector3(cellSize, cellSize, 1);
 
         var building = instance.GetComponent<Building>();
+        building.SetRotation(buildingData, rotation);
         building.CallNextFrame(building.Init);
 
         var cellIndex = GetCellIndex(localPosition);
@@ -57,7 +58,7 @@ public class BuildGrid : MonoBehaviour
         // in case of an anti building clear all the cell instead of storing the building
         if (buildingData.isAntiBuilding)
         {
-            foreach (var cellOffset in IterateBuildingCells(buildingData))
+            foreach (var cellOffset in IterateBuildingCells(buildingData, rotation))
             {
                 RemoveBuildingFromCell(cellIndex + GetCellIndex(cellOffset.x, cellOffset.y));
             }
@@ -71,7 +72,7 @@ public class BuildGrid : MonoBehaviour
             instance = instance,
         };
 
-        foreach (var cellOffset in IterateBuildingCells(buildingData))
+        foreach (var cellOffset in IterateBuildingCells(buildingData, rotation))
         {
             grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)] = GridData;
         }
@@ -79,7 +80,7 @@ public class BuildGrid : MonoBehaviour
         return true;
     }
 
-    public bool CanPlaceBuilding(Vector3 position, BuildingData buildingData)
+    public bool CanPlaceBuilding(Vector3 position, BuildingData buildingData, Building.Rotation rotation = Building.Rotation.Degree0)
     {
         var localPosition = transform.InverseTransformPoint(position);
         if (!InternalIsPositionInsideGrid(localPosition))
@@ -90,7 +91,7 @@ public class BuildGrid : MonoBehaviour
 
         var cellCoords = GetCellCoords(localPosition);
         var cellIndex = GetCellIndex(cellCoords.x, cellCoords.y);
-        foreach (var cellOffset in IterateBuildingCells(buildingData))
+        foreach (var cellOffset in IterateBuildingCells(buildingData, rotation))
         {
             if (cellCoords.x + cellOffset.x >= cellCount.x)
                 return false;
@@ -128,9 +129,11 @@ public class BuildGrid : MonoBehaviour
         var instancePosition = cellData.instance.transform.position;
         var localPosition = transform.InverseTransformPoint(instancePosition);
 
+        var rotation = cellData.instance.GetComponent<Building>().rotation;
+
         // clear all the occupied cells
         var originCellIndex = GetCellIndex(localPosition);
-        foreach (var cellOffset in IterateBuildingCells(cellData.buildingData))
+        foreach (var cellOffset in IterateBuildingCells(cellData.buildingData, rotation))
         {
             var index = originCellIndex + GetCellIndex(cellOffset.x, cellOffset.y);
             if (!grid[index].IsOccupied)
@@ -150,11 +153,27 @@ public class BuildGrid : MonoBehaviour
         return new Vector3(cellCoords.x * cellSize, cellCoords.y * cellSize, localPosition.z);
     }
 
-    private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData)
+    private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData, Building.Rotation rotation = Building.Rotation.Degree0)
     {
-        for (int x = 0; x < buildingData.cellCount.x; x++)
+        int yExtend, xExtend;
+        switch (rotation)
         {
-            for (int y = 0; y < buildingData.cellCount.y; y++)
+            default:
+            case Building.Rotation.Degree0:
+            case Building.Rotation.Degree180:
+                xExtend = buildingData.cellCount.x;
+                yExtend = buildingData.cellCount.y;
+                break;
+            case Building.Rotation.Degree90:
+            case Building.Rotation.Degree270:
+                xExtend = buildingData.cellCount.y;
+                yExtend = buildingData.cellCount.x;
+                break;
+        }
+
+        for (int x = 0; x < xExtend; x++)
+        {
+            for (int y = 0; y < yExtend; y++)
             {
                 yield return new Vector2Int(x, y);
             }

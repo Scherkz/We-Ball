@@ -105,7 +105,7 @@ public class PlayerBuildController : MonoBehaviour
 
         if (canBuild && placeInput)
         {
-            grid.AddBuilding(cellPos, currentBuildingData);
+            grid.AddBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
             OnBuildingPlaced?.Invoke();
 
             buildingGhost.gameObject.SetActive(false);
