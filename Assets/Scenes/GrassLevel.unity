@@ -209,6 +209,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1265673992}
     m_Modifications:
     - target: {fileID: 371365829638372029, guid: f4020c342d479f749a0e657b892f4314, type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 371365829638372029, guid: f4020c342d479f749a0e657b892f4314, type: 3}
       propertyPath: cellSize
       value: 1
       objectReference: {fileID: 0}

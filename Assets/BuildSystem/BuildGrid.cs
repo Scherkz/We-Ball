@@ -17,6 +17,33 @@ public class BuildGrid : MonoBehaviour
     private GridData[] grid;
     private SpriteRenderer gridVisualisation;
 
+#if UNITY_EDITOR
+    [Header("Debug")]
+    [SerializeField] private bool debug;
+
+    private void Update()
+    {
+        if (!debug)
+            return;
+
+        for (int x = 0; x < cellCount.x; x++)
+        {
+            for (int y = 0; y < cellCount.y; y++)
+            {
+                int index = GetCellIndex(x, y);
+                var cell = grid[index];
+
+                if (cell.IsOccupied)
+                {
+                    var globalBLPosition = transform.TransformPoint(new Vector3(x, y, 0));
+                    var globalTRPosition = transform.TransformPoint(new Vector3(x + cellSize, y + cellSize, 0));
+                    Debug.DrawLine(globalBLPosition, globalTRPosition, Color.red);
+                }
+            }
+        }
+    }
+#endif
+
     private void Awake()
     {
         grid = new GridData[cellCount.x * cellCount.y];
@@ -91,6 +118,32 @@ public class BuildGrid : MonoBehaviour
 
         var cellCoords = GetCellCoords(localPosition);
         var cellIndex = GetCellIndex(cellCoords.x, cellCoords.y);
+
+#if UNITY_EDITOR
+        if (debug)
+        {
+            foreach (var cellOffset in IterateBuildingCells(buildingData, rotation))
+            {
+                bool invalid = false;
+
+                if (cellCoords.x + cellOffset.x >= cellCount.x)
+                    invalid = true;
+
+                if (cellCoords.y + cellOffset.y >= cellCount.y)
+                    invalid = true;
+
+                if (!invalid && grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)].IsOccupied)
+                    invalid = true;
+
+                var cellTLPosition = new Vector3(cellCoords.x + cellOffset.x, cellCoords.y + cellOffset.y + 1, 0);
+                var cellBRPosition = new Vector3(cellCoords.x + cellOffset.x + 1, cellCoords.y + cellOffset.y, 0);
+                var globalTLPosition = transform.TransformPoint(cellTLPosition * cellSize);
+                var globalBRPosition = transform.TransformPoint(cellBRPosition * cellSize);
+                Debug.DrawLine(globalTLPosition, globalBRPosition, invalid ? Color.deepPink : Color.green);
+            }
+        }
+#endif
+
         foreach (var cellOffset in IterateBuildingCells(buildingData, rotation))
         {
             if (cellCoords.x + cellOffset.x >= cellCount.x)
