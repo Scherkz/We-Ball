@@ -8,12 +8,12 @@ public class Fan : Building
 
     private void Awake()
     {
-        windEffectSpriteRenderer = transform.Find("EffectArea").GetComponent<SpriteRenderer>();
+        windEffectSpriteRenderer = transform.Find("Anchor/EffectArea").GetComponent<SpriteRenderer>();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        collision.attachedRigidbody.AddForce(transform.up * force);
+        collision.attachedRigidbody.AddForce(windEffectSpriteRenderer.transform.up * force);
     }
 
     public override void SetRenderingOrder(int sortingLayerId, int sortingOrder)
