@@ -98,7 +98,7 @@ public class PlayerBuildController : MonoBehaviour
         var worldPos = mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, -mainCamera.transform.position.z));
 
         var cellPos = grid.IsPositionInsideGrid(worldPos) ? grid.GetCellPosition(worldPos) : worldPos;
-        var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData);
+        var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
 
         buildingGhost.transform.position = cellPos;
         buildingGhost.SetTint(canBuild ? validColor : invalidColor);

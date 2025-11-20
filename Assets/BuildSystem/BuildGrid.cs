@@ -62,7 +62,7 @@ public class BuildGrid : MonoBehaviour
         gridVisualisation.enabled = enabled;
     }
 
-    public bool AddBuilding(Vector3 position, BuildingData buildingData, Building.Rotation rotation = Building.Rotation.Degree0)
+    public bool AddBuilding(Vector3 position, BuildingData buildingData, Building.Rotation rotation)
     {
         if (!CanPlaceBuilding(position, buildingData, rotation))
             return false;
@@ -107,7 +107,7 @@ public class BuildGrid : MonoBehaviour
         return true;
     }
 
-    public bool CanPlaceBuilding(Vector3 position, BuildingData buildingData, Building.Rotation rotation = Building.Rotation.Degree0)
+    public bool CanPlaceBuilding(Vector3 position, BuildingData buildingData, Building.Rotation rotation)
     {
         var localPosition = transform.InverseTransformPoint(position);
         if (!InternalIsPositionInsideGrid(localPosition))
@@ -206,7 +206,7 @@ public class BuildGrid : MonoBehaviour
         return new Vector3(cellCoords.x * cellSize, cellCoords.y * cellSize, localPosition.z);
     }
 
-    private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData, Building.Rotation rotation = Building.Rotation.Degree0)
+    private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData, Building.Rotation rotation)
     {
         int yExtend, xExtend;
         switch (rotation)
