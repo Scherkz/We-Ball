@@ -75,7 +75,7 @@ public class PlayerSpawner : MonoBehaviour
 
         var player = playerInput.GetComponent<Player>();
         player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
-        player.StartPlayingPhase(joinedPlayer.spawnpoint.position);
+        player.CallNextFrame(player.StartPlayingPhase, joinedPlayer.spawnpoint.position);
         player.gameObject.name = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";
 
         joinedPlayers.Add(joinedPlayer);

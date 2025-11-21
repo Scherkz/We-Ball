@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 822814289937476992}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.36356, y: 0.15097, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingGhost
   data: {fileID: 0}
+  currentBuilding: {fileID: 0}
+  sortingLayerName: Player
+  sortingLayerOrder: 100
 --- !u!1 &1100288478554559361
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,6 +263,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9070e9e6-6785-49a2-b18e-c609bf2e33e2
     m_ActionName: 'Building/Place[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620588198494942541}
+        m_TargetAssemblyTypeName: PlayerBuildController, Assembly-CSharp
+        m_MethodName: RotateCW
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d18f9729-d976-4767-816e-4d5d944652ed
+    m_ActionName: 'Building/RotateClockWise[/XInputControllerWindows/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6620588198494942541}
+        m_TargetAssemblyTypeName: PlayerBuildController, Assembly-CSharp
+        m_MethodName: RotateCCW
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a406ac04-6ac7-4856-b3c7-4a9a7a90076d
+    m_ActionName: 'Building/RotateCounterClockWise[/XInputControllerWindows/leftShoulder]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Playing
@@ -291,6 +326,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7521884158755998019}
     m_Modifications:
+    - target: {fileID: 799104188797054562, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2710516337572897243, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -65,7 +65,7 @@ public class BuildManager : MonoBehaviour
         var mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(virtualCursorPosition.x, virtualCursorPosition.y, -mainCamera.transform.position.z));
 
         var cellPos = grid.IsPositionInsideGrid(mouseWorldPos) ? grid.GetCellPosition(mouseWorldPos) : mouseWorldPos;
-        var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData);
+        var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData, Building.Rotation.Degree0);
 
         building.transform.position = cellPos;
         building.SetTint(canBuild ? validColor : invalidColor);
@@ -74,7 +74,7 @@ public class BuildManager : MonoBehaviour
 
         if (placeActionPressed && canBuild)
         {
-            grid.AddBuilding(cellPos, currentBuildingData);
+            grid.AddBuilding(cellPos, currentBuildingData, Building.Rotation.Degree0);
         }
     }
 

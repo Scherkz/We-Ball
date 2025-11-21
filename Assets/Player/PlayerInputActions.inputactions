@@ -539,6 +539,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RotateClockWise",
+                    "type": "Button",
+                    "id": "d18f9729-d976-4767-816e-4d5d944652ed",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateCounterClockWise",
+                    "type": "Button",
+                    "id": "a406ac04-6ac7-4856-b3c7-4a9a7a90076d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -561,6 +579,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Place",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4bc3eccc-0c85-49fa-a1f2-272e2fb73b50",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "RotateClockWise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "64a926e3-3f0f-462f-b8c8-2e648a2cfece",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "RotateCounterClockWise",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

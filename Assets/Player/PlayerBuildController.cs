@@ -31,11 +31,6 @@ public class PlayerBuildController : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-
-        buildingGhost.transform.localScale = new Vector3(grid.cellSize, grid.cellSize, 1);
-
-        if (currentBuildingData != null)
-            buildingGhost.ShowBuilding(currentBuildingData);
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -58,13 +53,34 @@ public class PlayerBuildController : MonoBehaviour
         }
     }
 
+    public void RotateCW(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            var building = buildingGhost.currentBuilding;
+            building.SetRotation(buildingGhost.data, building.GetNextRotation(true));
+        }
+    }
+
+    public void RotateCCW(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            var building = buildingGhost.currentBuilding;
+            building.SetRotation(buildingGhost.data, building.GetNextRotation(false));
+        }
+    }
+
     public void Init(BuildGrid buildGrid, BuildingData buildingData)
     {
         grid = buildGrid;
         currentBuildingData = buildingData;
 
         buildingGhost.gameObject.SetActive(true);
-        buildingGhost.ShowBuilding(buildingData);
+        buildingGhost.ShowBuilding(currentBuildingData);
+        buildingGhost.currentBuilding.transform.localScale = new Vector3(buildGrid.cellSize, buildGrid.cellSize, 1);
+
+        screenPos = new Vector2(Screen.width * .5f, Screen.height * .5f);
     }
 
     private void Update()
@@ -83,14 +99,14 @@ public class PlayerBuildController : MonoBehaviour
         var worldPos = mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, -mainCamera.transform.position.z));
 
         var cellPos = grid.IsPositionInsideGrid(worldPos) ? grid.GetCellPosition(worldPos) : worldPos;
-        var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData);
+        var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
 
         buildingGhost.transform.position = cellPos;
         buildingGhost.SetTint(canBuild ? validColor : invalidColor);
 
         if (canBuild && placeInput)
         {
-            grid.AddBuilding(cellPos, currentBuildingData);
+            grid.AddBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
             OnBuildingPlaced?.Invoke();
 
             buildingGhost.gameObject.SetActive(false);

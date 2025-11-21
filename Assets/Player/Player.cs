@@ -28,9 +28,6 @@ public class Player : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         buildController = transform.Find("PlayerBuilding").GetComponent<PlayerBuildController>();
         playerController = transform.Find("PlayerBall").GetComponent<PlayerController>();
-
-        buildController.gameObject.SetActive(false);
-        playerController.gameObject.SetActive(false);
     }
 
     private void OnEnable()

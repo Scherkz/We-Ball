@@ -6,5 +6,6 @@ public class BuildingData : ScriptableObject
     public new string name;
     public GameObject prefab;
 
+    public bool isAntiBuilding = false;
     public Vector2Int cellCount = Vector2Int.one;
 }
