@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 1632553720541905078}
   - component: {fileID: 8315183499297057433}
   - component: {fileID: 120014390223562397}
-  - component: {fileID: 2896593416940911140}
+  - component: {fileID: 910819916042238629}
   - component: {fileID: 7178234418610352703}
   m_Layer: 0
   m_Name: PlayerBall
@@ -400,9 +400,9 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 1
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a5013687301558147b592f716d4c9ea4, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -413,8 +413,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &2896593416940911140
-BoxCollider2D:
+--- !u!58 &910819916042238629
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -448,17 +448,7 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
 --- !u!114 &7178234418610352703
 MonoBehaviour:
   m_ObjectHideFlags: 0
