@@ -82,6 +82,11 @@ public class Player : MonoBehaviour
         return playerController.GetComponent<Renderer>().material.color;
     }
 
+    public void SetColor(Color color)
+    {
+        playerController.GetComponent<Renderer>().material.color = color;
+    }
+
     // is called via Unity's messaging system
     private void OnEnterFinishArea()
     {
