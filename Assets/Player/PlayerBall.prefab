@@ -463,7 +463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   shootForce: 10
   arrowLength: 2
-  maxChargeTime: 2
+  maxChargeTime: 1
   maxChargeMultiplier: 2
   aimArrow: {fileID: 7853706692911780932}
   aimArrowMaxLengthMultiplier: 1.5

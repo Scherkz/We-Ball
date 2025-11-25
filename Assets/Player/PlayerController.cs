@@ -9,20 +9,18 @@ public class PlayerController : MonoBehaviour
     public float shootForce = 10f;
     public float arrowLength = 3f;
 
-    public float maxChargeTime = 2f;
+    public float maxChargeTime = 1;
     public float maxChargeMultiplier = 2f;
 
-    [Header("AimArrow")]
-    public Transform aimArrow;
+    [Header("AimArrow")] public Transform aimArrow;
     public float aimArrowMaxLengthMultiplier = 1.5f;
-    
+
     public Action OnSwing;
 
     private Rigidbody2D body;
     private GameObject partyHat;
 
     private Vector2 aimInput;
-    private Vector2 lockedAim;
 
     private bool isCharging = false;
     private float chargeTimer = 0f;
@@ -47,10 +45,7 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
-        if (!isCharging)
-        {
-            aimInput = -1 * context.ReadValue<Vector2>();
-        }
+        aimInput = context.ReadValue<Vector2>();
     }
 
     public void Shoot(InputAction.CallbackContext context)
@@ -59,24 +54,39 @@ public class PlayerController : MonoBehaviour
         {
             isCharging = true;
             chargeTimer = 0f;
-
-            lockedAim = aimInput;
-            if (lockedAim.sqrMagnitude < 0.01f) return;
         }
 
         if (context.canceled && isCharging)
         {
+            if (aimInput.sqrMagnitude < 0.01f)
+            {
+                isCharging = false;
+                chargeTimer = 0f;
+                aimArrow.gameObject.SetActive(false);
+                return;
+            }
+
             float chargePercent = chargeTimer / maxChargeTime;
             float chargeMultiplier = maxChargeMultiplier * chargePercent;
-            body.AddForce(chargeMultiplier * shootForce * lockedAim.normalized, ForceMode2D.Impulse);
+            body.AddForce(chargeMultiplier * shootForce * aimInput.normalized, ForceMode2D.Impulse);
 
             isCharging = false;
             chargeTimer = 0f;
             aimInput = Vector2.zero;
             aimArrow.gameObject.SetActive(false);
-            
+
             OnSwing?.Invoke();
         }
+    }
+
+    public void CancelShotAndHideArrow()
+    {
+        isCharging = false;
+        chargeTimer = 0f;
+        aimInput = Vector2.zero;
+
+        if (aimArrow != null)
+            aimArrow.gameObject.SetActive(false);
     }
 
     void Update()
