@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     private PlayerBuildController buildController;
     private PlayerController playerController;
 
+    private SpecialShotType assignedSpecialShot;
+    private bool specialShotAvailable= true;
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -75,6 +78,34 @@ public class Player : MonoBehaviour
         playerController.enabled = true;
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
+
+        specialShotAvailable = true;
+        Debug.Log($"Special shot set availabe {gameObject.name}");
+        AssignSpecialShotToPlayer();
+        playerController.ResetCollisionHappenedDuringSpecialShot();
+        playerController.SetFirstShotNotTaken();
+        playerController.ResetSpecialShotEnabled();
+    }
+
+    private void AssignSpecialShotToPlayer()
+    {
+        var specialShotTypes = Enum.GetValues(typeof(SpecialShotType));
+        int randomIndex = UnityEngine.Random.Range(0, specialShotTypes.Length);
+        assignedSpecialShot = (SpecialShotType) randomIndex;
+    }
+
+    public bool HasAvailableSpecialShot()
+    {
+        return specialShotAvailable;
+    }
+    public void UsedSpecialShot()
+    {
+        specialShotAvailable = false;
+    }
+
+    public SpecialShotType GetAssignedSpecialShot()
+    {
+        return assignedSpecialShot;
     }
 
     public Color GetColor()

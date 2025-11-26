@@ -1,8 +1,9 @@
 using UnityEngine;
+// TODO:
+// Quantum Jump, DropShot
 public enum SpecialShotType
 {
-    PushAway,
-    QuantumJump
+    PushAway
 }
 public class SpecialShots
 {

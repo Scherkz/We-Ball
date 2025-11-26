@@ -31,7 +31,15 @@ public class PlayerController : MonoBehaviour
     private bool isSpecialShotEnabled = false;
     private SpecialShotType specialShotType= SpecialShotType.PushAway;
 
+    private bool collisionHappenedDuringSpecialShot=false;
+    private bool firstShotTakenAfterRoundStart=false;
+
     private string playerName="undefined";
+
+    public Action GetAssignedSpecialShot;
+    public Action HasAvailableSpecialShot;
+
+    private Player player;
 
     void Awake()
     {
@@ -40,8 +48,7 @@ public class PlayerController : MonoBehaviour
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
 
-        isSpecialShotEnabled = false;
-        specialShotType = SpecialShotType.PushAway;
+        player= transform.parent.GetComponent<Player>();
     }
 
     private void Start()
@@ -65,17 +72,14 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
+
+            if (!player.HasAvailableSpecialShot()) return;
+            specialShotType = player.GetAssignedSpecialShot();
+
             isSpecialShotEnabled = !isSpecialShotEnabled;
             Debug.Log($"{playerName} Special Shot enabled toggled to: " + isSpecialShotEnabled);
-            Debug.Log($"{playerName} Current Special Shot Type: " + specialShotType.ToString());
         }
     }
-
-    //public void SetSpecialShotEnabled(bool enabled)
-    //{
-    //    isSpecialShotEnabled = enabled;
-    //    Debug.Log($"{playerName} Special Shot explicitly set to: {isSpecialShotEnabled}");
-    //}
 
     public void Shoot(InputAction.CallbackContext context)
     {
@@ -100,6 +104,7 @@ public class PlayerController : MonoBehaviour
             aimArrow.gameObject.SetActive(false);
             
             OnSwing?.Invoke();
+            firstShotTakenAfterRoundStart = true;
         }
     }
 
@@ -136,30 +141,60 @@ public class PlayerController : MonoBehaviour
     // Handle collision for special shots
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log($"{playerName}: IsSpecialShotEnabled: {isSpecialShotEnabled}");
-        if (!isSpecialShotEnabled) return;
+        // Dont trigger in the spawing phase
+        if (!firstShotTakenAfterRoundStart) return;
+
+        if (!isSpecialShotEnabled || specialShotType!=SpecialShotType.PushAway) return;
+        if (collisionHappenedDuringSpecialShot) return;
+
         PushAwayImpact(collision);
-        
+        player.UsedSpecialShot();
+        collisionHappenedDuringSpecialShot = true;
+
     }
 
     private void PushAwayImpact(Collision2D collision) {
         Debug.Log("PushAwayImpact triggered");
-        Vector2 impactPosition = collision.transform.position;
+
+        // Impact from current player position
+        Vector2 impactPosition = transform.position;
         // Get all rigidbodies in a radius
-        float maximalImpactRange = 20f;
-        float maximalImpactForce = 10f;
-        Collider2D[] overlappingBallColliders = Physics2D.OverlapCircleAll(impactPosition, maximalImpactRange);
-        foreach (Collider2D ballCollider in overlappingBallColliders)
+        float maximalImpactRange = 10f;
+        float maximalImpactForce = 35f;
+        Collider2D[] overlappingColliders = Physics2D.OverlapCircleAll(impactPosition, maximalImpactRange);
+        foreach (Collider2D overlappingCollider in overlappingColliders)
         {
+            // Only affect player rigidbodies
+            if(!overlappingCollider.CompareTag("Player")) continue;
+
             // Apply force away from impact position
-            Rigidbody2D ballBody = ballCollider.GetComponent<Rigidbody2D>();
-            if(ballBody!=null && ballBody!=this.body) {
-                Vector2 pushDirection = (ballBody.position - impactPosition).normalized;
-                float distance = Vector2.Distance(ballBody.position, impactPosition);
-                float forceMagnitude = Mathf.Lerp(maximalImpactForce, 0f, distance / maximalImpactRange);
-                ballBody.AddForce(pushDirection * forceMagnitude, ForceMode2D.Impulse);
+            Rigidbody2D otherBallBody = overlappingCollider.GetComponent<Rigidbody2D>();
+            if(otherBallBody!=null && otherBallBody!=this.body) {
+                // Only the faster ball should apply a force to the other balls
+                // Prevents applying forces in both directions
+                if (otherBallBody.linearVelocity.magnitude > this.body.linearVelocity.magnitude) continue;
+
+                Vector2 pushDirection = (otherBallBody.position - impactPosition).normalized;
+                float distance = Vector2.Distance(otherBallBody.position, impactPosition);
+                float forceMagnitude = Mathf.Lerp(maximalImpactForce, 0f, (float) Math.Pow((distance / maximalImpactRange),2));
+                otherBallBody.AddForce(pushDirection * forceMagnitude, ForceMode2D.Impulse);
             }
         }
+    }
+
+    public void ResetCollisionHappenedDuringSpecialShot()
+    {
+        this.collisionHappenedDuringSpecialShot = false;
+    }
+
+    public void ResetSpecialShotEnabled()
+    {
+        this.isSpecialShotEnabled = false;
+    }
+
+    public void SetFirstShotNotTaken()
+    {
+        this.firstShotTakenAfterRoundStart = false;
     }
 
     public void SetPlayerName(string name)

@@ -297,7 +297,7 @@ MonoBehaviour:
     m_ActionName: 'Building/RotateCounterClockWise[/XInputControllerWindows/leftShoulder]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7178234418610352703, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+      - m_Target: {fileID: 9034874507591948678}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: ToggleSpecialShot
         m_Mode: 0
@@ -384,6 +384,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2710516337572897243, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178234418610352703, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+      propertyPath: isSpecialShotEnabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7358398160097471715, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
