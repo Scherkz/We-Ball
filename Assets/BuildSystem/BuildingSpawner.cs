@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BuildingSpawner : MonoBehaviour
 {
+    [SerializeField] private GameObject buildingGhostPrefab;
     [SerializeField] private float radius = 3f;
     [SerializeField] private float rotationSpeed = 30f;
 
@@ -9,20 +10,19 @@ public class BuildingSpawner : MonoBehaviour
     
     public void SpawnBuildings(BuildingData[] buildings, int buildingCount)
     {
-        if (buildings == null || buildings.Length == 0) 
-            return;
+        EnsureEnoughBuildingsGhosts(buildingCount);
         
         var angleStep = 2.0f * Mathf.PI / buildingCount;
-
         for (var i = 0; i < buildingCount; i++)
         {
-            var randomBuildingData = buildings[Random.Range(0, buildings.Length)];
-            var build = Instantiate(randomBuildingData.prefab, transform);
-            build.transform.SetParent(anchor);
+            var buildingGhost = anchor.GetChild(i).GetComponent<BuildingGhost>();
             
             var angle = i * angleStep;
             var circlePos = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius;
-            build.transform.localPosition = circlePos;
+            buildingGhost.transform.localPosition = circlePos;
+            
+            var randomBuildingData = buildings[Random.Range(0, buildings.Length)];
+            buildingGhost.ShowBuilding(randomBuildingData);
         }
     }
 
@@ -44,6 +44,24 @@ public class BuildingSpawner : MonoBehaviour
         for (int i = 0; i < anchor.childCount; i++)
         {
             anchor.GetChild(i).transform.rotation = Quaternion.identity;
+        }
+    }
+
+    private void EnsureEnoughBuildingsGhosts(int buildingCount)
+    {
+        if (anchor.childCount > buildingCount)
+        { 
+            for (var i = anchor.childCount - 1; i >= buildingCount; i--)
+            {
+                Destroy(anchor.GetChild(i).gameObject);
+            }
+        }
+        else if (anchor.childCount < buildingCount)
+        {
+            for (var i = anchor.childCount; i < buildingCount; i++)
+            {
+                Instantiate(buildingGhostPrefab, anchor);
+            }
         }
     }
 }

@@ -48,7 +48,7 @@ MonoBehaviour:
   grid: {fileID: 0}
   currentBuildingData: {fileID: 0}
   cursorSpeed: 400
-  cursorRadius: 1
+  cursorRadius: 0.5
   screenMargin: 20
   validColor: {r: 1, g: 1, b: 1, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}

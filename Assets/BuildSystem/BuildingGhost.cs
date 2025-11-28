@@ -37,4 +37,10 @@ public class BuildingGhost : MonoBehaviour
     {
         currentBuilding.SetTint(tint);
     }
+    
+    // is called via Unity's messaging system
+    private void OnBuildingSelected(PlayerBuildController buildController)
+    {
+        buildController.SetBuildingData(data);
+    }
 }

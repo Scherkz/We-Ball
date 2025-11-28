@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c6cf77d084181408f927f7cdffb1b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingSpawner
+  buildingGhostPrefab: {fileID: 6204720415019883559, guid: fb7eba92f1e586d4fa5d25ed6dcdcdee, type: 3}
   radius: 3
   rotationSpeed: 30
 --- !u!1 &6304729977629877757

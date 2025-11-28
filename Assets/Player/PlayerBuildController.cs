@@ -10,10 +10,12 @@ public class PlayerBuildController : MonoBehaviour
     public Action OnBuildingPlaced;
 
     [SerializeField] private float cursorSpeed = 400f;
+    [SerializeField] private float cursorRadius = 1f;
     [SerializeField] private float screenMargin = 20f;
 
     [SerializeField] private Color validColor = Color.white;
     [SerializeField] private Color invalidColor = Color.red;
+    
 
     private Camera mainCamera;
     private Vector2 screenPos;
@@ -23,6 +25,8 @@ public class PlayerBuildController : MonoBehaviour
 
     private SpriteRenderer cursor;
     private BuildingGhost buildingGhost;
+
+    private bool IsInSelectionPhase => grid == null;
 
     private void Awake()
     {
@@ -51,7 +55,18 @@ public class PlayerBuildController : MonoBehaviour
     {
         if (context.canceled)
         {
-            placeInput = true;
+            if (IsInSelectionPhase)
+            {
+                var hits = Physics2D.OverlapCircleAll(cursor.transform.position, cursorRadius);
+                foreach (var collider in hits)
+                {
+                    collider.gameObject.SendMessageUpwards("OnBuildingSelected", this, SendMessageOptions.DontRequireReceiver);
+                }
+            }
+            else
+            {
+                placeInput = true;
+            }
         }
     }
 
@@ -75,6 +90,7 @@ public class PlayerBuildController : MonoBehaviour
 
     public void InitSelectionPhase(Vector3 position)
     {
+        grid = null;
         buildingGhost.transform.position = position;
     }
 
@@ -92,6 +108,11 @@ public class PlayerBuildController : MonoBehaviour
     public void SetColor(Color color)
     {
         cursor.material.color = color;
+    }
+
+    public void SetBuildingData(BuildingData buildingData)
+    {
+        currentBuildingData = buildingData;
     }
 
     private void Update()
