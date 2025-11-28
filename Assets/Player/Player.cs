@@ -118,6 +118,11 @@ public class Player : MonoBehaviour
         return playerController.GetComponent<Renderer>().material.color;
     }
 
+    public void SetColor(Color color)
+    {
+        playerController.GetComponent<Renderer>().material.color = color;
+    }
+
     // is called via Unity's messaging system
     private void OnEnterFinishArea()
     {
@@ -125,6 +130,8 @@ public class Player : MonoBehaviour
             return; // we are currently in build mode -> ignore event
 
         hasFinishedRound = true;
+        
+        playerController.CancelShotAndHideArrow();
 
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
