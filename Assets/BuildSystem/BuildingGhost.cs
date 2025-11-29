@@ -16,7 +16,7 @@ public class BuildingGhost : MonoBehaviour
         }
     }
 
-    public void ShowBuilding(BuildingData building)
+    public void ShowBuilding(BuildingData building, bool centerBuilding = false)
     {
         if (currentBuilding != null)
         {
@@ -31,6 +31,11 @@ public class BuildingGhost : MonoBehaviour
         currentBuilding.transform.SetParent(transform, false);
         currentBuilding.name = data.name;
         currentBuilding.SetRenderingOrder(SortingLayer.NameToID(sortingLayerName), sortingLayerOrder);
+        
+        if (centerBuilding)
+        {
+            currentBuilding.transform.localPosition = new Vector3(data.cellCount.x, data.cellCount.y, 0) * -0.5f;
+        }
     }
 
     public void SetTint(Color tint)

@@ -22,7 +22,7 @@ public class BuildingSpawner : MonoBehaviour
             buildingGhost.transform.localPosition = circlePos;
             
             var randomBuildingData = buildings[Random.Range(0, buildings.Length)];
-            buildingGhost.ShowBuilding(randomBuildingData);
+            buildingGhost.ShowBuilding(randomBuildingData, true);
         }
     }
 
