@@ -158,11 +158,11 @@ public class GameManager : MonoBehaviour
         }
 
         // all players finished the round
-        int leastSwings = players.Min(player => player.numberOfSwings);
+        int leastSwings = players.Min(player => player.numberOfSwingsThisRound);
 
         foreach (var player in players)
         {
-            var additionalSwings = player.numberOfSwings - leastSwings;
+            var additionalSwings = player.numberOfSwingsThisRound - leastSwings;
             var scoreAwardedThisRound = Mathf.Max(0, maxScore - (additionalSwings * 5));
             player.score += scoreAwardedThisRound;
             player.scorePerRound.Add(scoreAwardedThisRound);
@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
         var winner = players[0];
         for (int i = 1; i < players.Length; i++)
         {
-            if (players[i].numberOfSwings < winner.numberOfSwings)
+            if (players[i].numberOfSwingsThisRound < winner.numberOfSwingsThisRound)
             {
                 winner = players[i];
             }

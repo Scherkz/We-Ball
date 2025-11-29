@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public bool hasPlacedBuilding;
     public bool hasFinishedRound;
 
-    public int numberOfSwings;
+    public int numberOfSwingsThisRound;
 
     public Action OnSelectedBuilding;
     public Action OnPlacedBuilding;
@@ -64,8 +64,8 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = false;
         hasFinishedRound = true; // this means we are currently in building phase
-        numberOfSwings = 0;
-        OnSwingsChanges?.Invoke(numberOfSwings);
+        numberOfSwingsThisRound = 0;
+        OnSwingsChanges?.Invoke(numberOfSwingsThisRound);
     }
 
     public void StartSelectionPhase(Vector2 screenPosition)
@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
 
     private void OnPlayerSwings()
     {
-        numberOfSwings++;
-        OnSwingsChanges?.Invoke(numberOfSwings);
+        numberOfSwingsThisRound++;
+        OnSwingsChanges?.Invoke(numberOfSwingsThisRound);
     }
 }
