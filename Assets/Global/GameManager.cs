@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var player in players)
         {
+            player.OnSelectedBuilding += OnPlayerSelectsBuilding;
             player.OnPlacedBuilding += OnPlayerPlacesBuilding;
             player.OnFinishedRound += OnPlayerFinishedRound;
 
@@ -84,10 +85,27 @@ public class GameManager : MonoBehaviour
             players[i].StartSelectionPhase(positions[i]);
         }
     }
+    
+    private void OnPlayerSelectsBuilding()
+    {
+        if(currentPhase != GamePhase.Selection)
+            return;
+        
+        foreach (var player in players)
+        {
+            if (!player.hasSelectedBuilding)
+                return;
+        }
+        
+        // all players finished selecting their building
+        this.CallNextFrame(StartBuildingPhase);
+    }
 
     private void StartBuildingPhase()
     {
         currentPhase = GamePhase.Building;
+        
+        buildingSpawner.gameObject.SetActive(false);
 
         buildGrid.ShowGrid(true);
 
@@ -108,7 +126,7 @@ public class GameManager : MonoBehaviour
                 return;
         }
 
-        // all players finsihed placing their building
+        // all players finished placing their building
         this.CallNextFrame(StartPlayingPhase);
     }
 
@@ -136,14 +154,14 @@ public class GameManager : MonoBehaviour
                 return;
         }
 
-        // all players finsihed the round
+        // all players finished the round
         if (roundCount >= maxRoundsPerGame)
         {
             this.CallNextFrame(OnGameOver);
         }
         else
         {
-            this.CallNextFrame(StartBuildingPhase);
+            this.CallNextFrame(StartBuildingSelectionPhase);
         }
     }
 

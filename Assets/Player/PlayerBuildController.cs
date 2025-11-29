@@ -7,6 +7,7 @@ public class PlayerBuildController : MonoBehaviour
     public BuildGrid grid;
     public BuildingData currentBuildingData;
 
+    public Action OnSelectedBuilding;
     public Action OnBuildingPlaced;
 
     [SerializeField] private float cursorSpeed = 400f;
@@ -113,6 +114,7 @@ public class PlayerBuildController : MonoBehaviour
     public void SetBuildingData(BuildingData buildingData)
     {
         currentBuildingData = buildingData;
+        OnSelectedBuilding?.Invoke();
     }
 
     private void Update()

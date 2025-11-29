@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 
     public int numberOfSwings;
 
+    public Action OnSelectedBuilding;
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
     public Action<int> OnSwingsChanges;
@@ -41,12 +42,14 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
+        buildController.OnSelectedBuilding += OnBuildingSelected;
         buildController.OnBuildingPlaced += OnBuildingPlaced;
         playerController.OnSwing += OnPlayerSwings;
     }
 
     private void OnDisable()
     {
+        buildController.OnSelectedBuilding -= OnBuildingSelected;
         buildController.OnBuildingPlaced -= OnBuildingPlaced;
         playerController.OnSwing -= OnPlayerSwings;
     }
@@ -123,6 +126,13 @@ public class Player : MonoBehaviour
         confetti.transform.position = playerController.transform.position;
 
         OnFinishedRound?.Invoke();
+    }
+
+    private void OnBuildingSelected()
+    {
+        hasSelectedBuilding = true;
+        
+        OnSelectedBuilding?.Invoke();
     }
 
     private void OnBuildingPlaced()
