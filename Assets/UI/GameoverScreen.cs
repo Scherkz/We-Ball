@@ -107,7 +107,6 @@ public class GameoverScreen : MonoBehaviour
                 }
                 else if (isFirstColumn && !isFirstRow)
                 {
-                    //TODO change to colorcircle
                     Destroy(cell);
                     var circleBall = Instantiate(circlePrefab, scoreboard);
                     var circleImage = circleBall.GetComponent<Image>();
