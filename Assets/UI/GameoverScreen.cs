@@ -87,7 +87,7 @@ public class GameoverScreen : MonoBehaviour
             for(int c = 0; c < totalColumns; c++)
             {
                 var cell = Instantiate(cellPrefab, scoreboard);
-                var text = cell.GetComponent<TMPro.TextMeshProUGUI>();
+                var text = cell.GetComponent<TextMeshProUGUI>();
 
                 bool isFirstRow = r == 0;
                 bool isFirstColumn = c == 0;
@@ -113,7 +113,6 @@ public class GameoverScreen : MonoBehaviour
                     circleImage.color = players[r - 1].GetColor();
                     RectTransform crt = circleBall.GetComponent<RectTransform>();
                     crt.sizeDelta = new Vector2(cellWidth, cellHeight);
-
                 }
                 else if (isLastColumn && !isFirstRow)
                 {
