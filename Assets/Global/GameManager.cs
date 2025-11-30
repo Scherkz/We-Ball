@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
         Playing,
     }
 
-    [SerializeField] private int maxRoundsPerGame = 6;
+    [SerializeField] private int maxRoundsPerGame = 2;
 
     [SerializeField] private BuildingSpawner buildingSpawner;
     [SerializeField] private BuildGrid buildGrid;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     private GamePhase currentPhase;
 
     private int roundCount;
+    private int maxScore = 25;
 
     private void Awake()
     {
@@ -155,6 +157,17 @@ public class GameManager : MonoBehaviour
         }
 
         // all players finished the round
+        int leastSwings = players.Min(player => player.numberOfSwingsThisRound);
+
+        foreach (var player in players)
+        {
+            var additionalSwings = player.numberOfSwingsThisRound - leastSwings;
+            var scoreAwardedThisRound = Mathf.Max(0, maxScore - (additionalSwings * 5));
+            player.score += scoreAwardedThisRound;
+            player.scorePerRound.Add(scoreAwardedThisRound);
+            player.OnScoreChanges?.Invoke(player.score);
+        }
+
         if (roundCount >= maxRoundsPerGame)
         {
             this.CallNextFrame(OnGameOver);
@@ -178,12 +191,12 @@ public class GameManager : MonoBehaviour
         var winner = players[0];
         for (int i = 1; i < players.Length; i++)
         {
-            if (players[i].numberOfSwings < winner.numberOfSwings)
+            if (players[i].numberOfSwingsThisRound < winner.numberOfSwingsThisRound)
             {
                 winner = players[i];
             }
         }
 
-        EventBus.Instance?.OnWinnerDicided?.Invoke(winner);
+        EventBus.Instance?.OnWinnerDicided?.Invoke(winner, players, maxRoundsPerGame);
     }
 }

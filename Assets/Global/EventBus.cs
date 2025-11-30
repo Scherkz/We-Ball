@@ -49,7 +49,15 @@ public class EventBus : MonoBehaviour
     ///         <term>Player</term>
     ///         <description>The winning player.</description>
     ///     </item>
+    ///     <item>
+    ///         <term>Player[]</term>
+    ///         <description>Contains all the joined players.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term>int</term>
+    ///         <description>Contains the total amount of rounds played</description>
+    ///     </item>
     /// </list>
     /// </summary>
-    public Action<Player> OnWinnerDicided;
+    public Action<Player, Player[], int> OnWinnerDicided;
 }

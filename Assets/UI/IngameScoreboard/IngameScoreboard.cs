@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class IngameScoreboard : MonoBehaviour
 {
-    [SerializeField] private GameObject playerSwingCounterPrefab;
+    [SerializeField] private GameObject playerScoreCounterPrefab;
 
     private void OnEnable()
     {
@@ -16,19 +16,19 @@ public class IngameScoreboard : MonoBehaviour
 
     private void OnStartGame(Player[] players)
     {
-        float prefabHeight = playerSwingCounterPrefab.GetComponent<RectTransform>().rect.height;
+        float prefabHeight = playerScoreCounterPrefab.GetComponent<RectTransform>().rect.height;
         float offset = 0;
         foreach (var player in players)
         {
-            var counter = Instantiate(playerSwingCounterPrefab);
+            var counter = Instantiate(playerScoreCounterPrefab);
             counter.transform.SetParent(transform);
             counter.transform.localPosition = new Vector3(0, -offset, 0);
 
-            var playerSwingCounter = counter.GetComponent<PlayerSwingCounter>();
-            playerSwingCounter.SetPlayerColor(player.GetColor());
-            playerSwingCounter.SetSwingsCounter(player.numberOfSwings);
+            var playerScoreCounter = counter.GetComponent<PlayerScoreCounter>();
+            playerScoreCounter.SetPlayerColor(player.GetColor());
+            playerScoreCounter.SetScoreCounter(0);
 
-            player.OnSwingsChanges += playerSwingCounter.SetSwingsCounter;
+            player.OnScoreChanges += playerScoreCounter.SetScoreCounter;
 
             offset += prefabHeight;
         }

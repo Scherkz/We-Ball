@@ -2,15 +2,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerSwingCounter : MonoBehaviour
+public class PlayerScoreCounter : MonoBehaviour
 {
     private Image colorImage;
-    private TMP_Text swingText;
+    private TMP_Text scoreText;
 
     private void Awake()
     {
         colorImage = transform.Find("ColorCircle").GetComponent<Image>();
-        swingText = transform.Find("SwingsCount").GetComponent<TMP_Text>();
+        scoreText = transform.Find("ScoreCount").GetComponent<TMP_Text>();
     }
 
     public void SetPlayerColor(Color color)
@@ -18,8 +18,8 @@ public class PlayerSwingCounter : MonoBehaviour
         colorImage.color = color;
     }
 
-    public void SetSwingsCounter(int count)
+    public void SetScoreCounter(int count)
     {
-        swingText.text = $"Swings: {count}";
+        scoreText.text = $"Score: {count}";
     }
 }

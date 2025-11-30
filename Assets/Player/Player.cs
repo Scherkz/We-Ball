@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,12 +11,16 @@ public class Player : MonoBehaviour
     public bool hasPlacedBuilding;
     public bool hasFinishedRound;
 
-    public int numberOfSwings;
+    public int numberOfSwingsThisRound;
 
     public Action OnSelectedBuilding;
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
     public Action<int> OnSwingsChanges;
+    public Action<int> OnScoreChanges;
+
+    public int score;
+    public List<int> scorePerRound = new List<int>();
 
     [SerializeField] private GameObject confettiVFX;
 
@@ -58,8 +64,8 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = false;
         hasFinishedRound = true; // this means we are currently in building phase
-        numberOfSwings = 0;
-        OnSwingsChanges?.Invoke(numberOfSwings);
+        numberOfSwingsThisRound = 0;
+        OnSwingsChanges?.Invoke(numberOfSwingsThisRound);
     }
 
     public void StartSelectionPhase(Vector2 screenPosition)
@@ -97,6 +103,8 @@ public class Player : MonoBehaviour
         playerController.enabled = true;
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
+
+        numberOfSwingsThisRound = 0;
     }
 
     public Color GetColor()
@@ -149,7 +157,7 @@ public class Player : MonoBehaviour
 
     private void OnPlayerSwings()
     {
-        numberOfSwings++;
-        OnSwingsChanges?.Invoke(numberOfSwings);
+        numberOfSwingsThisRound++;
+        OnSwingsChanges?.Invoke(numberOfSwingsThisRound);
     }
 }
