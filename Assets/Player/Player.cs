@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     private PlayerBuildController buildController;
     private PlayerController playerController;
 
-    private SpecialShotType assignedSpecialShot;
-    private bool specialShotAvailable= true;
+    private SpecialShotData assignedSpecialShot;
+    private GameObject currentSpecialShotInstance;
 
     private void Awake()
     {
@@ -80,35 +80,41 @@ public class Player : MonoBehaviour
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
 
-        specialShotAvailable = true;
+        playerController.SetSpecialShotAvailability(true);
         Debug.Log($"Special shot set availabe {gameObject.name}");
-        AssignSpecialShotToPlayer();
-        playerController.ResetCollisionHappenedDuringSpecialShot();
-        playerController.SetFirstShotNotTaken();
         playerController.ResetSpecialShotEnabled();
     }
 
-    private void AssignSpecialShotToPlayer()
+    // Generic way to assign a special shot to the player
+    public void AssignSpecialShotToPlayer(SpecialShotData specialShot)
     {
-        var specialShotTypes = Enum.GetValues(typeof(SpecialShotType));
-        int randomIndex = UnityEngine.Random.Range(0, specialShotTypes.Length);
-        assignedSpecialShot = (SpecialShotType) randomIndex;
+        if(currentSpecialShotInstance != null)
+        {
+            Destroy(currentSpecialShotInstance);
+        }
 
-        OnSpecialShotAssigned?.Invoke(assignedSpecialShot.ToString());
+        assignedSpecialShot = specialShot;
+        OnSpecialShotAssigned?.Invoke(specialShot.name);
+
+        currentSpecialShotInstance = Instantiate(specialShot.prefab, playerController.transform);
+        var specialShotComponent = currentSpecialShotInstance.GetComponent<SpecialShot>();
+        Rigidbody2D body = playerController.GetComponent<Rigidbody2D>();
+
+        if(specialShotComponent != null)
+        {
+            specialShotComponent.Init(playerController, this, body);
+        }
+
     }
 
-    public bool HasAvailableSpecialShot()
-    {
-        return specialShotAvailable;
-    }
     public void UsedSpecialShot()
     {
-        specialShotAvailable = false;
+        playerController.SetSpecialShotAvailability(false);
         // display nothing in the UI
         OnSpecialShotAssigned?.Invoke("");
     }
 
-    public SpecialShotType GetAssignedSpecialShot()
+    public SpecialShotData GetAssignedSpecialShot()
     {
         return assignedSpecialShot;
     }

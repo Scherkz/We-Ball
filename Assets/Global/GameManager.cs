@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private BuildGrid buildGrid;
     [SerializeField] private BuildingData[] buildings;
+    [SerializeField] private SpecialShotData[] specialShots;
 
     [SerializeField] private Transform spawnPointsParent;
 
@@ -87,16 +88,22 @@ public class GameManager : MonoBehaviour
         this.CallNextFrame(StartPlayingPhase);
     }
 
+    private SpecialShotData GetRandomSpecialShot()
+    {
+        return specialShots[Random.Range(0, specialShots.Length)];
+    }
+
     private void StartPlayingPhase()
     {
         currentPhase = GamePhase.Playing;
 
         buildGrid.ShowGrid(false);
-
+        SpecialShotData specialShotForThisRound = GetRandomSpecialShot();
         for (int i = 0; i < players.Length; i++)
         {
             var spawnPosition = spawnPointsParent.GetChild(i).position;
             players[i].StartPlayingPhase(spawnPosition);
+            players[i].AssignSpecialShotToPlayer(specialShotForThisRound);
         }
     }
 
