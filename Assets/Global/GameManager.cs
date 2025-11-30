@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
     private GamePhase currentPhase;
 
     private int roundCount;
-
     private int maxScore = 25;
 
     private void Awake()
@@ -198,6 +197,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        EventBus.Instance?.OnWinnerDicided?.Invoke(winner);
+        EventBus.Instance?.OnWinnerDicided?.Invoke(winner, players, maxRoundsPerGame);
     }
 }
