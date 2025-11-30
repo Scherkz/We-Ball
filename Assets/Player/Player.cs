@@ -103,6 +103,8 @@ public class Player : MonoBehaviour
         playerController.enabled = true;
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
+
+        numberOfSwingsThisRound = 0;
     }
 
     public Color GetColor()
