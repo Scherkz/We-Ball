@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
         Playing,
     }
 
-    [SerializeField] private int maxRoundsPerGame = 6;
+    [SerializeField] private int maxRoundsPerGame = 2;
 
     [SerializeField] private BuildingSpawner buildingSpawner;
     [SerializeField] private BuildGrid buildGrid;

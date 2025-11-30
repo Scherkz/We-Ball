@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 public class GameoverScreen : MonoBehaviour
 {
     public GameObject cellPrefab;
+    public GameObject circlePrefab;
 
     [SerializeField] private string[] taunts;
     [SerializeField] private InputAction rematchInputAction;
@@ -86,6 +88,7 @@ public class GameoverScreen : MonoBehaviour
             {
                 var cell = Instantiate(cellPrefab, scoreboard);
                 var text = cell.GetComponent<TMPro.TextMeshProUGUI>();
+
                 bool isFirstRow = r == 0;
                 bool isFirstColumn = c == 0;
                 bool isLastColumn = c == totalColumns - 1;
@@ -105,7 +108,14 @@ public class GameoverScreen : MonoBehaviour
                 else if (isFirstColumn && !isFirstRow)
                 {
                     //TODO change to colorcircle
-                    text.text = "Player " + r + " ";
+                    Destroy(cell);
+                    var circleBall = Instantiate(circlePrefab, scoreboard);
+                    var circleImage = circleBall.GetComponent<Image>();
+                    circleImage.color = players[r - 1].GetColor();
+                    RectTransform crt = circleBall.GetComponent<RectTransform>();
+                    crt.sizeDelta = new Vector2(cellWidth, cellHeight);
+                    //crt.localScale = new Vector2 (0.5f, 0.5f);
+
                 }
                 else if (isLastColumn && !isFirstRow)
                 {
