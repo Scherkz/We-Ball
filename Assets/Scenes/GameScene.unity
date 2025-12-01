@@ -198,6 +198,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
   playerPrefab: {fileID: 3288741480610849305, guid: bcaa9720fe9cabe44ae5c8a230c0a1e0, type: 3}
   spawnPointsParents: {fileID: 1548342403}
+  spawnPointColors:
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 0.9333334, g: 0.509804, b: 0.9333334, a: 1}
+  - {r: 1, g: 0.6470588, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &192672678
 GameObject:
   m_ObjectHideFlags: 0

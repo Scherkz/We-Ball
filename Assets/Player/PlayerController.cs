@@ -6,28 +6,27 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(LineRenderer))]
 public class PlayerController : MonoBehaviour
 {
-    public float shootForce = 10f;
-    public float arrowLength = 3f;
-
-    public float maxChargeTime = 2f;
-    public float maxChargeMultiplier = 2f;
-
-    [Header("AimArrow")]
-    public Transform aimArrow;
-    public float aimArrowMaxLengthMultiplier = 1.5f;
-    
     public Action OnSwing;
+    
+    [SerializeField] private float shootForce = 10f;
+    [SerializeField] private float arrowLength = 3f;
 
+    [SerializeField] private float maxChargeTime = 1;
+    [SerializeField] private float maxChargeMultiplier = 2f;
+    
+    [Header("AimArrow")] 
+    [SerializeField] private Transform aimArrow;
+    [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
+    
     private Rigidbody2D body;
     private GameObject partyHat;
 
     private Vector2 aimInput;
-    private Vector2 lockedAim;
 
     private bool isCharging = false;
     private float chargeTimer = 0f;
 
-    void Awake()
+    private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         partyHat = transform.Find("PartyHat").gameObject;
@@ -47,10 +46,7 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
-        if (!isCharging)
-        {
-            aimInput = -1 * context.ReadValue<Vector2>();
-        }
+        aimInput = context.ReadValue<Vector2>();
     }
 
     public void Shoot(InputAction.CallbackContext context)
@@ -59,27 +55,47 @@ public class PlayerController : MonoBehaviour
         {
             isCharging = true;
             chargeTimer = 0f;
-
-            lockedAim = aimInput;
-            if (lockedAim.sqrMagnitude < 0.01f) return;
         }
 
         if (context.canceled && isCharging)
         {
+            if (aimInput.sqrMagnitude < 0.01f)
+            {
+                isCharging = false;
+                chargeTimer = 0f;
+                aimArrow.gameObject.SetActive(false);
+                return;
+            }
+
             float chargePercent = chargeTimer / maxChargeTime;
             float chargeMultiplier = maxChargeMultiplier * chargePercent;
-            body.AddForce(chargeMultiplier * shootForce * lockedAim.normalized, ForceMode2D.Impulse);
+            body.AddForce(chargeMultiplier * shootForce * aimInput.normalized, ForceMode2D.Impulse);
 
             isCharging = false;
             chargeTimer = 0f;
             aimInput = Vector2.zero;
             aimArrow.gameObject.SetActive(false);
-            
+
             OnSwing?.Invoke();
         }
     }
 
-    void Update()
+    public void CancelShotAndHideArrow()
+    {
+        isCharging = false;
+        chargeTimer = 0f;
+        aimInput = Vector2.zero;
+
+        if (aimArrow != null)
+            aimArrow.gameObject.SetActive(false);
+    }
+
+    public void SetColor(Color color)
+    {
+        GetComponent<Renderer>().material.color = color; 
+    }
+
+    private void Update()
     {
         // Handle visuals
         if (aimInput.sqrMagnitude > 0.01f)
@@ -98,12 +114,12 @@ public class PlayerController : MonoBehaviour
     {
         aimArrow.gameObject.SetActive(true);
 
-        Vector2 dir = input.normalized;
-        float chargePercent = isCharging ? (chargeTimer / maxChargeTime) : 0f;
-        float lengthMultiplier = Mathf.Lerp(1f, aimArrowMaxLengthMultiplier, chargePercent);
-        float scaledLength = arrowLength * lengthMultiplier;
+        var dir = input.normalized;
+        var chargePercent = isCharging ? (chargeTimer / maxChargeTime) : 0f;
+        var lengthMultiplier = Mathf.Lerp(1f, aimArrowMaxLengthMultiplier, chargePercent);
+        var scaledLength = arrowLength * lengthMultiplier;
 
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         aimArrow.rotation = Quaternion.Euler(0, 0, angle);
 
         aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);

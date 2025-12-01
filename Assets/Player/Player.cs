@@ -5,11 +5,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
+    public bool hasSelectedBuilding;
     public bool hasPlacedBuilding;
     public bool hasFinishedRound;
 
     public int numberOfSwings;
 
+    public Action OnSelectedBuilding;
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
     public Action<int> OnSwingsChanges;
@@ -22,6 +24,8 @@ public class Player : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerBuildController buildController;
     private PlayerController playerController;
+    
+    private Color color;
 
     private void Awake()
     {
@@ -30,14 +34,22 @@ public class Player : MonoBehaviour
         playerController = transform.Find("PlayerBall").GetComponent<PlayerController>();
     }
 
+    private void Start()
+    {
+        buildController.gameObject.SetActive(false);
+        playerController.gameObject.SetActive(false);
+    }
+
     private void OnEnable()
     {
+        buildController.OnSelectedBuilding += OnBuildingSelected;
         buildController.OnBuildingPlaced += OnBuildingPlaced;
         playerController.OnSwing += OnPlayerSwings;
     }
 
     private void OnDisable()
     {
+        buildController.OnSelectedBuilding -= OnBuildingSelected;
         buildController.OnBuildingPlaced -= OnBuildingPlaced;
         playerController.OnSwing -= OnPlayerSwings;
     }
@@ -50,18 +62,28 @@ public class Player : MonoBehaviour
         OnSwingsChanges?.Invoke(numberOfSwings);
     }
 
-    public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
+    public void StartSelectionPhase(Vector2 screenPosition)
     {
         playerInput.SwitchCurrentActionMap(buildingActionMapName);
-
+        
         playerController.TogglePartyHat(false);
         playerController.gameObject.SetActive(false);
 
-        hasPlacedBuilding = false;
-
+        hasSelectedBuilding = false;
+        
         buildController.enabled = true;
         buildController.gameObject.SetActive(true);
-        buildController.Init(buildGrid, buildingData);
+        
+        buildController.InitSelectionPhase(screenPosition);
+    }
+
+    public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
+    {
+        hasPlacedBuilding = false;
+        
+        buildController.gameObject.SetActive(true);
+
+        buildController.InitBuildingPhase(buildGrid);
     }
 
     public void StartPlayingPhase(Vector3 spawnPosition)
@@ -79,7 +101,14 @@ public class Player : MonoBehaviour
 
     public Color GetColor()
     {
-        return playerController.GetComponent<Renderer>().material.color;
+        return color;
+    }
+
+    public void SetColor(Color color)
+    {
+        this.color = color;
+        playerController.SetColor(color);
+        buildController.SetColor(color);
     }
 
     // is called via Unity's messaging system
@@ -89,6 +118,8 @@ public class Player : MonoBehaviour
             return; // we are currently in build mode -> ignore event
 
         hasFinishedRound = true;
+        
+        playerController.CancelShotAndHideArrow();
 
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
@@ -97,6 +128,15 @@ public class Player : MonoBehaviour
         confetti.transform.position = playerController.transform.position;
 
         OnFinishedRound?.Invoke();
+    }
+
+    private void OnBuildingSelected()
+    {
+        hasSelectedBuilding = true;
+        
+        buildController.gameObject.SetActive(false);
+        
+        OnSelectedBuilding?.Invoke();
     }
 
     private void OnBuildingPlaced()
