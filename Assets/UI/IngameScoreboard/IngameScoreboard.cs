@@ -29,7 +29,7 @@ public class IngameScoreboard : MonoBehaviour
             playerScoreCounter.SetScoreCounter(0);
 
             player.OnScoreChanges += playerScoreCounter.SetScoreCounter;
-            player.OnSpecialShotAssigned += playerSwingCounter.SetSpecialShotType;
+            player.OnSpecialShotAssigned += playerScoreCounter.SetSpecialShotType;
 
             offset += prefabHeight;
         }
