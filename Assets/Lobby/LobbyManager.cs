@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -63,7 +61,7 @@ public class LobbyManager : MonoBehaviour
 
     private void TogglePlayerReady(Player player)
     {
-        var lobbyPlayer = players.Find(s => s.player == player);
+        var lobbyPlayer = players.Find(lp => lp.player == player);
         if (lobbyPlayer == null) return;
         if (lobbyPlayer.mapVote == null) return;
 
@@ -126,10 +124,10 @@ public class LobbyManager : MonoBehaviour
     {
         if (!players.Any()) return;
 
-        if (players.Any(s => s.mapVote == null || !s.ready))
+        if (players.Any(player => player.mapVote == null || !player.ready))
             return;
 
-        MapNode winning = PickWinningMap(players.Select(s => s.mapVote).ToList());
+        MapNode winning = PickWinningMap(players.Select(player => player.mapVote).ToList());
         playerSpawner.allowJoining = false;
 
         Debug.Log($"LobbyManager selected map: {winning.mapName}");
@@ -150,7 +148,7 @@ public class LobbyManager : MonoBehaviour
 
     public LobbyPlayer GetLobbyPlayer(Player player)
     {
-        return players.Find(lp => lp.player == player);
+        return players.Find(lobbyPlayer => lobbyPlayer.player == player);
     }
 
 }

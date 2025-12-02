@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class MapNode : MonoBehaviour
 {
-    // must match the scene name of the level
+    // The map name must match the scene name of the level
     [SerializeField] public string mapName;
     [SerializeField] public Sprite mapIcon;
 

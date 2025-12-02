@@ -32,9 +32,9 @@ public class PlayerBoard : MonoBehaviour
         var players = FindObjectsByType<Player>(FindObjectsSortMode.None);
         lobbyManager = FindFirstObjectByType<LobbyManager>();
 
-        foreach (var p in players)
+        foreach (var player in players)
         {
-            AddPlayerEntry(p);
+            AddPlayerEntry(player);
         }
     }
 
@@ -47,11 +47,11 @@ public class PlayerBoard : MonoBehaviour
 
         entries[player] = entry;
 
-        var lp = lobbyManager.GetLobbyPlayer(player);
-        entry.SetPlayerColor(lp.player.GetColor());
-        entry.SetPlayerName(lp.playerID);
-        entry.SetReady(lp.ready);
-        entry.SetMapVote(lp.mapVote?.mapName);
+        var lobbyPlayer = lobbyManager.GetLobbyPlayer(player);
+        entry.SetPlayerColor(lobbyPlayer.player.GetColor());
+        entry.SetPlayerName(lobbyPlayer.playerID);
+        entry.SetReady(lobbyPlayer.ready);
+        entry.SetMapVote(lobbyPlayer.mapVote?.mapName);
 
         RebuildEntryPositions();
     }
@@ -77,20 +77,20 @@ public class PlayerBoard : MonoBehaviour
     {
         if (!entries.ContainsKey(player)) return;
 
-        var lp = lobbyManager.GetLobbyPlayer(player);
-        entries[player].SetReady(lp.ready);
+        var lobbyPlayer = lobbyManager.GetLobbyPlayer(player);
+        entries[player].SetReady(lobbyPlayer.ready);
     }
 
     private void RebuildEntryPositions()
     {
         int index = 0;
 
-        foreach (var pair in entries.OrderBy(e => lobbyManager.GetLobbyPlayer(e.Key).playerID))
+        foreach (var pair in entries.OrderBy(entry => lobbyManager.GetLobbyPlayer(entry.Key).playerID))
         {
             var entry = pair.Value;
-            var rect = entry.GetComponent<RectTransform>();
+            var transform = entry.GetComponent<RectTransform>();
 
-            rect.anchoredPosition = new Vector2(0, -index * 32f);
+            transform.anchoredPosition = new Vector2(0, -index * 32f);
 
             var lobbyPlayer = lobbyManager.GetLobbyPlayer(pair.Key);
             lobbyPlayer.playerID = index;

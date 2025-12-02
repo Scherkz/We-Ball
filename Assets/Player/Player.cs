@@ -111,7 +111,6 @@ public class Player : MonoBehaviour
     {
         // Invoke map vote through event bus
         EventBus.Instance?.OnMapVoted?.Invoke(map, this);
-
     }
 
     private void OnBuildingPlaced()

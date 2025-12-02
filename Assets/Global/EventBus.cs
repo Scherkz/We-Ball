@@ -53,13 +53,58 @@ public class EventBus : MonoBehaviour
     /// </summary>
     public Action<Player> OnWinnerDicided;
 
-    // Lobby events
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>Player</term>
+    ///         <description>The player that joined the game.</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
     public Action<Player> OnPlayerJoined;
-    public Action<Player> OnPlayerLeft;     
-    // Action<mapSceneName, votingPlayer>
+
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>Player</term>
+    ///         <description>The player that left the game.</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
+    public Action<Player> OnPlayerLeft;
+
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>MapNode</term>
+    ///         <description>Contains the MapNode of the map the player voted for.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term>Player</term>
+    ///         <description>The player who voted for the MapNode.</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
     public Action<MapNode, Player> OnMapVoted;
+
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>Player</term>
+    ///         <description>The player who toggled their ready button. This does NOT mean the player is ready!</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
     public Action<Player> OnPlayerReady;
-    // <winningMapSceneName>
+
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>MapNode</term>
+    ///         <description>The map that was selected for playing after all players have voted and are ready. </description>
+    ///     </item>
+    /// </list>
+    /// </summary>
     public Action<MapNode> OnMapSelected;
 
 }
