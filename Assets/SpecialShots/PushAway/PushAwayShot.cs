@@ -31,7 +31,6 @@ public class PushAwayShot : SpecialShot
 
     }
 
-
     // Handle collision for push-away shots
     private void HandleCollision(Collision2D collision)
     {

@@ -7,17 +7,17 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Action OnSwing;
-    
+
     [SerializeField] private float shootForce = 10f;
     [SerializeField] private float arrowLength = 3f;
 
     [SerializeField] private float maxChargeTime = 1;
     [SerializeField] private float maxChargeMultiplier = 2f;
-    
-    [Header("AimArrow")] 
+
+    [Header("AimArrow")]
     [SerializeField] private Transform aimArrow;
     [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
-    
+
     private Rigidbody2D body;
     private GameObject partyHat;
 
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     public Action HasAvailableSpecialShot;
     public Action<Collision2D> BallCollisionEvent;
     public Action<bool> OnSpecialShotStateChange;
-    
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         aimInput = context.ReadValue<Vector2>();
     }
+
     public void ToggleSpecialShot(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -65,6 +66,8 @@ public class PlayerController : MonoBehaviour
             if (!specialShotAvailable) return;
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
+
+            // Will be replaced by animation or particle effect in the future
             Debug.Log($"{transform.parent.name} Special Shot enabled toggled to: " + isSpecialShotEnabled);
         }
     }
@@ -152,10 +155,12 @@ public class PlayerController : MonoBehaviour
     {
         specialShotAvailable = available;
     }
+
     public void ResetSpecialShotEnabled()
     {
         this.isSpecialShotEnabled = false;
     }
+
     public bool IsSpecialShotEnabled()
     {
         return isSpecialShotEnabled;
