@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PushAwayShot : SpecialShot
 {
-    private bool collisionHappenedDuringSpecialShot = false;
+    private bool collisionHappenedDuringPushAwayShot = false;
 
     PlayerController playerController;
     Player player;
@@ -40,11 +40,11 @@ public class PushAwayShot : SpecialShot
 
         if (!playerController.IsSpecialShotEnabled()) return;
 
-        if (collisionHappenedDuringSpecialShot) return;
+        if (collisionHappenedDuringPushAwayShot) return;
 
         PushAwayImpact(collision);
         player.UsedSpecialShot();
-        collisionHappenedDuringSpecialShot = true;
+        collisionHappenedDuringPushAwayShot = true;
 
     }
 
@@ -77,10 +77,5 @@ public class PushAwayShot : SpecialShot
                 otherBallBody.AddForce(pushDirection * forceMagnitude, ForceMode2D.Impulse);
             }
         }
-    }
-
-    public void ResetCollisionHappenedDuringSpecialShot()
-    {
-        this.collisionHappenedDuringSpecialShot = false;
     }
 }

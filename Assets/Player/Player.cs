@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     private PlayerBuildController buildController;
     private PlayerController playerController;
 
-    private SpecialShotData assignedSpecialShot;
     private GameObject currentSpecialShotInstance;
 
     private void Awake()
@@ -93,7 +92,6 @@ public class Player : MonoBehaviour
             Destroy(currentSpecialShotInstance);
         }
 
-        assignedSpecialShot = specialShot;
         OnSpecialShotAssigned?.Invoke(specialShot.name);
 
         currentSpecialShotInstance = Instantiate(specialShot.prefab, playerController.transform);
@@ -112,11 +110,6 @@ public class Player : MonoBehaviour
         playerController.SetSpecialShotAvailability(false);
         // display nothing in the UI
         OnSpecialShotAssigned?.Invoke("");
-    }
-
-    public SpecialShotData GetAssignedSpecialShot()
-    {
-        return assignedSpecialShot;
     }
 
     public Color GetColor()

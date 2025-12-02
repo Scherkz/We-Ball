@@ -37,8 +37,6 @@ public class PlayerController : MonoBehaviour
     public Action HasAvailableSpecialShot;
     public Action<Collision2D> BallCollisionEvent;
     public Action<bool> OnSpecialShotStateChange;
-
-    private Player player;
     
     private void Awake()
     {
@@ -46,8 +44,6 @@ public class PlayerController : MonoBehaviour
         partyHat = transform.Find("PartyHat").gameObject;
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
-
-        player = transform.parent.GetComponent<Player>();
     }
 
     private void Start()
@@ -68,7 +64,6 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-
             if (!specialShotAvailable) return;
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
