@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,12 +10,19 @@ public class Player : MonoBehaviour
     public bool hasPlacedBuilding;
     public bool hasFinishedRound;
 
-    public int numberOfSwings;
+    public int numberOfSwingsThisRound;
 
     public Action OnSelectedBuilding;
     public Action OnPlacedBuilding;
     public Action OnFinishedRound;
-    public Action<int> OnSwingsChanges;
+    public Action<int> OnScoreChanges;
+    public Action<string> OnSpecialShotAssigned;
+
+    public int score;
+    public List<int> scorePerRound = new();
+    public float timeTookThisRound;
+    private float startTime;
+    private float endTime;
 
     [SerializeField] private GameObject confettiVFX;
 
@@ -24,14 +32,19 @@ public class Player : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerBuildController buildController;
     private PlayerController playerController;
-    
+
+    private GameObject currentSpecialShotInstance;
+    private Rigidbody2D playerControllerRigidbody;
+
     private Color color;
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         buildController = transform.Find("PlayerBuilding").GetComponent<PlayerBuildController>();
+
         playerController = transform.Find("PlayerBall").GetComponent<PlayerController>();
+        playerControllerRigidbody = playerController.GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -58,29 +71,28 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = false;
         hasFinishedRound = true; // this means we are currently in building phase
-        numberOfSwings = 0;
-        OnSwingsChanges?.Invoke(numberOfSwings);
+        numberOfSwingsThisRound = 0;
     }
 
     public void StartSelectionPhase(Vector2 screenPosition)
     {
         playerInput.SwitchCurrentActionMap(buildingActionMapName);
-        
+
         playerController.TogglePartyHat(false);
         playerController.gameObject.SetActive(false);
 
         hasSelectedBuilding = false;
-        
+
         buildController.enabled = true;
         buildController.gameObject.SetActive(true);
-        
+
         buildController.InitSelectionPhase(screenPosition);
     }
 
     public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
     {
         hasPlacedBuilding = false;
-        
+
         buildController.gameObject.SetActive(true);
 
         buildController.InitBuildingPhase(buildGrid);
@@ -97,6 +109,37 @@ public class Player : MonoBehaviour
         playerController.enabled = true;
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
+
+        StartTimer();
+
+        numberOfSwingsThisRound = 0;
+
+        playerController.SetSpecialShotAvailability(true);
+        Debug.Log($"Special shot set availabe {gameObject.name}");
+        playerController.ResetSpecialShotEnabled();
+    }
+
+    // Generic way to assign a special shot to the player
+    public void AssignSpecialShot(SpecialShotData specialShot)
+    {
+        if (currentSpecialShotInstance != null)
+        {
+            Destroy(currentSpecialShotInstance);
+        }
+
+        currentSpecialShotInstance = Instantiate(specialShot.prefab, playerController.transform);
+
+        var specialShotComponent = currentSpecialShotInstance.GetComponent<SpecialShot>();
+        specialShotComponent.Init(playerController, this, playerControllerRigidbody);
+
+        OnSpecialShotAssigned?.Invoke(specialShot.name);
+    }
+
+    public void UsedSpecialShot()
+    {
+        playerController.SetSpecialShotAvailability(false);
+
+        OnSpecialShotAssigned?.Invoke(""); // displays nothing in the UI
     }
 
     public Color GetColor()
@@ -111,6 +154,13 @@ public class Player : MonoBehaviour
         buildController.SetColor(color);
     }
 
+    public void AddScore(int scoreAwardedThisRound)
+    {
+        score += scoreAwardedThisRound;
+        scorePerRound.Add(scoreAwardedThisRound);
+        OnScoreChanges?.Invoke(score);
+    }
+
     // is called via Unity's messaging system
     private void OnEnterFinishArea()
     {
@@ -118,7 +168,8 @@ public class Player : MonoBehaviour
             return; // we are currently in build mode -> ignore event
 
         hasFinishedRound = true;
-        
+        StopTimer();
+
         playerController.CancelShotAndHideArrow();
 
         playerController.TogglePartyHat(true);
@@ -133,9 +184,9 @@ public class Player : MonoBehaviour
     private void OnBuildingSelected()
     {
         hasSelectedBuilding = true;
-        
+
         buildController.gameObject.SetActive(false);
-        
+
         OnSelectedBuilding?.Invoke();
     }
 
@@ -149,7 +200,15 @@ public class Player : MonoBehaviour
 
     private void OnPlayerSwings()
     {
-        numberOfSwings++;
-        OnSwingsChanges?.Invoke(numberOfSwings);
+        numberOfSwingsThisRound++;
+    }
+    private void StartTimer()
+    {
+        startTime = Time.time;
+    }
+    private void StopTimer()
+    {
+        endTime = Time.time;
+        timeTookThisRound = endTime - startTime;
     }
 }
