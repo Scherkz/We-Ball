@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxChargeTime = 1;
     [SerializeField] private float maxChargeMultiplier = 2f;
 
-    [Header("AimArrow")]
+    [SerializeField] private bool invertedControls = true;
+    
+    [Header("AimArrow")] 
     [SerializeField] private Transform aimArrow;
     [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
 
@@ -56,8 +58,9 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
-        aimInput = context.ReadValue<Vector2>();
-    }
+        var aimDirection = context.ReadValue<Vector2>();
+        aimInput = invertedControls ? -aimDirection : aimDirection;
+     }
 
     public void ToggleSpecialShot(InputAction.CallbackContext context)
     {
