@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 402704941
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1049909109, guid: a53a588a7fc2b4a42a879e3947d79bc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -334,6 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlackholeBuilding
   spriteRenderer: {fileID: 8736455043573817049}
+  rotation: 0
   rotationAnchor: {fileID: 0}
   rotationSpeed: 20
   attractionForce: 22

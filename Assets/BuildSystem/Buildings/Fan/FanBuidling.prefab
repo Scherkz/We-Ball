@@ -233,8 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69555735c3140e345a908bec1ef9a4a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fan
-  rotation: 0
   spriteRenderer: {fileID: 5245990255430029326}
+  rotation: 0
   rotationAnchor: {fileID: 9105724458298853649}
   force: 32
 --- !u!1 &2331239319654374065
@@ -393,9 +393,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 402704941
-  m_SortingLayer: 3
-  m_SortingOrder: 10
+  m_SortingLayerID: -197803845
+  m_SortingLayer: 4
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: b6038b55f558a3044b200e6cf9f9e4de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
