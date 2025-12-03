@@ -467,4 +467,4 @@ MonoBehaviour:
   maxChargeMultiplier: 2
   aimArrow: {fileID: 7853706692911780932}
   aimArrowMaxLengthMultiplier: 1.5
-  isSpecialShotEnabled: 0
+  specializedShotVFX: {fileID: 6712922998010940935, guid: fba638f777aa8c7448e827fa5e2a74d7, type: 3}

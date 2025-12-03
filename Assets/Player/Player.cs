@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public Action OnFinishedRound;
     public Action<int> OnScoreChanges;
     public Action<string> OnSpecialShotAssigned;
+    public Action OnDisableSpecialShotVFX;
 
     public int score;
     public List<int> scorePerRound = new();
@@ -138,7 +139,7 @@ public class Player : MonoBehaviour
     public void UsedSpecialShot()
     {
         playerController.SetSpecialShotAvailability(false);
-
+        OnDisableSpecialShotVFX?.Invoke();
         OnSpecialShotAssigned?.Invoke(""); // displays nothing in the UI
     }
 
@@ -202,10 +203,12 @@ public class Player : MonoBehaviour
     {
         numberOfSwingsThisRound++;
     }
+
     private void StartTimer()
     {
         startTime = Time.time;
     }
+
     private void StopTimer()
     {
         endTime = Time.time;

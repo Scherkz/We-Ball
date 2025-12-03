@@ -35,6 +35,10 @@ public class PlayerController : MonoBehaviour
     public Action HasAvailableSpecialShot;
     public Action<Collision2D> BallCollisionEvent;
     public Action<bool> OnSpecialShotStateChange;
+    public Action OnDisableSpecialShotVFX;
+    public Action OnEnableSpecialShotVFX;
+
+
 
     private void Awake()
     {
@@ -69,6 +73,15 @@ public class PlayerController : MonoBehaviour
 
             // TODO: Replace with animation or particle effect in the future
             Debug.Log($"{transform.parent.name} Special Shot enabled toggled to: " + isSpecialShotEnabled);
+
+            if (isSpecialShotEnabled)
+            {
+                OnEnableSpecialShotVFX?.Invoke();
+            }
+            else
+            {
+                OnDisableSpecialShotVFX?.Invoke();
+            }
         }
     }
 

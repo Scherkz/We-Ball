@@ -12,6 +12,9 @@ public class PushAwayShot : SpecialShot
     [SerializeField] float maximalImpactRange = 10f;
     [SerializeField] float maximalImpactForce = 35f;
 
+    [SerializeField] private GameObject specializedShotVFX;
+    [SerializeField] private GameObject explodeVFX;
+
     public override void Init(PlayerController playerController, Player player, Rigidbody2D body)
     {
         this.playerController = playerController;
@@ -21,8 +24,17 @@ public class PushAwayShot : SpecialShot
         if(playerController != null)
         {
             playerController.BallCollisionEvent += HandleCollision;
+            playerController.OnEnableSpecialShotVFX += EnableSpecialShotVFX;
+            playerController.OnDisableSpecialShotVFX += DisableSpecialShotVFX;
         }
-        
+
+        if(player != null)
+        {
+            player.OnDisableSpecialShotVFX += DisableSpecialShotVFX;
+        }
+
+        currentSpecializedShotVFX = Instantiate(specializedShotVFX, playerController.transform);
+        currentSpecializedShotVFX.SetActive(false);
     }
 
     private void OnDisable()
@@ -77,5 +89,7 @@ public class PushAwayShot : SpecialShot
                 otherBallBody.AddForce(pushDirection * forceMagnitude, ForceMode2D.Impulse);
             }
         }
+
+        Instantiate(explodeVFX, playerController.transform);
     }
 }
