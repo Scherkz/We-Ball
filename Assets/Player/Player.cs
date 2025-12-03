@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public Action<string> OnSpecialShotAssigned;
 
     public int score;
-    public List<int> scorePerRound = new List<int>();
+    public List<int> scorePerRound = new();
     public float timeTookThisRound;
     private float startTime;
     private float endTime;
@@ -34,15 +34,17 @@ public class Player : MonoBehaviour
     private PlayerController playerController;
 
     private GameObject currentSpecialShotInstance;
+    private Rigidbody2D playerControllerRigidbody;
 
-    
     private Color color;
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         buildController = transform.Find("PlayerBuilding").GetComponent<PlayerBuildController>();
+
         playerController = transform.Find("PlayerBall").GetComponent<PlayerController>();
+        playerControllerRigidbody = playerController.GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -75,22 +77,22 @@ public class Player : MonoBehaviour
     public void StartSelectionPhase(Vector2 screenPosition)
     {
         playerInput.SwitchCurrentActionMap(buildingActionMapName);
-        
+
         playerController.TogglePartyHat(false);
         playerController.gameObject.SetActive(false);
 
         hasSelectedBuilding = false;
-        
+
         buildController.enabled = true;
         buildController.gameObject.SetActive(true);
-        
+
         buildController.InitSelectionPhase(screenPosition);
     }
 
     public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
     {
         hasPlacedBuilding = false;
-        
+
         buildController.gameObject.SetActive(true);
 
         buildController.InitBuildingPhase(buildGrid);
@@ -120,29 +122,24 @@ public class Player : MonoBehaviour
     // Generic way to assign a special shot to the player
     public void AssignSpecialShot(SpecialShotData specialShot)
     {
-        if(currentSpecialShotInstance != null)
+        if (currentSpecialShotInstance != null)
         {
             Destroy(currentSpecialShotInstance);
         }
 
-        OnSpecialShotAssigned?.Invoke(specialShot.name);
-
         currentSpecialShotInstance = Instantiate(specialShot.prefab, playerController.transform);
+
         var specialShotComponent = currentSpecialShotInstance.GetComponent<SpecialShot>();
-        Rigidbody2D body = playerController.GetComponent<Rigidbody2D>();
+        specialShotComponent.Init(playerController, this, playerControllerRigidbody);
 
-        if(specialShotComponent != null)
-        {
-            specialShotComponent.Init(playerController, this, body);
-        }
-
+        OnSpecialShotAssigned?.Invoke(specialShot.name);
     }
 
     public void UsedSpecialShot()
     {
         playerController.SetSpecialShotAvailability(false);
-        // display nothing in the UI
-        OnSpecialShotAssigned?.Invoke("");
+
+        OnSpecialShotAssigned?.Invoke(""); // displays nothing in the UI
     }
 
     public Color GetColor()
@@ -187,9 +184,9 @@ public class Player : MonoBehaviour
     private void OnBuildingSelected()
     {
         hasSelectedBuilding = true;
-        
+
         buildController.gameObject.SetActive(false);
-        
+
         OnSelectedBuilding?.Invoke();
     }
 

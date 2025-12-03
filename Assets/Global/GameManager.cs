@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpecialShotData[] specialShots;
 
     [SerializeField] private Transform spawnPointsParent;
-    
+
     [SerializeField] private float screenBorderDistance;
 
     [SerializeField] private int pointsForWinningRound = 25;
@@ -91,18 +91,18 @@ public class GameManager : MonoBehaviour
             players[i].StartSelectionPhase(positions[i]);
         }
     }
-    
+
     private void OnPlayerSelectsBuilding()
     {
-        if(currentPhase != GamePhase.Selection)
+        if (currentPhase != GamePhase.Selection)
             return;
-        
+
         foreach (var player in players)
         {
             if (!player.hasSelectedBuilding)
                 return;
         }
-        
+
         // all players finished selecting their building
         this.CallNextFrame(StartBuildingPhase);
     }
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
     private void StartBuildingPhase()
     {
         currentPhase = GamePhase.Building;
-        
+
         buildingSpawner.gameObject.SetActive(false);
 
         buildGrid.ShowGrid(true);
@@ -146,12 +146,15 @@ public class GameManager : MonoBehaviour
         currentPhase = GamePhase.Playing;
 
         buildGrid.ShowGrid(false);
-        SpecialShotData specialShotForThisRound = GetRandomSpecialShot();
+
+        var specialShotForRound = GetRandomSpecialShot();
+
         for (int i = 0; i < players.Length; i++)
         {
             var spawnPosition = spawnPointsParent.GetChild(i).position;
             players[i].StartPlayingPhase(spawnPosition);
-            players[i].AssignSpecialShot(specialShotForThisRound);
+
+            players[i].AssignSpecialShot(specialShotForRound);
         }
     }
 
@@ -175,7 +178,7 @@ public class GameManager : MonoBehaviour
         {
             var additionalSwings = player.numberOfSwingsThisRound - leastSwings;
             var scoreAwardedThisRound = Mathf.Max(0, pointsForWinningRound - (additionalSwings * pointsDeductedPerAdditionalShot));
-            if(player == fastestPlayer)
+            if (player == fastestPlayer)
             {
                 scoreAwardedThisRound += bonusPointsForFastestPlayer;
             }

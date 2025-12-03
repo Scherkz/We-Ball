@@ -19,17 +19,18 @@ public class PlayerSpawner : MonoBehaviour
         public PlayerInput playerInput;
         public int ID;
     }
-    
+
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Transform spawnPointsParents;
-    [SerializeField] private Color[] spawnPointColors =
+    [SerializeField]
+    private Color[] spawnPointColors =
     {
-        Color.blue,   
-        Color.violet,    
-        Color.orange,  
-        Color.green   
+        Color.blue,
+        Color.violet,
+        Color.orange,
+        Color.green
     };
-    
+
     private readonly List<JoinedPlayer> joinedPlayers = new();
     private SpawnPoint[] spawnPoints;
 
@@ -83,15 +84,11 @@ public class PlayerSpawner : MonoBehaviour
         };
 
         var player = playerInput.GetComponent<Player>();
-
-        var playerObjectName = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";
-        player.gameObject.name = playerObjectName;
-
         player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
         player.CallNextFrame(player.StartPlayingPhase, joinedPlayer.spawnpoint.position);
         player.gameObject.name = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";
         player.SetColor(joinedPlayer.spawnpoint.color);
-        
+
         joinedPlayers.Add(joinedPlayer);
         joinedPlayer.spawnpoint.occupied = true;
 

@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
 
-            // Will be replaced by animation or particle effect in the future
+            // TODO: Replace with animation or particle effect in the future
             Debug.Log($"{transform.parent.name} Special Shot enabled toggled to: " + isSpecialShotEnabled);
         }
     }
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetColor(Color color)
     {
-        GetComponent<Renderer>().material.color = color; 
+        GetComponent<Renderer>().material.color = color;
     }
 
     private void Update()
@@ -149,8 +149,7 @@ public class PlayerController : MonoBehaviour
         aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
     }
 
-    // Ball collision events are used for example in the PushAway special shot
-    // and in future special shots or powerups
+    // Ball collision events are used for special shots or powerups
     private void OnCollisionEnter2D(Collision2D collision)
     {
         BallCollisionEvent?.Invoke(collision);
