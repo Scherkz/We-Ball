@@ -185,19 +185,18 @@ public class Player : MonoBehaviour
     private void OnBuildingSelected()
     {
         hasSelectedBuilding = true;
-
         buildController.gameObject.SetActive(false);
+        buildController.ToggleCursor(false);
 
         OnSelectedBuilding?.Invoke();
-        
-        buildController.ToggleCursor(false);
     }
 
     private void OnBuildingPlaced()
     {
         hasPlacedBuilding = true;
         buildController.enabled = false;
-
+        buildController.ToggleCursor(false);
+        
         OnPlacedBuilding?.Invoke();
     }
 
