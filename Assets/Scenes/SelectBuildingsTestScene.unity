@@ -719,6 +719,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c13f0eddef1c484a90ae5894a0327b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameoverScreen
+  cellPrefab: {fileID: 0}
+  circlePrefab: {fileID: 0}
   taunts:
   - He's not just putting, but <i>putting</i> yall to shame!
   - He's not just good, he's <i>hole</i>some!
@@ -1352,8 +1354,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e350fb932468d1c41b52d76fb6774e0a, type: 2}
   - {fileID: 11400000, guid: 378d3e43f834d2f41ba2ff8714666e39, type: 2}
   - {fileID: 11400000, guid: 8e834cef814c4024d8976b2e9320e57f, type: 2}
+  specialShots:
+  - {fileID: 11400000, guid: 41c510f05b83187448ac31d1c8fa7d09, type: 2}
   spawnPointsParent: {fileID: 1011623362}
   screenBorderDistance: 64
+  pointsForWinningRound: 25
+  pointsDeductedPerAdditionalShot: 5
+  bonusPointsForFastestPlayer: 10
 --- !u!114 &1324389750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1790,7 +1797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8a275ee9f8fd64fa934c497cd597e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngameScoreboard
-  playerSwingCounterPrefab: {fileID: 2506745441221474977, guid: 660b61ed591b8de459f82be945b5409e, type: 3}
+  playerScoreCounterPrefab: {fileID: 2506745441221474977, guid: 660b61ed591b8de459f82be945b5409e, type: 3}
 --- !u!1 &1858044079
 GameObject:
   m_ObjectHideFlags: 0
