@@ -1053,6 +1053,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[0].b
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[0].g
+      value: 0.105882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[0].r
+      value: 0.84705883
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[1].b
+      value: 0.9372549
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[1].g
+      value: 0.6117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[1].r
+      value: 0.23921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[2].b
+      value: 0.02745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[2].g
+      value: 0.75686276
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[3].b
+      value: 0.1764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[3].g
+      value: 0.69411767
+      objectReference: {fileID: 0}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: spawnPointColors.Array.data[3].r
+      value: 0.37254903
+      objectReference: {fileID: 0}
     - target: {fileID: 7625386368407876412, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
       propertyPath: m_Name
       value: PlayerSpawner
