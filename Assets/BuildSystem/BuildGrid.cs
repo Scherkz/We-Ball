@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using Color = UnityEngine.Color;
 
 public class BuildGrid : MonoBehaviour
 {
@@ -230,6 +232,9 @@ public class BuildGrid : MonoBehaviour
         {
             for (int y = 0; y < yExtend; y++)
             {
+                if (!buildingData.UsesCell(x,y))
+                    continue;
+                
                 yield return new Vector2Int(x, y);
             }
         }
