@@ -117,6 +117,11 @@ public class PlayerBuildController : MonoBehaviour
         OnSelectedBuilding?.Invoke();
     }
 
+    public void ToggleCursor(bool enable)
+    {
+        cursor.gameObject.SetActive(enable);
+    }
+
     private void Update()
     {
         if (moveInput != Vector2.zero)

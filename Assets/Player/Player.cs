@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D playerControllerRigidbody;
 
     private Color color;
-
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -85,6 +84,7 @@ public class Player : MonoBehaviour
 
         buildController.enabled = true;
         buildController.gameObject.SetActive(true);
+        buildController.ToggleCursor(true);
 
         buildController.InitSelectionPhase(screenPosition);
     }
@@ -188,6 +188,8 @@ public class Player : MonoBehaviour
         buildController.gameObject.SetActive(false);
 
         OnSelectedBuilding?.Invoke();
+        
+        buildController.ToggleCursor(false);
     }
 
     private void OnBuildingPlaced()
