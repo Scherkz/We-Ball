@@ -94,7 +94,8 @@ public class Player : MonoBehaviour
         hasPlacedBuilding = false;
 
         buildController.gameObject.SetActive(true);
-
+        buildController.ToggleCursor(true);
+        
         buildController.InitBuildingPhase(buildGrid);
     }
 
