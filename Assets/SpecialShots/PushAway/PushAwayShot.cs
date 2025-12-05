@@ -64,8 +64,6 @@ public class PushAwayShot : SpecialShot
 
     private void PushAwayImpact(Collision2D collision)
     {
-        Debug.Log("PushAwayImpact triggered");
-
         // Impact from current player position
         Vector2 impactPosition = transform.position;
         // Get all rigidbodies in a radius
@@ -90,6 +88,7 @@ public class PushAwayShot : SpecialShot
             }
         }
 
+        Destroy(currentSpecializedShotVFX);
         Instantiate(explodeVFX, playerController.transform);
     }
 }

@@ -7,11 +7,22 @@ public abstract class SpecialShot : MonoBehaviour
 
     protected void DisableSpecialShotVFX()
     {
+        if (currentSpecializedShotVFX == null) return;
+        
         currentSpecializedShotVFX.SetActive(false);
     }
 
     protected void EnableSpecialShotVFX()
     {
+        if (currentSpecializedShotVFX == null) return;
+        
         currentSpecializedShotVFX.SetActive(true);
+    }
+
+    protected void OnDestroy()
+    {
+        if (currentSpecializedShotVFX == null) return;
+        
+        Destroy(currentSpecializedShotVFX);
     }
 }

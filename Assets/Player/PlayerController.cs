@@ -74,9 +74,6 @@ public class PlayerController : MonoBehaviour
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
 
-            // TODO: Replace with animation or particle effect in the future
-            Debug.Log($"{transform.parent.name} Special Shot enabled toggled to: " + isSpecialShotEnabled);
-
             if (isSpecialShotEnabled)
             {
                 OnEnableSpecialShotVFX?.Invoke();
@@ -189,5 +186,10 @@ public class PlayerController : MonoBehaviour
     public bool IsFirstShotTakenAfterRoundStart()
     {
         return firstShotTakenAfterRoundStart;
+    }
+    
+    public void setFirstShotTakenAfterRoundStart(bool firstShotTakenAfterRoundStart)
+    {
+        this.firstShotTakenAfterRoundStart = firstShotTakenAfterRoundStart;
     }
 }
