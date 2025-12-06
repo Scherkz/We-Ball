@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,14 +12,12 @@ public class GameManager : MonoBehaviour
         Playing,
     }
 
+    const int BASE_LEVEL_SCENE_INDEX = 0;
+
     [SerializeField] private int maxRoundsPerGame = 6;
 
-    [SerializeField] private BuildingSpawner buildingSpawner;
-    [SerializeField] private BuildGrid buildGrid;
     [SerializeField] private BuildingData[] buildings;
     [SerializeField] private SpecialShotData[] specialShots;
-
-    [SerializeField] private Transform spawnPointsParent;
 
     [SerializeField] private float screenBorderDistance;
 
@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     private Player[] players;
     private GamePhase currentPhase;
 
+    private Level currentLevel;
     private int roundCount;
 
     private void Awake()
@@ -35,20 +36,18 @@ public class GameManager : MonoBehaviour
         roundCount = 0;
     }
 
-    private void Start()
-    {
-        buildGrid.ShowGrid(false);
-        buildingSpawner.gameObject.SetActive(false);
-    }
-
     private void OnEnable()
     {
+        EventBus.Instance.OnSwitchToScene += OnSwitchToScene;
         EventBus.Instance.OnStartGame += StartRound;
+        EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
     }
 
     private void OnDisable()
     {
+        EventBus.Instance.OnSwitchToScene -= OnSwitchToScene;
         EventBus.Instance.OnStartGame -= StartRound;
+        EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
     }
 
     public void StartRound(Player[] players)
@@ -68,6 +67,14 @@ public class GameManager : MonoBehaviour
         StartBuildingSelectionPhase();
     }
 
+    private void OnLevelLoaded(Level level)
+    {
+        currentLevel = level;
+
+        currentLevel.BuildGrid.ShowGrid(false);
+        currentLevel.BuildingSpawner.gameObject.SetActive(false);
+    }
+
     private void StartBuildingSelectionPhase()
     {
         currentPhase = GamePhase.Selection;
@@ -76,17 +83,17 @@ public class GameManager : MonoBehaviour
         roundCount++;
         EventBus.Instance?.OnRoundStart?.Invoke(maxRoundsPerGame, roundCount);
 
-        buildingSpawner.gameObject.SetActive(true);
-        buildingSpawner.SpawnBuildings(buildings, players.Length + 1);
+        currentLevel.BuildingSpawner.gameObject.SetActive(true);
+        currentLevel.BuildingSpawner.SpawnBuildings(buildings, players.Length + 1);
 
         for (int i = 0; i < players.Length; i++)
         {
             var positions = new Vector3[]
             {
-                new Vector3(screenBorderDistance, screenBorderDistance, 0),
-                new Vector3(screenBorderDistance, Screen.height - screenBorderDistance, 0),
-                new Vector3(Screen.width - screenBorderDistance, Screen.height - screenBorderDistance, 0),
-                new Vector3(Screen.width - screenBorderDistance, 0, 0)
+                new(screenBorderDistance, screenBorderDistance, 0),
+                new(screenBorderDistance, Screen.height - screenBorderDistance, 0),
+                new(Screen.width - screenBorderDistance, Screen.height - screenBorderDistance, 0),
+                new(Screen.width - screenBorderDistance, 0, 0)
             };
             players[i].StartSelectionPhase(positions[i]);
         }
@@ -111,13 +118,13 @@ public class GameManager : MonoBehaviour
     {
         currentPhase = GamePhase.Building;
 
-        buildingSpawner.gameObject.SetActive(false);
+        currentLevel.BuildingSpawner.gameObject.SetActive(false);
 
-        buildGrid.ShowGrid(true);
+        currentLevel.BuildGrid.ShowGrid(true);
 
         foreach (var player in players)
         {
-            player.StartBuildingPhase(buildGrid, buildings[Random.Range(0, buildings.Length)]);
+            player.StartBuildingPhase(currentLevel.BuildGrid, buildings[Random.Range(0, buildings.Length)]);
         }
     }
 
@@ -145,13 +152,13 @@ public class GameManager : MonoBehaviour
     {
         currentPhase = GamePhase.Playing;
 
-        buildGrid.ShowGrid(false);
+        currentLevel.BuildGrid.ShowGrid(false);
 
         var specialShotForRound = GetRandomSpecialShot();
 
         for (int i = 0; i < players.Length; i++)
         {
-            var spawnPosition = spawnPointsParent.GetChild(i).position;
+            var spawnPosition = currentLevel.SpawnPointsParent.GetChild(i).position;
             players[i].StartPlayingPhase(spawnPosition);
 
             players[i].AssignSpecialShot(specialShotForRound);
@@ -214,5 +221,29 @@ public class GameManager : MonoBehaviour
             }
         }
         EventBus.Instance?.OnWinnerDicided?.Invoke(winner, players, maxRoundsPerGame);
+    }
+
+    private async void OnSwitchToScene(int buildIndex)
+    {
+        var unloadOperations = new List<AsyncOperation>();
+
+        // unload all the scenes besides the base scene
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var scene = SceneManager.GetSceneAt(i);
+
+            if (scene.buildIndex == BASE_LEVEL_SCENE_INDEX) continue;
+
+            unloadOperations.Add(SceneManager.UnloadSceneAsync(scene));
+        }
+
+        // wait until all scenes are unloaded
+        foreach (var unloadOperation in unloadOperations)
+        {
+            await unloadOperation;
+        }
+
+        await Awaitable.NextFrameAsync();
+        await SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
     }
 }

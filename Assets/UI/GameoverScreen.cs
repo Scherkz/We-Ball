@@ -56,7 +56,7 @@ public class GameoverScreen : MonoBehaviour
         ToggleCildren(true);
 
         int rowsNeeded = players.Length + 1;
-        int columnsNeeded = roundsPlayed + 2; 
+        int columnsNeeded = roundsPlayed + 2;
         GenerateScoreboard(rowsNeeded, columnsNeeded, players);
         colorCircle.color = winner.GetColor();
         winnerTaunt.text = taunts[Random.Range(0, taunts.Length)];
@@ -65,7 +65,8 @@ public class GameoverScreen : MonoBehaviour
     private void OnRematch()
     {
         // Reload scene to restart game
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        int currentLevelBuildIndex = SceneManager.GetSceneAt(SceneManager.sceneCount - 1).buildIndex;
+        EventBus.Instance?.OnSwitchToScene?.Invoke(currentLevelBuildIndex);
     }
 
     private void ToggleCildren(bool enable)
@@ -80,10 +81,10 @@ public class GameoverScreen : MonoBehaviour
     {
         RectTransform rt = scoreboard.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(totalColumns * cellWidth, totalRows * cellHeight);
-        
+
         for (int r = 0; r < totalRows; r++)
         {
-            for(int c = 0; c < totalColumns; c++)
+            for (int c = 0; c < totalColumns; c++)
             {
                 var cell = Instantiate(cellPrefab, scoreboard);
                 var text = cell.GetComponent<TextMeshProUGUI>();
@@ -115,11 +116,11 @@ public class GameoverScreen : MonoBehaviour
                 }
                 else if (isLastColumn && !isFirstRow)
                 {
-                    text.text = players[r-1].score.ToString();
+                    text.text = players[r - 1].score.ToString();
                 }
                 else
                 {
-                    text.text = players[r-1].scorePerRound[c-1].ToString();
+                    text.text = players[r - 1].scorePerRound[c - 1].ToString();
                 }
             }
         }

@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class TestingPrefabCycler : MonoBehaviour
 {
-    public BuildManager buildManager;
+    public TestingBuildManager buildManager;
     public BuildingData[] buildings;
 
     public InputAction switchAction;

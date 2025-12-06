@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: LevelScene
+  m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.SceneTemplate.SceneTemplateAsset
+  templateScene: {fileID: 102900000, guid: 0643190bb462a70479146a8e503099f9, type: 3}
+  templateName: LevelScene
+  description: Scene template for all level scenes
+  preview: {fileID: 0}
+  dependencies:
+  - dependency: {fileID: 6204720415019883559, guid: fb7eba92f1e586d4fa5d25ed6dcdcdee, type: 3}
+    instantiationMode: 1
+  - dependency: {fileID: 4778659842408050101, guid: 8a9749bd95aa17241b73d749f77608a1, type: 3}
+    instantiationMode: 1
+  - dependency: {fileID: 3397623193385846382, guid: f4020c342d479f749a0e657b892f4314, type: 3}
+    instantiationMode: 1
+  - dependency: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 918001036938977654, guid: 94e79a0ab9a13e149865001b179b6124, type: 3}
+    instantiationMode: 1
+  - dependency: {fileID: 2800000, guid: e4e7a2bbd04a2de4b95b540057213a88, type: 3}
+    instantiationMode: 1
+  templatePipeline: {fileID: 0}
+  badge: {fileID: 0}
+  addToDefaults: 1

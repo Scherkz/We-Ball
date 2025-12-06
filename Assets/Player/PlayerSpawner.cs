@@ -21,37 +21,27 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Transform spawnPointsParents;
-    [SerializeField]
-    private Color[] spawnPointColors =
-    {
-        Color.blue,
-        Color.violet,
-        Color.orange,
-        Color.green
-    };
+    [SerializeField] private Color[] spawnPointColors;
 
     private readonly List<JoinedPlayer> joinedPlayers = new();
     private SpawnPoint[] spawnPoints;
 
     private int playerLastID = 0;
 
-    private void Awake()
+    private void OnEnable()
     {
-        spawnPoints = new SpawnPoint[spawnPointsParents.childCount];
-        for (int i = 0; i < spawnPointsParents.childCount; i++)
-        {
-            spawnPoints[i] = new SpawnPoint()
-            {
-                position = spawnPointsParents.GetChild(i).position,
-                color = spawnPointColors[i],
-                occupied = false
-            };
-        }
+        EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
     }
 
     private void Update()
     {
+        if (spawnPoints == null) return;
+
         foreach (var gamepad in Gamepad.all)
         {
             // gamepad already connected to player
@@ -118,6 +108,20 @@ public class PlayerSpawner : MonoBehaviour
         }
 
         return spawnPoints[0];
+    }
+
+    private void OnLevelLoaded(Level level)
+    {
+        spawnPoints = new SpawnPoint[level.SpawnPointsParent.childCount];
+        for (int i = 0; i < level.SpawnPointsParent.childCount; i++)
+        {
+            spawnPoints[i] = new SpawnPoint()
+            {
+                position = level.SpawnPointsParent.GetChild(i).position,
+                color = spawnPointColors[i],
+                occupied = false
+            };
+        }
     }
 
     private void OnAnyPlayerEnterFinishArea()
