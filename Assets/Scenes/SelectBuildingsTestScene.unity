@@ -1795,7 +1795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8a275ee9f8fd64fa934c497cd597e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngameScoreboard
-  playerScoreCounterPrefab: {fileID: 0}
+  playerScoreCounterPrefab: {fileID: 2506745441221474977, guid: 660b61ed591b8de459f82be945b5409e, type: 3}
 --- !u!1 &1858044079
 GameObject:
   m_ObjectHideFlags: 0
