@@ -124,4 +124,31 @@ public class PlayerController : MonoBehaviour
 
         aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        ApplyFrictionFromSurface(collision.collider);
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        body.linearDamping = 0f;
+    }
+
+    private void ApplyFrictionFromSurface(Collider2D collider)
+    {
+        if (collider != null)
+        {
+            PhysicsMaterial2D material = collider.sharedMaterial;
+
+            if (material != null)
+            {
+                body.linearDamping = material.friction;
+            }
+            else
+            {
+                body.linearDamping = 0f;
+            }
+        }
+    }
 }
