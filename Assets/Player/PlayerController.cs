@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        BallCollisionEvent?.Invoke(collision);
         ApplyFrictionFromSurface(collision.collider);
     }
 
@@ -180,11 +181,6 @@ public class PlayerController : MonoBehaviour
     }
     
     // Ball collision events are used for special shots or powerups
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        BallCollisionEvent?.Invoke(collision);
-    }
-
     public void SetSpecialShotAvailability(bool available)
     {
         specialShotAvailable = available;
