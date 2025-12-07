@@ -14,44 +14,37 @@ public class PlayerSpawner : MonoBehaviour
 
     private record JoinedPlayer
     {
-        public SpawnPoint spawnpoint;
+        public int spawnPointIndex;
         public Gamepad gamepad;
         public PlayerInput playerInput;
         public int ID;
     }
 
+    public bool active = false;
+
     [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private Transform spawnPointsParents;
-    [SerializeField]
-    private Color[] spawnPointColors =
-    {
-        Color.blue,
-        Color.violet,
-        Color.orange,
-        Color.green
-    };
+    [SerializeField] private Color[] spawnPointColors;
 
     private readonly List<JoinedPlayer> joinedPlayers = new();
     private SpawnPoint[] spawnPoints;
 
     private int playerLastID = 0;
 
-    private void Awake()
+    private void OnEnable()
     {
-        spawnPoints = new SpawnPoint[spawnPointsParents.childCount];
-        for (int i = 0; i < spawnPointsParents.childCount; i++)
-        {
-            spawnPoints[i] = new SpawnPoint()
-            {
-                position = spawnPointsParents.GetChild(i).position,
-                color = spawnPointColors[i],
-                occupied = false
-            };
-        }
+        EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
     }
 
     private void Update()
     {
+        if (!active) return;
+        if (spawnPoints == null) return;
+
         foreach (var gamepad in Gamepad.all)
         {
             // gamepad already connected to player
@@ -77,20 +70,21 @@ public class PlayerSpawner : MonoBehaviour
 
         var joinedPlayer = new JoinedPlayer()
         {
-            spawnpoint = GetNextFreeSpawnpoint(),
+            spawnPointIndex = GetNextFreeSpawnpoint(),
             gamepad = gamepad,
             playerInput = playerInput,
             ID = playerLastID++
         };
+        var spawnPoint = spawnPoints[joinedPlayer.spawnPointIndex];
 
         var player = playerInput.GetComponent<Player>();
         player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
-        player.CallNextFrame(player.StartPlayingPhase, joinedPlayer.spawnpoint.position);
+        player.CallNextFrame(player.StartPlayingPhase, spawnPoint.position);
         player.gameObject.name = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";
-        player.SetColor(joinedPlayer.spawnpoint.color);
+        player.SetColor(spawnPoint.color);
 
         joinedPlayers.Add(joinedPlayer);
-        joinedPlayer.spawnpoint.occupied = true;
+        spawnPoint.occupied = true;
 
         Debug.Log($"Player {joinedPlayer.ID} joined: {joinedPlayer.gamepad.name}");
     }
@@ -98,26 +92,51 @@ public class PlayerSpawner : MonoBehaviour
     private void RemovePlayer(PlayerInput playerInput)
     {
         var joinedPlayer = joinedPlayers.Find((player) => player.playerInput == playerInput);
-        joinedPlayer.spawnpoint.occupied = false;
+
         joinedPlayers.Remove(joinedPlayer);
+        spawnPoints[joinedPlayer.spawnPointIndex].occupied = false;
 
         Debug.Log($"Lost Player {joinedPlayer.ID}: {joinedPlayer.gamepad.name}");
 
         this.CallNextFrame(Destroy, playerInput.gameObject);
     }
 
-    private SpawnPoint GetNextFreeSpawnpoint()
+    private int GetNextFreeSpawnpoint()
     {
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             var spawnpoint = spawnPoints[i];
             if (!spawnpoint.occupied)
             {
-                return spawnpoint;
+                return i;
             }
         }
 
-        return spawnPoints[0];
+        return 0;
+    }
+
+    private void OnLevelLoaded(Level level)
+    {
+        spawnPoints = new SpawnPoint[level.SpawnPointsParent.childCount];
+        for (int i = 0; i < level.SpawnPointsParent.childCount; i++)
+        {
+            spawnPoints[i] = new SpawnPoint()
+            {
+                position = level.SpawnPointsParent.GetChild(i).position,
+                color = spawnPointColors[i],
+                occupied = false
+            };
+        }
+
+        foreach (var joinedPlayer in joinedPlayers)
+        {
+            var spawnPoint = spawnPoints[joinedPlayer.spawnPointIndex];
+            spawnPoint.occupied = false;
+
+            var player = joinedPlayer.playerInput.GetComponent<Player>();
+            player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
+            player.CallNextFrame(player.StartPlayingPhase, spawnPoint.position);
+        }
     }
 
     private void OnAnyPlayerEnterFinishArea()
@@ -127,7 +146,7 @@ public class PlayerSpawner : MonoBehaviour
         EventBus.Instance?.OnStartGame?.Invoke(players.ToArray());
 
         // Disable self because player spawning during game is not intended
-        this.enabled = false;
+        active = false;
 
         // Unhook connected events
         foreach (var joinedPlayer in joinedPlayers)

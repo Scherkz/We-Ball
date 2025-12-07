@@ -21,8 +21,6 @@ public class Player : MonoBehaviour
     public int score;
     public List<int> scorePerRound = new();
     public float timeTookThisRound;
-    private float startTime;
-    private float endTime;
 
     [SerializeField] private GameObject confettiVFX;
 
@@ -37,6 +35,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D playerControllerRigidbody;
 
     private Color color;
+    private float startTime;
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -64,6 +64,15 @@ public class Player : MonoBehaviour
         buildController.OnSelectedBuilding -= OnBuildingSelected;
         buildController.OnBuildingPlaced -= OnBuildingPlaced;
         playerController.OnSwing -= OnPlayerSwings;
+    }
+
+    public void ResetSelf()
+    {
+        playerController.ResetSelf();
+
+        numberOfSwingsThisRound = 0;
+        score = 0;
+        scorePerRound.Clear();
     }
 
     public void StartNewRound()
@@ -95,7 +104,7 @@ public class Player : MonoBehaviour
 
         buildController.gameObject.SetActive(true);
         buildController.ToggleCursor(true);
-        
+
         buildController.InitBuildingPhase(buildGrid);
     }
 
@@ -110,13 +119,13 @@ public class Player : MonoBehaviour
         playerController.enabled = true;
         playerController.gameObject.SetActive(true);
         playerController.transform.position = spawnPosition;
+        playerController.ResetSelf();
 
         StartTimer();
 
         numberOfSwingsThisRound = 0;
 
         playerController.SetSpecialShotAvailability(true);
-        Debug.Log($"Special shot set availabe {gameObject.name}");
         playerController.ResetSpecialShotEnabled();
     }
 
@@ -196,7 +205,7 @@ public class Player : MonoBehaviour
         hasPlacedBuilding = true;
         buildController.enabled = false;
         buildController.ToggleCursor(false);
-        
+
         OnPlacedBuilding?.Invoke();
     }
 
@@ -210,7 +219,6 @@ public class Player : MonoBehaviour
     }
     private void StopTimer()
     {
-        endTime = Time.time;
-        timeTookThisRound = endTime - startTime;
+        timeTookThisRound = Time.time - startTime;
     }
 }
