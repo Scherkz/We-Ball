@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BuildManager : MonoBehaviour
+public class TestingBuildManager : MonoBehaviour
 {
     public BuildGrid grid;
 
@@ -43,6 +43,8 @@ public class BuildManager : MonoBehaviour
 
     private void Start()
     {
+        mainCamera = Camera.main;
+
         building.transform.localScale = new Vector3(grid.cellSize, grid.cellSize, 1);
 
         if (currentBuildingData != null)

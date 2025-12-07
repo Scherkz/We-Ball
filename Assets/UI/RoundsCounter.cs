@@ -5,6 +5,11 @@ public class RoundsCounter : MonoBehaviour
 {
     private TMP_Text text;
 
+    public void ResetSelf()
+    {
+        text.gameObject.SetActive(false);
+    }
+
     private void Awake()
     {
         text = transform.Find("RoundsText").GetComponent<TMP_Text>();
@@ -12,16 +17,18 @@ public class RoundsCounter : MonoBehaviour
 
     private void Start()
     {
-        text.gameObject.SetActive(false);
+        ResetSelf();
     }
 
     private void OnEnable()
     {
+        EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
         EventBus.Instance.OnRoundStart += SetRoundsText;
     }
 
     private void OnDisable()
     {
+        EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
         EventBus.Instance.OnRoundStart -= SetRoundsText;
     }
 
@@ -29,5 +36,10 @@ public class RoundsCounter : MonoBehaviour
     {
         text.gameObject.SetActive(true);
         text.text = $"Round {currentRoundCount}/{maxRoundsCount}";
+    }
+
+    private void OnLevelLoaded(Level _level)
+    {
+        ResetSelf();
     }
 }

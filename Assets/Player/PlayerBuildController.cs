@@ -17,8 +17,6 @@ public class PlayerBuildController : MonoBehaviour
     [SerializeField] private Color validColor = Color.white;
     [SerializeField] private Color invalidColor = Color.red;
     
-
-    private Camera mainCamera;
     private Vector2 screenPos;
 
     private Vector2 moveInput;
@@ -33,11 +31,6 @@ public class PlayerBuildController : MonoBehaviour
     {
         cursor = transform.Find("Cursor").GetComponent<SpriteRenderer>();
         buildingGhost = cursor.transform.Find("BuildingGhost").GetComponent<BuildingGhost>();
-    }
-
-    private void Start()
-    {
-        mainCamera = Camera.main;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -132,7 +125,7 @@ public class PlayerBuildController : MonoBehaviour
             screenPos.y = Mathf.Clamp(screenPos.y, screenMargin, Screen.height - screenMargin);
         }
 
-        var worldPos = mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0));
+        var worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0));
         worldPos.z = 0;
         cursor.transform.position = worldPos;
 

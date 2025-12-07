@@ -48,7 +48,17 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        ResetSelf();
+    }
+
+    public void ResetSelf()
+    {
         partyHat.SetActive(false);
+
+        body.angularVelocity = 0;
+        body.totalTorque = 0;
+        body.linearVelocity = Vector2.zero;
+        body.totalForce = Vector2.zero; 
     }
 
     public void TogglePartyHat(bool enable)
