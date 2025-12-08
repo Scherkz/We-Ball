@@ -7,17 +7,19 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Action OnSwing;
-    
+
     [SerializeField] private float shootForce = 10f;
     [SerializeField] private float arrowLength = 3f;
 
     [SerializeField] private float maxChargeTime = 1;
     [SerializeField] private float maxChargeMultiplier = 2f;
+
+    [SerializeField] private bool invertedControls = true;
     
     [Header("AimArrow")] 
     [SerializeField] private Transform aimArrow;
     [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
-    
+
     private Rigidbody2D body;
     private GameObject partyHat;
 
@@ -25,6 +27,16 @@ public class PlayerController : MonoBehaviour
 
     private bool isCharging = false;
     private float chargeTimer = 0f;
+
+    private bool isSpecialShotEnabled = false;
+    private bool specialShotAvailable = false;
+
+    private bool firstShotTakenAfterRoundStart = false;
+
+    public Action GetAssignedSpecialShot;
+    public Action HasAvailableSpecialShot;
+    public Action<Collision2D> BallCollisionEvent;
+    public Action<bool> OnSpecialShotStateChange;
 
     private void Awake()
     {
@@ -36,7 +48,17 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        ResetSelf();
+    }
+
+    public void ResetSelf()
+    {
         partyHat.SetActive(false);
+
+        body.angularVelocity = 0;
+        body.totalTorque = 0;
+        body.linearVelocity = Vector2.zero;
+        body.totalForce = Vector2.zero; 
     }
 
     public void TogglePartyHat(bool enable)
@@ -46,7 +68,21 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
-        aimInput = context.ReadValue<Vector2>();
+        var aimDirection = context.ReadValue<Vector2>();
+        aimInput = invertedControls ? -aimDirection : aimDirection;
+     }
+
+    public void ToggleSpecialShot(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (!specialShotAvailable) return;
+
+            isSpecialShotEnabled = !isSpecialShotEnabled;
+
+            // TODO: Replace with animation or particle effect in the future
+            Debug.Log($"{transform.parent.name} Special Shot enabled toggled to: " + isSpecialShotEnabled);
+        }
     }
 
     public void Shoot(InputAction.CallbackContext context)
@@ -77,6 +113,7 @@ public class PlayerController : MonoBehaviour
             aimArrow.gameObject.SetActive(false);
 
             OnSwing?.Invoke();
+            firstShotTakenAfterRoundStart = true;
         }
     }
 
@@ -88,6 +125,11 @@ public class PlayerController : MonoBehaviour
 
         if (aimArrow != null)
             aimArrow.gameObject.SetActive(false);
+    }
+
+    public void SetColor(Color color)
+    {
+        GetComponent<Renderer>().material.color = color;
     }
 
     private void Update()
@@ -118,5 +160,31 @@ public class PlayerController : MonoBehaviour
         aimArrow.rotation = Quaternion.Euler(0, 0, angle);
 
         aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
+    }
+
+    // Ball collision events are used for special shots or powerups
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        BallCollisionEvent?.Invoke(collision);
+    }
+
+    public void SetSpecialShotAvailability(bool available)
+    {
+        specialShotAvailable = available;
+    }
+
+    public void ResetSpecialShotEnabled()
+    {
+        this.isSpecialShotEnabled = false;
+    }
+
+    public bool IsSpecialShotEnabled()
+    {
+        return isSpecialShotEnabled;
+    }
+
+    public bool IsFirstShotTakenAfterRoundStart()
+    {
+        return firstShotTakenAfterRoundStart;
     }
 }

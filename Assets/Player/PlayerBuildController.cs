@@ -7,30 +7,30 @@ public class PlayerBuildController : MonoBehaviour
     public BuildGrid grid;
     public BuildingData currentBuildingData;
 
+    public Action OnSelectedBuilding;
     public Action OnBuildingPlaced;
 
     [SerializeField] private float cursorSpeed = 400f;
+    [SerializeField] private float cursorRadius = 1f;
     [SerializeField] private float screenMargin = 20f;
 
     [SerializeField] private Color validColor = Color.white;
     [SerializeField] private Color invalidColor = Color.red;
-
-    private Camera mainCamera;
+    
     private Vector2 screenPos;
 
     private Vector2 moveInput;
     private bool placeInput;
 
+    private SpriteRenderer cursor;
     private BuildingGhost buildingGhost;
+
+    private bool IsInSelectionPhase => grid == null;
 
     private void Awake()
     {
-        buildingGhost = transform.Find("BuildingGhost").GetComponent<BuildingGhost>();
-    }
-
-    private void Start()
-    {
-        mainCamera = Camera.main;
+        cursor = transform.Find("Cursor").GetComponent<SpriteRenderer>();
+        buildingGhost = cursor.transform.Find("BuildingGhost").GetComponent<BuildingGhost>();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -49,7 +49,18 @@ public class PlayerBuildController : MonoBehaviour
     {
         if (context.canceled)
         {
-            placeInput = true;
+            if (IsInSelectionPhase)
+            {
+                var hits = Physics2D.OverlapCircleAll(cursor.transform.position, cursorRadius);
+                foreach (var collider in hits)
+                {
+                    collider.gameObject.SendMessageUpwards("OnBuildingSelectedMessage", this, SendMessageOptions.DontRequireReceiver);
+                }
+            }
+            else
+            {
+                placeInput = true;
+            }
         }
     }
 
@@ -71,10 +82,15 @@ public class PlayerBuildController : MonoBehaviour
         }
     }
 
-    public void Init(BuildGrid buildGrid, BuildingData buildingData)
+    public void InitSelectionPhase(Vector2 screenPosition)
+    {
+        grid = null;
+        screenPos = screenPosition;
+    }
+
+    public void InitBuildingPhase(BuildGrid buildGrid)
     {
         grid = buildGrid;
-        currentBuildingData = buildingData;
 
         buildingGhost.gameObject.SetActive(true);
         buildingGhost.ShowBuilding(currentBuildingData);
@@ -83,11 +99,24 @@ public class PlayerBuildController : MonoBehaviour
         screenPos = new Vector2(Screen.width * .5f, Screen.height * .5f);
     }
 
+    public void SetColor(Color color)
+    {
+        cursor.material.color = color;
+    }
+
+    public void SetBuildingData(BuildingData buildingData)
+    {
+        currentBuildingData = buildingData;
+        OnSelectedBuilding?.Invoke();
+    }
+
+    public void ToggleCursor(bool enable)
+    {
+        cursor.gameObject.SetActive(enable);
+    }
+
     private void Update()
     {
-        if (grid == null || currentBuildingData == null)
-            return;
-
         if (moveInput != Vector2.zero)
         {
             screenPos += cursorSpeed * Time.deltaTime * moveInput;
@@ -96,20 +125,26 @@ public class PlayerBuildController : MonoBehaviour
             screenPos.y = Mathf.Clamp(screenPos.y, screenMargin, Screen.height - screenMargin);
         }
 
-        var worldPos = mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, -mainCamera.transform.position.z));
+        var worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 0));
+        worldPos.z = 0;
+        cursor.transform.position = worldPos;
 
-        var cellPos = grid.IsPositionInsideGrid(worldPos) ? grid.GetCellPosition(worldPos) : worldPos;
-        var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
-
-        buildingGhost.transform.position = cellPos;
-        buildingGhost.SetTint(canBuild ? validColor : invalidColor);
-
-        if (canBuild && placeInput)
+        // try snapping buildingGhost to grid if we are in the building phase
+        if (grid != null && currentBuildingData != null)
         {
-            grid.AddBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
-            OnBuildingPlaced?.Invoke();
+            var cellPos = grid.IsPositionInsideGrid(worldPos) ? grid.GetCellPosition(worldPos) : worldPos;
+            var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
 
-            buildingGhost.gameObject.SetActive(false);
+            cursor.transform.position = cellPos;
+            buildingGhost.SetTint(canBuild ? validColor : invalidColor);
+
+            if (canBuild && placeInput)
+            {
+                grid.AddBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
+                OnBuildingPlaced?.Invoke();
+
+                buildingGhost.gameObject.SetActive(false);
+            }
         }
 
         // reset inputs

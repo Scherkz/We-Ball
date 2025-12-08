@@ -22,12 +22,32 @@ public class EventBus : MonoBehaviour
     /// <summary>
     /// <list type="number">
     ///     <item>
+    ///         <term>int</term>
+    ///         <description>Contains the buildIndex of the scene that should be switched to.</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
+    public Action<int> OnSwitchToScene;
+
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
     ///         <term>Player[]</term>
     ///         <description>Contains all the joined players.</description>
     ///     </item>
     /// </list>
     /// </summary>
     public Action<Player[]> OnStartGame;
+
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>Level</term>
+    ///         <description>Contains the currently loaded level.</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
+    public Action<Level> OnLevelLoaded;
 
     /// <summary>
     /// <list type="number">
@@ -48,6 +68,14 @@ public class EventBus : MonoBehaviour
     ///     <item>
     ///         <term>Player</term>
     ///         <description>The winning player.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term>Player[]</term>
+    ///         <description>Contains all the joined players.</description>
+    ///     </item>
+    ///     <item>
+    ///         <term>int</term>
+    ///         <description>Contains the total amount of rounds played</description>
     ///     </item>
     /// </list>
     /// </summary>
@@ -90,18 +118,8 @@ public class EventBus : MonoBehaviour
     /// <summary>
     /// <list type="number">
     ///     <item>
-    ///         <term>Player</term>
-    ///         <description>The player who toggled their ready button. This does NOT mean the player is ready!</description>
-    ///     </item>
-    /// </list>
-    /// </summary>
-    public Action<Player> OnPlayerReady;
-
-    /// <summary>
-    /// <list type="number">
-    ///     <item>
     ///         <term>MapNode</term>
-    ///         <description>The map that was selected for playing after all players have voted and are ready. </description>
+    ///         <description>The map that was selected for playing after all players have voted. </description>
     ///     </item>
     /// </list>
     /// </summary>
