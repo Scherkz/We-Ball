@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpecialShotData[] specialShots;
 
     [SerializeField] private int pointsForWinningRound = 25;
-    [SerializeField] private int pointsDeductedPerAdditionalShot = 5;
+    [SerializeField] private int pointsDeductedPerPlacement = 5;
     [SerializeField] private int bonusPointsForFastestPlayer = 10;
 
     private Player[] players = { };
@@ -184,20 +184,7 @@ public class GameManager : MonoBehaviour
         }
 
         // all players finished the round
-        int leastSwings = players.Min(player => player.numberOfSwingsThisRound);
-
-        var fastestPlayer = players.OrderBy(player => player.timeTookThisRound).First();
-
-        foreach (var player in players)
-        {
-            var additionalSwings = player.numberOfSwingsThisRound - leastSwings;
-            var scoreAwardedThisRound = Mathf.Max(0, pointsForWinningRound - (additionalSwings * pointsDeductedPerAdditionalShot));
-            if (player == fastestPlayer)
-            {
-                scoreAwardedThisRound += bonusPointsForFastestPlayer;
-            }
-            player.AddScore(scoreAwardedThisRound);
-        }
+        AwardScore();
 
         if (roundCount >= maxRoundsPerGame)
         {
@@ -252,5 +239,29 @@ public class GameManager : MonoBehaviour
 
         await Awaitable.NextFrameAsync();
         await SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
+    }
+
+    private void AwardScore()
+    {
+        var fastestTime = players.Min(player => player.timeTookThisRound);
+
+        players = players.OrderBy(player => player.numberOfSwingsThisRound).ToArray();
+        int currentPlacement = 0;
+        int currentSwings = players[0].numberOfSwingsThisRound;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (currentSwings != players[i].numberOfSwingsThisRound)
+            {
+                currentPlacement++;
+            }
+            int pointsAwarded = pointsForWinningRound - (currentPlacement * pointsDeductedPerPlacement);
+
+            if (players[i].timeTookThisRound == fastestTime)
+            {
+                pointsAwarded += bonusPointsForFastestPlayer;
+            }
+            players[i].AddScore(pointsAwarded);
+        }
     }
 }
