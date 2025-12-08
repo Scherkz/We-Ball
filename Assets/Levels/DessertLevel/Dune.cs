@@ -7,7 +7,7 @@ public class Dune : MonoBehaviour
     //TODO change public to serialize field
     public float eruptionInterval = 10f;
     public float eruptionDuration = 3f;
-    public float pushForce = 128f;
+    public float pushForce = 32f;
     public float eruptionSpeed = 5f;
     public Transform bottomPos;
     public Transform topPos;
