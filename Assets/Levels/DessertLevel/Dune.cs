@@ -48,18 +48,16 @@ public class Dune : MonoBehaviour
         isErupting = true;
 
         Vector3 start = bottomPos.position;
-        Vector3 end = topPos.position;
+        Vector3 end = topPos.position ;
         float distance = Vector3.Distance(start, end);
         float travelTime = distance / eruptionSpeed;
         float t = 0;
 
-        // Move from bottom to top at constant speed
         while (t < travelTime)
         {
             t += Time.deltaTime;
             transform.position = Vector3.Lerp(start, end, t / travelTime);
 
-            // Push players
             foreach (var rb in playersInGeyser)
             {
                 rb.AddForce(Vector2.up * pushForce);
@@ -68,10 +66,8 @@ public class Dune : MonoBehaviour
             yield return null;
         }
 
-        // Stay active a bit
         yield return new WaitForSeconds(eruptionDuration);
 
-        // Reset
         transform.position = start;
         isErupting = false;
     }
