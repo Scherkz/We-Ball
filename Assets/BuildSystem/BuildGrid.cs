@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using Color = UnityEngine.Color;
 
 public class BuildGrid : MonoBehaviour
 {
@@ -210,27 +212,20 @@ public class BuildGrid : MonoBehaviour
 
     private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData, Building.Rotation rotation)
     {
-        int yExtend, xExtend;
-        switch (rotation)
+        var size = buildingData.cellCount;
+        
+        for (int y = 0; y < size.y; y++)
         {
-            default:
-            case Building.Rotation.Degree0:
-            case Building.Rotation.Degree180:
-                xExtend = buildingData.cellCount.x;
-                yExtend = buildingData.cellCount.y;
-                break;
-            case Building.Rotation.Degree90:
-            case Building.Rotation.Degree270:
-                xExtend = buildingData.cellCount.y;
-                yExtend = buildingData.cellCount.x;
-                break;
-        }
-
-        for (int x = 0; x < xExtend; x++)
-        {
-            for (int y = 0; y < yExtend; y++)
+            for (int x = 0; x < size.x; x++)
             {
-                yield return new Vector2Int(x, y);
+                if (!buildingData.UsesCell(x, y))
+                    continue;
+
+                var local = new Vector2Int(x, y);
+
+                var rotated = RotateLocalOffset(local, size, rotation);
+
+                yield return rotated;
             }
         }
     }
@@ -269,5 +264,29 @@ public class BuildGrid : MonoBehaviour
         int x = (int) Mathf.Floor(localPosition.x / cellSize);
         int y = (int) Mathf.Floor(localPosition.y / cellSize);
         return new Vector2Int(x, y);
+    }
+    
+    private Vector2Int RotateLocalOffset(Vector2Int local, Vector2Int size, Building.Rotation rotation)
+    {
+        int x = local.x;
+        int y = local.y;
+        int w = size.x;
+        int h = size.y;
+
+        switch (rotation)
+        {
+            default:
+            case Building.Rotation.Degree0:
+                return new Vector2Int(x, y);
+
+            case Building.Rotation.Degree90:
+                return new Vector2Int(y, w - 1 - x);
+
+            case Building.Rotation.Degree180:
+                return new Vector2Int(w - 1 - x, h - 1 - y);
+
+            case Building.Rotation.Degree270:
+                return new Vector2Int(h - 1 - y, x);
+        }
     }
 }

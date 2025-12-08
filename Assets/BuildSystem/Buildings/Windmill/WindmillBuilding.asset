@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   name: Windmill
   prefab: {fileID: 8212586786751340706, guid: be2184abedb851a489e805cab7567a95, type: 3}
+  isAntiBuilding: 0
   cellCount: {x: 3, y: 3}
+  bitmask: 010101010101010101
