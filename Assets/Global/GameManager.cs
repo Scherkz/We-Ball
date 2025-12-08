@@ -184,26 +184,7 @@ public class GameManager : MonoBehaviour
         }
 
         // all players finished the round
-        var fastestPlayer = players.OrderBy(player => player.timeTookThisRound).First();
-
-        players = players.OrderBy(player => player.numberOfSwingsThisRound).ToArray();
-        int currentPlacement = 0;
-        int currentSwings = players[0].numberOfSwingsThisRound;
-
-        for (int i = 0; i< players.Length; i++)
-        {
-            if(currentSwings != players[i].numberOfSwingsThisRound)
-            { 
-                currentPlacement++;
-            }
-            int pointsAwarded = pointsForWinningRound - ((currentPlacement) * pointsDeductedPerPlacement);
-
-            if (players[i] == fastestPlayer)
-            {
-                pointsAwarded += bonusPointsForFastestPlayer;
-            }
-            players[i].AddScore(pointsAwarded);
-        }
+        AwardScore();
 
         if (roundCount >= maxRoundsPerGame)
         {
@@ -258,5 +239,29 @@ public class GameManager : MonoBehaviour
 
         await Awaitable.NextFrameAsync();
         await SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
+    }
+
+    private void AwardScore()
+    {
+        var fastestTime = players.Min(player => player.timeTookThisRound);
+
+        players = players.OrderBy(player => player.numberOfSwingsThisRound).ToArray();
+        int currentPlacement = 0;
+        int currentSwings = players[0].numberOfSwingsThisRound;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (currentSwings != players[i].numberOfSwingsThisRound)
+            {
+                currentPlacement++;
+            }
+            int pointsAwarded = pointsForWinningRound - (currentPlacement * pointsDeductedPerPlacement);
+
+            if (players[i].timeTookThisRound == fastestTime)
+            {
+                pointsAwarded += bonusPointsForFastestPlayer;
+            }
+            players[i].AddScore(pointsAwarded);
+        }
     }
 }
