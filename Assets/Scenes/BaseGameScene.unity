@@ -469,7 +469,7 @@ MonoBehaviour:
   specialShots:
   - {fileID: 11400000, guid: 41c510f05b83187448ac31d1c8fa7d09, type: 2}
   pointsForWinningRound: 25
-  pointsDeductedPerAdditionalShot: 5
+  pointsDeductedPerPlacement: 5
   bonusPointsForFastestPlayer: 10
 --- !u!114 &1012712185
 MonoBehaviour:

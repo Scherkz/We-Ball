@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpecialShotData[] specialShots;
 
     [SerializeField] private int pointsForWinningRound = 25;
-    [SerializeField] private int pointsDeductedPerAdditionalShot = 5;
+    [SerializeField] private int pointsDeductedPerPlacement = 5;
     [SerializeField] private int bonusPointsForFastestPlayer = 10;
 
     private Player[] players = { };
@@ -187,16 +187,16 @@ public class GameManager : MonoBehaviour
         var fastestPlayer = players.OrderBy(player => player.timeTookThisRound).First();
 
         players = players.OrderBy(player => player.numberOfSwingsThisRound).ToArray();
-        int currentPlace = 1;
+        int currentPlacement = 0;
         int currentSwings = players[0].numberOfSwingsThisRound;
 
         for (int i = 0; i< players.Length; i++)
         {
             if(currentSwings != players[i].numberOfSwingsThisRound)
             { 
-                currentPlace++;
+                currentPlacement++;
             }
-            int pointsAwarded = pointsForWinningRound - ((currentPlace - 1) * pointsDeductedPerAdditionalShot);
+            int pointsAwarded = pointsForWinningRound - ((currentPlacement) * pointsDeductedPerPlacement);
 
             if (players[i] == fastestPlayer)
             {
