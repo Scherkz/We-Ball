@@ -174,9 +174,6 @@ public class GameManager : MonoBehaviour
 
     private void OnPlayerFinishedRound()
     {
-
-
-
         if (currentPhase != GamePhase.Playing)
             return;
 
