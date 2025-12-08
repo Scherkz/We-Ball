@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
-using Color = UnityEngine.Color;
 
 public class BuildGrid : MonoBehaviour
 {

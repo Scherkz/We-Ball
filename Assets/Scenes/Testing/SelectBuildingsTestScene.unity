@@ -1174,17 +1174,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6397918722096016401, guid: f4020c342d479f749a0e657b892f4314, type: 3}
   m_PrefabInstance: {fileID: 53767009}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1091871225 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 371365829638372029, guid: f4020c342d479f749a0e657b892f4314, type: 3}
-  m_PrefabInstance: {fileID: 53767009}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59530da0196779142b3f8ed3f446474c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BuildGrid
 --- !u!1 &1093615234
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,8 +1315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b6dac0faa05de4393bd074aea93876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
+  active: 0
   playerPrefab: {fileID: 3288741480610849305, guid: bcaa9720fe9cabe44ae5c8a230c0a1e0, type: 3}
-  spawnPointsParents: {fileID: 1011623362}
   spawnPointColors:
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 0.9333334, g: 0.509804, b: 0.9333334, a: 1}
@@ -1345,9 +1334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34c3eac6bcca5947b04b688c4b53a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  playerSpawner: {fileID: 0}
+  screenBorderDistance: 64
   maxRoundsPerGame: 6
-  buildingSpawner: {fileID: 850334289}
-  buildGrid: {fileID: 1091871225}
   buildings:
   - {fileID: 11400000, guid: a611068c21d8e294f84f5916f5918e57, type: 2}
   - {fileID: 11400000, guid: 04fa0426341b1a74290371ba78fc53fb, type: 2}
@@ -1357,10 +1346,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 54df8a3385e6e614393b0c6bab06a94d, type: 2}
   specialShots:
   - {fileID: 11400000, guid: 41c510f05b83187448ac31d1c8fa7d09, type: 2}
-  spawnPointsParent: {fileID: 1011623362}
-  screenBorderDistance: 64
   pointsForWinningRound: 25
-  pointsDeductedPerAdditionalShot: 5
+  pointsDeductedPerPlacement: 5
   bonusPointsForFastestPlayer: 10
 --- !u!114 &1324389750
 MonoBehaviour:
