@@ -28,7 +28,7 @@ public class Dune : MonoBehaviour
         {
             foreach (var rb in playersInGeyser)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 2f);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0.5f);
             }
         }
     }
