@@ -9,7 +9,7 @@ public class BuildingData : ScriptableObject
     public bool isAntiBuilding = false;
     public Vector2Int cellCount = Vector2Int.one;
     
-    [SerializeField] private bool[] bitmask;
+    [HideInInspector][SerializeField] private bool[] bitmask;
 
     public bool UsesCell(int x, int y)
     {

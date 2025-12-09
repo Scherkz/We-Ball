@@ -6,8 +6,7 @@ public class BuildingDataCustomEditor : Editor
 {
     private SerializedProperty cellCountProperty;
     private SerializedProperty bitmaskProperty;
-
-    private bool defaultBitMask;
+    
     private void OnEnable()
     {
         cellCountProperty = serializedObject.FindProperty("cellCount");
@@ -27,28 +26,14 @@ public class BuildingDataCustomEditor : Editor
         if (bitmaskProperty.arraySize != total)
         {
             bitmaskProperty.arraySize = total;
+            for (int i = 0; i < total; i++)
+            {
+                bitmaskProperty.GetArrayElementAtIndex(i).boolValue = true;
+            }
         }
         
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Shape Bitmask", EditorStyles.boldLabel);
-
-        //initializes the bitmask with all true
-        if (!defaultBitMask)
-        {
-            defaultBitMask = true;
-            for (int y = height - 1; y >= 0; y--)
-            {
-                EditorGUILayout.BeginHorizontal();
-
-                for (int x = 0; x < width; x++)
-                {
-                    var index = x + y * width;
-                    bitmaskProperty.GetArrayElementAtIndex(index).boolValue = true;
-                }
-
-                EditorGUILayout.EndHorizontal();
-            }
-        }
 
         for (int y = height - 1; y >= 0; y--)
         {
