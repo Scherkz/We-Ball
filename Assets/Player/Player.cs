@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
 
     private Color color;
     private float startTime;
+    private Vector3 spawnPoint;
 
     private void Awake()
     {
@@ -127,6 +129,8 @@ public class Player : MonoBehaviour
 
         playerController.SetSpecialShotAvailability(true);
         playerController.ResetSpecialShotEnabled();
+
+        spawnPoint = spawnPosition;
     }
 
     // Generic way to assign a special shot to the player
@@ -169,6 +173,11 @@ public class Player : MonoBehaviour
         score += scoreAwardedThisRound;
         scorePerRound.Add(scoreAwardedThisRound);
         OnScoreChanges?.Invoke(score);
+    }
+
+    public Vector3 getSpawnPoint()
+    {
+        return spawnPoint;
     }
 
     // is called via Unity's messaging system
