@@ -322,5 +322,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Windmill
   spriteRenderer: {fileID: 7293939932764660765}
+  rotation: 0
   rotationAnchor: {fileID: 151092759018211522}
   rotationSpeed: -15
