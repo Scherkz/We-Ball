@@ -19,6 +19,17 @@ public class GameoverScreen : MonoBehaviour
     private int cellHeight = 50;
     private int cellWidth = 50;
 
+    public void ResetSelf()
+    {
+        rematchInputAction.Disable();
+        ToggleCildren(false);
+
+        for (int i = scoreboard.childCount - 1; i >= 0; i--)
+        {
+            Destroy(scoreboard.GetChild(i).gameObject);
+        }
+    }
+
     private void Awake()
     {
         colorCircle = transform.Find("ColorCircle").GetComponent<Image>();
@@ -28,17 +39,18 @@ public class GameoverScreen : MonoBehaviour
 
     private void Start()
     {
-        rematchInputAction.Disable();
-        ToggleCildren(false);
+        ResetSelf();
     }
 
     private void OnEnable()
     {
+        EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
         EventBus.Instance.OnWinnerDicided += OnWinnerDicided;
     }
 
     private void OnDisable()
     {
+        EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
         EventBus.Instance.OnWinnerDicided -= OnWinnerDicided;
     }
 
@@ -55,9 +67,7 @@ public class GameoverScreen : MonoBehaviour
         rematchInputAction.Enable();
         ToggleCildren(true);
 
-        int rowsNeeded = players.Length + 1;
-        int columnsNeeded = roundsPlayed + 2; 
-        GenerateScoreboard(rowsNeeded, columnsNeeded, players);
+        GenerateScoreboard(players, roundsPlayed);
         colorCircle.color = winner.GetColor();
         winnerTaunt.text = taunts[Random.Range(0, taunts.Length)];
     }
@@ -65,7 +75,8 @@ public class GameoverScreen : MonoBehaviour
     private void OnRematch()
     {
         // Reload scene to restart game
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        int currentLevelBuildIndex = SceneManager.GetSceneAt(SceneManager.sceneCount - 1).buildIndex;
+        EventBus.Instance?.OnSwitchToScene?.Invoke(currentLevelBuildIndex);
     }
 
     private void ToggleCildren(bool enable)
@@ -76,52 +87,69 @@ public class GameoverScreen : MonoBehaviour
         }
     }
 
-    private void GenerateScoreboard(int totalRows, int totalColumns, Player[] players)
+    private void GenerateScoreboard(Player[] players, int roundsPlayed)
     {
+        int totalRows = players.Length + 1;
+        int totalColumns = roundsPlayed + 2;
+
         RectTransform rt = scoreboard.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(totalColumns * cellWidth, totalRows * cellHeight);
-        
+
         for (int r = 0; r < totalRows; r++)
         {
-            for(int c = 0; c < totalColumns; c++)
+            for (int c = 0; c < totalColumns; c++)
             {
-                var cell = Instantiate(cellPrefab, scoreboard);
-                var text = cell.GetComponent<TextMeshProUGUI>();
-
                 bool isFirstRow = r == 0;
                 bool isFirstColumn = c == 0;
                 bool isLastColumn = c == totalColumns - 1;
 
-                if (isFirstRow && isFirstColumn)
+                if (isFirstColumn && !isFirstRow)
                 {
-                    text.text = "";
-                }
-                else if (isFirstRow && isLastColumn)
-                {
-                    text.text = "Total";
-                }
-                else if (isFirstRow)
-                {
-                    text.text = c.ToString();
-                }
-                else if (isFirstColumn && !isFirstRow)
-                {
-                    Destroy(cell);
                     var circleBall = Instantiate(circlePrefab, scoreboard);
+
                     var circleImage = circleBall.GetComponent<Image>();
                     circleImage.color = players[r - 1].GetColor();
+
                     RectTransform crt = circleBall.GetComponent<RectTransform>();
                     crt.sizeDelta = new Vector2(cellWidth, cellHeight);
+                    continue;
                 }
-                else if (isLastColumn && !isFirstRow)
+
+                var cell = Instantiate(cellPrefab, scoreboard);
+                var text = cell.GetComponent<TextMeshProUGUI>();
+
+                if (isFirstRow)
                 {
-                    text.text = players[r-1].score.ToString();
+                    if (isFirstColumn)
+                    {
+                        text.text = "";
+                    }
+                    else if (isLastColumn)
+                    {
+                        text.text = "Total";
+                    }
+                    else
+                    {
+                        text.text = c.ToString();
+                    }
                 }
                 else
                 {
-                    text.text = players[r-1].scorePerRound[c-1].ToString();
+                    if (isLastColumn)
+                    {
+                        text.text = players[r - 1].score.ToString();
+                    }
+                    else
+                    {
+                        text.text = players[r - 1].scorePerRound[c - 1].ToString();
+                    }
                 }
             }
         }
+    }
+
+    private void OnLevelLoaded(Level _level)
+    {
+        ResetSelf();
     }
 }
