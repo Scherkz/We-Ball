@@ -15,12 +15,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxChargeMultiplier = 2f;
 
     [SerializeField] private bool invertedControls = true;
-    
-    [Header("AimArrow")] 
+
+    [Header("AimArrow")]
     [SerializeField] private Transform aimArrow;
     [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
 
-    // Threshold to determine if the ball is still "in the shot" or just rolling
+    // Threshold to determine if the ball is still "in the shot" or just rolling or idling
     [SerializeField] private float significantVelocity = 0.8f;
 
     private Rigidbody2D body;
@@ -42,8 +42,6 @@ public class PlayerController : MonoBehaviour
     public Action<bool> OnSpecialShotStateChange;
     public Action OnDisableSpecialShotVFX;
     public Action OnEnableSpecialShotVFX;
-
-    float maxSpeed=0;
 
     private void Awake()
     {
@@ -67,13 +65,14 @@ public class PlayerController : MonoBehaviour
     {
         var aimDirection = context.ReadValue<Vector2>();
         aimInput = invertedControls ? -aimDirection : aimDirection;
-     }
+    }
 
     public void ToggleSpecialShot(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             if (!specialShotAvailable) return;
+
             // Only allow enabling the special shot when the ball is rolling "slowly"
             // disabling should be possible at any time
             if (!isSpecialShotEnabled && body.linearVelocity.magnitude > significantVelocity) return;
@@ -151,12 +150,6 @@ public class PlayerController : MonoBehaviour
             chargeTimer += Time.deltaTime;
             chargeTimer = Mathf.Min(chargeTimer, maxChargeTime);
         }
-        if (maxSpeed < body.linearVelocity.magnitude)
-        {
-            maxSpeed = body.linearVelocity.magnitude;
-            Debug.Log("Max Speed: " + maxSpeed);
-        }
-        // max speed found up to 27
     }
 
     private void ShowAimArrow(Vector2 input)

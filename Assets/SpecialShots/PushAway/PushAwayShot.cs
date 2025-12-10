@@ -9,26 +9,41 @@ public class PushAwayShot : SpecialShot
     private Player player;
     private Rigidbody2D body;
 
-    [SerializeField] float maximalImpactRange = 10f;
-    [SerializeField] float maximalImpactForce = 35f;
+    [Range(0, 10f)]
+    [SerializeField] private float maximalImpactRange;
+
+    [Range(0, 50f)]
+    [SerializeField] private float maximalImpactForce;
 
     [SerializeField] private GameObject specializedShotVFX;
     [SerializeField] private GameObject explodeVFX;
+
+    [Range(0, 1f)]
+    [SerializeField] private float speedWeight;
+    private float distanceWeight;
+
+    // Maximum speed a ball can reach with a standard shot, is used to calculate the speed factor
+    private const float maxBallSpeed = 20f;
+
+    public void Awake()
+    {
+        distanceWeight = 1 - speedWeight;
+    }
 
     public override void Init(PlayerController playerController, Player player, Rigidbody2D body)
     {
         this.playerController = playerController;
         this.player = player;
         this.body = body;
-        
-        if(playerController != null)
+
+        if (playerController != null)
         {
             playerController.BallCollisionEvent += HandleCollision;
             playerController.OnEnableSpecialShotVFX += EnableSpecialShotVFX;
             playerController.OnDisableSpecialShotVFX += DisableSpecialShotVFX;
         }
 
-        if(player != null)
+        if (player != null)
         {
             player.OnDisableSpecialShotVFX += DisableSpecialShotVFX;
         }
@@ -82,14 +97,14 @@ public class PushAwayShot : SpecialShot
                 if (otherBallBody.linearVelocity.magnitude > this.body.linearVelocity.magnitude) continue;
 
                 Vector2 pushDirection = (otherBallBody.position - impactPosition).normalized;
-                float distance = Vector2.Distance(otherBallBody.position, impactPosition);
-                float maxBallSpeed = 27f;
-                float t = Mathf.Clamp01(this.body.linearVelocity.magnitude / maxBallSpeed);
 
-                float distanceFactor = 1 - Mathf.Clamp01(1/(distance / maximalImpactRange));
-                //float distanceFactorPow = Mathf.Pow(distanceFactor, 2); // Square for more falloff
-                t = t*0.7f + distanceFactor*0.3f;
-                float forceMagnitude = Mathf.Lerp(maximalImpactForce, 0f, t);
+                float distance = Vector2.Distance(otherBallBody.position, impactPosition);
+                float distanceFactor = Mathf.SmoothStep(1f, 0, distance / maximalImpactRange);
+
+                float speedFactor = Mathf.SmoothStep(0, 1f, this.body.linearVelocity.magnitude / maxBallSpeed);
+
+                float forceFactor = speedFactor * speedWeight + distanceFactor * distanceWeight;
+                float forceMagnitude = Mathf.Lerp(0f, maximalImpactForce, forceFactor);
                 otherBallBody.AddForce(pushDirection * forceMagnitude, ForceMode2D.Impulse);
             }
         }

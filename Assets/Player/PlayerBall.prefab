@@ -411,7 +411,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &910819916042238629
 CircleCollider2D:
@@ -468,4 +468,4 @@ MonoBehaviour:
   invertedControls: 1
   aimArrow: {fileID: 7853706692911780932}
   aimArrowMaxLengthMultiplier: 1.5
-  minimalVelocityForSelfInducedMotion: 0.8
+  significantVelocity: 0.8

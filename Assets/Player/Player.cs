@@ -137,8 +137,9 @@ public class Player : MonoBehaviour
 
     public void UsedSpecialShot()
     {
-        playerController.SetSpecialShotAvailability(false);
         OnDisableSpecialShotVFX?.Invoke();
+        playerController.SetSpecialShotAvailability(false);
+
         OnSpecialShotAssigned?.Invoke(""); // displays nothing in the UI
     }
 
