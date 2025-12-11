@@ -15,10 +15,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxChargeMultiplier = 2f;
 
     [SerializeField] private bool invertedControls = true;
-    
-    [Header("AimArrow")] 
+
+    [Header("AimArrow")]
     [SerializeField] private Transform aimArrow;
     [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
+
+    // Threshold to determine if the ball is still "in the shot" or just rolling or idling
+    [SerializeField] private float significantVelocity = 0.8f;
 
     private Rigidbody2D body;
     private GameObject partyHat;
@@ -31,12 +34,14 @@ public class PlayerController : MonoBehaviour
     private bool isSpecialShotEnabled = false;
     private bool specialShotAvailable = false;
 
-    private bool firstShotTakenAfterRoundStart = false;
+    private bool hadCollisonSinceLastShot = false;
 
     public Action GetAssignedSpecialShot;
     public Action HasAvailableSpecialShot;
     public Action<Collision2D> BallCollisionEvent;
     public Action<bool> OnSpecialShotStateChange;
+    public Action OnDisableSpecialShotVFX;
+    public Action OnEnableSpecialShotVFX;
 
     private void Awake()
     {
@@ -70,7 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         var aimDirection = context.ReadValue<Vector2>();
         aimInput = invertedControls ? -aimDirection : aimDirection;
-     }
+    }
 
     public void ToggleSpecialShot(InputAction.CallbackContext context)
     {
@@ -78,10 +83,20 @@ public class PlayerController : MonoBehaviour
         {
             if (!specialShotAvailable) return;
 
+            // Only allow enabling the special shot when the ball is rolling "slowly"
+            // disabling should be possible at any time
+            if (!isSpecialShotEnabled && body.linearVelocity.magnitude > significantVelocity) return;
+
             isSpecialShotEnabled = !isSpecialShotEnabled;
 
-            // TODO: Replace with animation or particle effect in the future
-            Debug.Log($"{transform.parent.name} Special Shot enabled toggled to: " + isSpecialShotEnabled);
+            if (isSpecialShotEnabled)
+            {
+                OnEnableSpecialShotVFX?.Invoke();
+            }
+            else
+            {
+                OnDisableSpecialShotVFX?.Invoke();
+            }
         }
     }
 
@@ -113,7 +128,7 @@ public class PlayerController : MonoBehaviour
             aimArrow.gameObject.SetActive(false);
 
             OnSwing?.Invoke();
-            firstShotTakenAfterRoundStart = true;
+            hadCollisonSinceLastShot = false;
         }
     }
 
@@ -166,6 +181,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         BallCollisionEvent?.Invoke(collision);
+        hadCollisonSinceLastShot = true;
     }
 
     public void SetSpecialShotAvailability(bool available)
@@ -183,8 +199,13 @@ public class PlayerController : MonoBehaviour
         return isSpecialShotEnabled;
     }
 
-    public bool IsFirstShotTakenAfterRoundStart()
+    public bool HadCollisonSinceLastShot()
     {
-        return firstShotTakenAfterRoundStart;
+        return hadCollisonSinceLastShot;
+    }
+
+    public float GetSignificantVelocity()
+    {
+        return significantVelocity;
     }
 }
