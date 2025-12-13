@@ -13,6 +13,7 @@ public class LobbyManager : MonoBehaviour
     }
 
     [SerializeField] private Sprite playerCursorPrefab;
+
     private readonly List<LobbyPlayer> players = new();
     private PlayerSpawner playerSpawner;
     private bool countdownActive = false;
@@ -41,7 +42,6 @@ public class LobbyManager : MonoBehaviour
         { 
             playerSpawner = FindFirstObjectByType<PlayerSpawner>(); 
         }
-        Debug.Log(playerSpawner);
 
         playerSpawner.active = true;
     }
@@ -108,13 +108,13 @@ public class LobbyManager : MonoBehaviour
         EventBus.Instance?.OnMapSelected?.Invoke(winning, 10);
     }
 
-    private MapNode PickWinningMap(List<MapNode> maps)
+    private MapNode PickWinningMap(List<MapNode> votedMaps)
     {
         Dictionary<MapNode, int> voteCounts = new Dictionary<MapNode, int>();
         List<MapNode> topMaps = new List<MapNode>();
         int maxVotes = 0;
 
-        foreach (var map in maps)
+        foreach (var map in votedMaps)
         {
             if (!voteCounts.ContainsKey(map))
                 voteCounts[map] = 0;

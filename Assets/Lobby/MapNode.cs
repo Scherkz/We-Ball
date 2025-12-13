@@ -5,9 +5,10 @@ using UnityEngine;
 public class MapNode : MonoBehaviour
 {
     // The map name must match the scene name of the level
-    [SerializeField] public string mapName;
-    [SerializeField] public Sprite mapIcon;
-    [SerializeField] public int sceneBuildIndex;
+    public string mapName;
+    public Sprite mapIcon;
+    public int sceneBuildIndex;
+
     [SerializeField] private SpriteRenderer[] voteIcons;
 
     // int: playerID, int: voteIconIndex

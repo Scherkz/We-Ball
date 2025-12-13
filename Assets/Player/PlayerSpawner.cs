@@ -20,10 +20,10 @@ public class PlayerSpawner : MonoBehaviour
         public int ID;
     }
 
+    public bool active = false;
+
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Color[] spawnPointColors;
-
-    public bool active = false;
 
     private readonly List<JoinedPlayer> joinedPlayers = new();
     private SpawnPoint[] spawnPoints;
