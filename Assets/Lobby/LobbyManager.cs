@@ -1,36 +1,38 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class LobbyManager : MonoBehaviour
 {
-    [SerializeField] private Sprite playerCursorPrefab;
-
-    private readonly List<LobbyPlayer> players = new();
-    private Dictionary<LobbyPlayer, GameObject> voteIcons = new();
-    private PlayerSpawner playerSpawner;
-
-    public record LobbyPlayer
+    private record LobbyPlayer
     {
         public Player player;
         public int playerID;
         public MapNode mapVote;
     }
 
+    [SerializeField] private Sprite playerCursorPrefab;
+    private readonly List<LobbyPlayer> players = new();
+    private PlayerSpawner playerSpawner;
+    private bool countdownActive = false;
+
     private void OnEnable()
     {
         if (EventBus.Instance == null) return;
-        EventBus.Instance.OnPlayerJoined += OnPlayerJoined;
-        EventBus.Instance.OnPlayerLeft += OnPlayerLeft;
+        EventBus.Instance.OnPlayerJoined += RegisterPlayer;
+        EventBus.Instance.OnPlayerLeft += RemovePlayer;
         EventBus.Instance.OnMapVoted += OnMapVoted;
+        EventBus.Instance.OnMapSelected += OnMapSelected;
     }
 
     private void OnDisable()
     {
         if (EventBus.Instance == null) return;
-        EventBus.Instance.OnPlayerJoined -= OnPlayerJoined;
-        EventBus.Instance.OnPlayerLeft -= OnPlayerLeft;
+        EventBus.Instance.OnPlayerJoined -= RegisterPlayer;
+        EventBus.Instance.OnPlayerLeft -= RemovePlayer;
         EventBus.Instance.OnMapVoted -= OnMapVoted;
+        EventBus.Instance.OnMapSelected -= OnMapSelected;
     }
 
     private void Start()
@@ -41,26 +43,12 @@ public class LobbyManager : MonoBehaviour
         }
         Debug.Log(playerSpawner);
 
-        playerSpawner.allowJoining = true;
-    }
-
-    private void OnPlayerJoined(Player player)
-    {
-        RegisterPlayer(player);
-    }
-
-    private void OnPlayerLeft(Player player)
-    {
-        var lobbyPlayer = players.Find(lp => lp.player == player);
-        if (lobbyPlayer != null)
-        {
-            players.Remove(lobbyPlayer);
-        }
+        playerSpawner.active = true;
     }
 
     private void RegisterPlayer(Player player)
     {
-        if (players.Any(lobbyPlayer => lobbyPlayer.player == player)) return;
+        if (players.Any(lobbyPlayer => lobbyPlayer.player == player) || countdownActive) return;
 
         var lobbyPlayer = new LobbyPlayer()
         {
@@ -74,68 +62,47 @@ public class LobbyManager : MonoBehaviour
         Debug.Log($"Player {lobbyPlayer.playerID} registered.");
     }
 
+    private void RemovePlayer(Player player)
+    {
+        var lobbyPlayer = players.Find(lp => lp.player == player);
+        if (lobbyPlayer != null)
+        {
+            lobbyPlayer.mapVote.RemoveVote(lobbyPlayer.playerID);
+            players.Remove(lobbyPlayer);
+        }
+    }
+
     private void OnMapVoted(MapNode map, Player player)
     {
+        if(countdownActive) return;
+
         var lobbyPlayer = players.Find(lobbyPlayer => lobbyPlayer.player == player);
         
         if (lobbyPlayer == null) return;
 
         MapNode previousVote = lobbyPlayer.mapVote;
-
         lobbyPlayer.mapVote = map;
 
-        GameObject icon;
-
-        if (voteIcons.ContainsKey(lobbyPlayer))
+        if (previousVote != null) 
         {
-            icon = voteIcons[lobbyPlayer];
-            icon.transform.SetParent(map.voteAnchor, false);
-        }
-        else
-        {
-            icon = new GameObject($"VoteIcon_{lobbyPlayer.playerID}");
-            var spriteRenderer = icon.AddComponent<SpriteRenderer>();
-            spriteRenderer.sprite = playerCursorPrefab;
-            spriteRenderer.color = lobbyPlayer.player.GetColor();
-            spriteRenderer.sortingOrder = 10;
-            icon.transform.SetParent(map.voteAnchor, false);
-            icon.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
-
-            voteIcons[lobbyPlayer] = icon;
+            previousVote.RemoveVote(lobbyPlayer.playerID);
         }
 
-        if (previousVote != null)
-            RebuildVoteIcons(previousVote);
-
-        RebuildVoteIcons(map);
+        map.AddVote(lobbyPlayer.playerID, lobbyPlayer.player.GetColor());
 
         Debug.Log($"Player {lobbyPlayer.playerID} map vote: {lobbyPlayer.mapVote.mapName}");
 
         TryStartingLevel();
     }
 
-    private void RebuildVoteIcons(MapNode map)
-    {
-        var icons = voteIcons
-            .Where(mapVote => mapVote.Key.mapVote == map)
-            .Select(mapVote => mapVote.Value)
-            .ToList();
-
-        for (int i = 0; i < icons.Count; i++)
-        {
-            icons[i].transform.localPosition = new Vector3(i * 0.5f, 0 , 0);
-        }
-    }
-
     private void TryStartingLevel()
     {
-        if (!players.Any()) return;
+        if (!players.Any() || players.Any(player => player.mapVote == null) || countdownActive) return;
 
-        if (players.Any(player => player.mapVote == null))
-            return;
+        playerSpawner.active = false;
+        countdownActive = true;
 
         MapNode winning = PickWinningMap(players.Select(player => player.mapVote).ToList());
-        playerSpawner.allowJoining = false;
 
         Debug.Log($"LobbyManager selected map: {winning.mapName}");
         EventBus.Instance?.OnMapSelected?.Invoke(winning, 10);
@@ -170,9 +137,32 @@ public class LobbyManager : MonoBehaviour
         return topMaps[randomMapIndex];
     }
 
-    public LobbyPlayer GetLobbyPlayer(Player player)
+    private void OnMapSelected(MapNode map, int countdown)
     {
-        return players.Find(lobbyPlayer => lobbyPlayer.player == player);
+        StartCoroutine(CountdownRoutine(map, countdown));
+    }
+
+    private IEnumerator CountdownRoutine(MapNode map, int countdown)
+    {
+        yield return new WaitForSeconds(countdown);
+
+        ResetLobby();
+
+        EventBus.Instance.OnSwitchToScene?.Invoke(map.sceneBuildIndex);
+    }
+
+    private void ResetLobby()
+    {
+        countdownActive = false;
+
+        foreach(var player in players)
+        {
+            player.mapVote.RemoveVote(player.playerID);
+        }
+
+        players.Clear();
+
+        Debug.Log("Reset lobby.");
     }
 
 }

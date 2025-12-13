@@ -30,7 +30,6 @@ public class LevelLoadingScreen : MonoBehaviour
 
     private void OnDisable()
     {
-        if (EventBus.Instance == null) return;
         EventBus.Instance.OnMapSelected -= ShowLoadingScreen;
     }
 
@@ -42,10 +41,10 @@ public class LevelLoadingScreen : MonoBehaviour
         mapIcon.sprite = map.mapIcon;
 
         if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
-        countdownCoroutine = StartCoroutine(CountdownCoroutine(map, countdown));
+        countdownCoroutine = StartCoroutine(CountdownCoroutine(countdown));
     }
 
-    private IEnumerator CountdownCoroutine(MapNode map, int countdown)
+    private IEnumerator CountdownCoroutine(int countdown)
     {
         while (countdown > 0)
         {
@@ -55,8 +54,6 @@ public class LevelLoadingScreen : MonoBehaviour
         }
 
         countdownText.text = $"Starting game in {countdown}...";
-
-        EventBus.Instance.OnSwitchToScene?.Invoke(map.sceneBuildIndex);
     }
 
     private void ToggleCildren(bool enable)

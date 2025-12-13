@@ -23,7 +23,6 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Color[] spawnPointColors;
 
-    public bool allowJoining = true; // only true in lobby
     public bool active = false;
 
     private readonly List<JoinedPlayer> joinedPlayers = new();
