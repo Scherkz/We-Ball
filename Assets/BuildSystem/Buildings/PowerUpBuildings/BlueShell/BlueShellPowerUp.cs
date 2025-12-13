@@ -10,43 +10,37 @@ public class BlueShellPowerUp : PowerUpBuilding
     [SerializeField] private Vector3 missileSpawnOffset = new Vector3(0f, 0.1f, 0f);
 
     private Player[] players = { };
-    protected override void OnCollected(GameObject collectingObject)
+
+    protected override void OnCollected(Player collectingPlayer, PlayerController collectingController)
     {
         if (missilePrefab == null)
             return;
-        
-        Transform[] leaders = FindPlayersInLead();
-        if (leaders == null || leaders.Length == 0)
+        var leaders = FindPlayersInLead();
+        if (leaders == null || leaders.Count == 0)
             return;
         
-        foreach (Transform target in leaders)
+        foreach (var leader in leaders)
         {
-            if (target == null)
-                continue;
+            if (leader == null) continue;
+
+            Transform ball = leader.transform.Find("PlayerBall");
+            if (ball == null) continue;
 
             Vector3 spawnPos = transform.position + missileSpawnOffset;
-            BlueShellMissile missile = Instantiate(missilePrefab, spawnPos, Quaternion.identity);
+            var missile = Instantiate(missilePrefab, spawnPos, Quaternion.identity);
 
-            float randomAngle = Random.Range(0f, 360f);
-            missile.Launch(target, randomAngle);
+            missile.Launch(ball, Random.Range(0f, 360f));
         }
     }
     
-    private Transform[] FindPlayersInLead()
+    private List<Player> FindPlayersInLead()
     {
-        List<Transform> leaders = new List<Transform>();
+        players = FindObjectsByType<Player>(FindObjectsSortMode.None);
+        
         
         players = players.OrderBy(player => player.score).ToArray();
         
-        var bestScore = players[players.Length - 1].score;
-        
-        foreach (var p in players)
-        {
-            if (p.score == bestScore)
-                leaders.Add(p.transform);
-        }
-
-        return leaders.ToArray();
+        var bestScore = players.Max(p => p.score);
+        return players.Where(p => p.score == bestScore).ToList();
     }
-    
 }
