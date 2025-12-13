@@ -173,6 +173,14 @@ public class BuildGrid : MonoBehaviour
         var localCellPosition = InternalGetCellPosition(localPosition);
         return transform.TransformPoint(localCellPosition);
     }
+    
+    public void RemoveBuildingAtPosition(Vector3 position)
+    {
+        var localPosition = transform.InverseTransformPoint(position);
+
+        var cellIndex = GetCellIndex(localPosition);
+        RemoveBuildingFromCell(cellIndex);
+    }
 
     private void RemoveBuildingFromCell(int cellIndex)
     {
