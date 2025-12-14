@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     public Action OnSwing;
 
+    [SerializeField] private float defaultLinearDamping = 0.1f;
+
     [SerializeField] private float shootForce = 10f;
     [SerializeField] private float arrowLength = 3f;
 
@@ -15,10 +17,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxChargeMultiplier = 2f;
 
     [SerializeField] private bool invertedControls = true;
-    
-    [Header("AimArrow")] 
+
+    [Header("AimArrow")]
     [SerializeField] private Transform aimArrow;
     [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
+
+#if UNITY_EDITOR
+    [Header("Debug")]
+    [SerializeField] private bool debugSurfacePhysics;
+#endif
 
     private Rigidbody2D body;
     private GameObject partyHat;
@@ -58,7 +65,7 @@ public class PlayerController : MonoBehaviour
         body.angularVelocity = 0;
         body.totalTorque = 0;
         body.linearVelocity = Vector2.zero;
-        body.totalForce = Vector2.zero; 
+        body.totalForce = Vector2.zero;
     }
 
     public void TogglePartyHat(bool enable)
@@ -70,7 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         var aimDirection = context.ReadValue<Vector2>();
         aimInput = invertedControls ? -aimDirection : aimDirection;
-     }
+    }
 
     public void ToggleSpecialShot(InputAction.CallbackContext context)
     {
@@ -162,12 +169,50 @@ public class PlayerController : MonoBehaviour
         aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
     }
 
-    // Ball collision events are used for special shots or powerups
     private void OnCollisionEnter2D(Collision2D collision)
     {
         BallCollisionEvent?.Invoke(collision);
+        ApplyFrictionFromSurface(collision.collider);
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        body.linearDamping = defaultLinearDamping;
+    }
+
+    private void ApplyFrictionFromSurface(Collider2D collider)
+    {
+        if (collider != null)
+        {
+
+            PhysicsMaterial2D material = collider.sharedMaterial;
+
+            if (material != null)
+            {
+                body.linearDamping = material.friction;
+            }
+            else
+            {
+                body.linearDamping = defaultLinearDamping;
+            }
+
+#if UNITY_EDITOR
+            if (debugSurfacePhysics)
+            {
+                if (material != null)
+                {
+                    Debug.Log("Applying friction from surface: " + collider.sharedMaterial.name);
+                }
+                else
+                {
+                    Debug.Log("Applying default friction");
+                }
+            }
+#endif
+        }
+    }
+
+    // Ball collision events are used for special shots or powerups
     public void SetSpecialShotAvailability(bool available)
     {
         specialShotAvailable = available;
