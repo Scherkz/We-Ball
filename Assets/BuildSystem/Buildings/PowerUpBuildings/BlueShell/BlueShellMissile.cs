@@ -18,13 +18,6 @@ public class BlueShellMissile : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0f;
-
-        var col = GetComponent<Collider2D>();
-        if (col != null)
-        {
-            col.isTrigger = true;
-        }
     }
     
     public void Launch(Transform targetTransform, float initialAngleDeg)
@@ -47,7 +40,7 @@ public class BlueShellMissile : MonoBehaviour
     {
         if (target == null || rb == null)
             return;
-
+        
         Vector2 toTarget = (Vector2)target.position - rb.position;
         
         if (toTarget.sqrMagnitude <= explodeDistance * explodeDistance)
@@ -62,26 +55,20 @@ public class BlueShellMissile : MonoBehaviour
             desiredVel,
             steeringAccel * Time.fixedDeltaTime
         );
+
+        if (toTarget.sqrMagnitude > 0.001f)
+        {
+            var missileAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
+            rb.MoveRotation(missileAngle);
+        }
     }
-    
+
     private void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        var hitPlayer = otherCollider.GetComponentInParent<Player>();
-        if (hitPlayer != null) 
-        { 
-            Knockback(otherCollider); 
-            Explode(); 
-        }
-    }
-    
-    private void Knockback(Collider2D other)
-    {
-        var playerRb = other.GetComponentInParent<Rigidbody2D>();
-        if (playerRb != null)
-        {
-            Vector2 randomDir = Random.insideUnitCircle.normalized;
-            playerRb.AddForce(randomDir * knockbackForce, ForceMode2D.Impulse);
-        }
+        var randomDir = Random.insideUnitCircle.normalized;
+        otherCollider.SendMessageUpwards("ApplyForceImpulseMessage", randomDir * knockbackForce, SendMessageOptions.DontRequireReceiver);
+        
+        Explode();
     }
     
     private void Explode()

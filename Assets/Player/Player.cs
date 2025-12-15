@@ -226,4 +226,12 @@ public class Player : MonoBehaviour
     {
         timeTookThisRound = Time.time - startTime;
     }
+    
+    // is called via Unity's messaging system
+    private void ApplyForceImpulseMessage(Vector2 impulse)
+    {
+        if (playerControllerRigidbody == null) 
+            return;
+        playerControllerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
+    }
 }
