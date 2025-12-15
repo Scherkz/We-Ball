@@ -38,7 +38,7 @@ public class RoundsCounter : MonoBehaviour
         text.text = $"Round {currentRoundCount}/{maxRoundsCount}";
     }
 
-    private void OnLevelLoaded(Level _level)
+    private void OnLevelLoaded(Level _level, bool _isLobby)
     {
         ResetSelf();
     }

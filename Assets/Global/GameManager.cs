@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 
         if (!isLobby)
         {
-            StartGame();
+            this.CallNextFrame(StartGame);
         }
     }
 
@@ -213,8 +213,6 @@ public class GameManager : MonoBehaviour
             player.OnSelectedBuilding -= OnPlayerSelectsBuilding;
             player.OnPlacedBuilding -= OnPlayerPlacesBuilding;
             player.OnFinishedRound -= OnPlayerFinishedRound;
-
-            player.ResetSelf();
         }
 
         // declare winner

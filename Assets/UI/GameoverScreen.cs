@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameoverScreen : MonoBehaviour

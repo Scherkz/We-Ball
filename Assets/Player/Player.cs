@@ -68,7 +68,9 @@ public class Player : MonoBehaviour
 
     public void StartNewRound()
     {
-        ResetSelf();
+        playerController.ResetSelf();
+
+        numberOfSwingsThisRound = 0;
 
         hasPlacedBuilding = false;
         hasFinishedRound = true; // this means we are currently in building phase
