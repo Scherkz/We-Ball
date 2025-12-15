@@ -16,7 +16,7 @@ public class PlayerBuildController : MonoBehaviour
 
     [SerializeField] private Color validColor = Color.white;
     [SerializeField] private Color invalidColor = Color.red;
-    
+
     private Vector2 screenPos;
 
     private Vector2 moveInput;
@@ -49,16 +49,20 @@ public class PlayerBuildController : MonoBehaviour
     {
         if (context.canceled)
         {
-            if (IsInSelectionPhase && currentBuildingData == null)
+            if (IsInSelectionPhase)
             {
+                if (currentBuildingData != null) return; // already selected a building
+
                 var hits = Physics2D.OverlapCircleAll(cursor.transform.position, cursorRadius);
                 foreach (var collider in hits)
                 {
                     collider.gameObject.SendMessageUpwards("OnBuildingSelectedMessage", this, SendMessageOptions.DontRequireReceiver);
                 }
             }
-            else if (!IsInSelectionPhase && currentBuildingData != null)
+            else
             {
+                if (currentBuildingData == null) return;
+
                 placeInput = true;
             }
         }
