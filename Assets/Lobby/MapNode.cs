@@ -1,26 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
 public class MapNode : MonoBehaviour
 {
-    // The map name must match the scene name of the level
     public string mapName;
     public Sprite mapIcon;
     public int sceneBuildIndex;
 
-    [SerializeField] private SpriteRenderer[] voteIcons;
+    private SpriteRenderer[] voteIcons;
 
-    // int: playerID, int: voteIconIndex
-    private readonly Dictionary<int, int> activeVotes = new();
+    private readonly Dictionary<int, int> activeVotes = new(); // int: playerID, int: voteIconIndex
 
     private void Start()
     {
-        gameObject.GetComponent<SpriteRenderer>().sprite = mapIcon;
+        var visuals = transform.Find("Visuals");
+        visuals.gameObject.GetComponent<SpriteRenderer>().sprite = mapIcon;
 
-        foreach (var icon in voteIcons)
+        var voteIconsParent = transform.Find("VoteSlots");
+        voteIcons = new SpriteRenderer[voteIconsParent.childCount];
+        for (int i = 0; i < voteIconsParent.childCount; i++)
         {
-            icon.gameObject.SetActive(false);
+            voteIcons[i] = voteIconsParent.GetChild(i).GetComponent<SpriteRenderer>();
+            voteIcons[i].gameObject.SetActive(false);
         }
     }
 

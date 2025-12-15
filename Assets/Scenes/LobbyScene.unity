@@ -1140,6 +1140,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassLevel
       objectReference: {fileID: 0}
+    - target: {fileID: 2491856781365685616, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
+      propertyPath: sceneBuildIndex
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.66
@@ -3111,6 +3115,10 @@ PrefabInstance:
     - target: {fileID: 1782057735849543560, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_Name
       value: DesertLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2491856781365685616, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
+      propertyPath: sceneBuildIndex
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalPosition.x
