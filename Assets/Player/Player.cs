@@ -170,6 +170,11 @@ public class Player : MonoBehaviour
         scorePerRound.Add(scoreAwardedThisRound);
         OnScoreChanges?.Invoke(score);
     }
+    
+    public Transform GetBallTransform()
+    {
+        return playerController.transform;
+    }
 
     // is called via Unity's messaging system
     private void OnEnterFinishArea()

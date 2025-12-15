@@ -20,7 +20,7 @@ public class BlueShellPowerUp : PowerUpBuilding
         {
             if (leader == null) continue;
 
-            Transform ball = leader.transform.Find("PlayerBall");
+            Transform ball = leader.GetBallTransform();
             if (ball == null) continue;
 
             Vector3 spawnPos = transform.position + missileSpawnOffset;
