@@ -79,7 +79,9 @@ public class LobbyManager : MonoBehaviour
         var lobbyPlayer = players.Find(lp => lp.player == player);
         if (lobbyPlayer != null)
         {
-            lobbyPlayer.mapVote.RemoveVote(lobbyPlayer.playerID);
+            if (lobbyPlayer.mapVote != null)
+                lobbyPlayer.mapVote.RemoveVote(lobbyPlayer.playerID);
+
             players.Remove(lobbyPlayer);
         }
     }
