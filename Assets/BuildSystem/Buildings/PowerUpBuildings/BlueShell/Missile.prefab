@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2525720593299211309}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,8 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4203918438411523253}
   - component: {fileID: 7163758404450222394}
-  - component: {fileID: 7839656911333384817}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +59,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2525720593299211309}
@@ -112,7 +111,7 @@ SpriteRenderer:
   m_SortingLayerID: 402704941
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3abbcd65fbea492428c5b02611642a14, type: 3}
+  m_Sprite: {fileID: 5474106189989179090, guid: 69fcce8cf2468d5468941324e1a4b74b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,52 +122,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7839656911333384817
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8743489682138973346}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.5057143, y: 0.4442857}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 1, y: 0.88}
-    newSize: {x: 2, y: 3}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1.0114286, y: 0.88857144}
-  m_EdgeRadius: 0
 --- !u!1 &8889352517432693169
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +134,7 @@ GameObject:
   - component: {fileID: 2005140273207866497}
   - component: {fileID: 2486202732185629588}
   - component: {fileID: -3318289316768365575}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,11 +214,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 1, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}

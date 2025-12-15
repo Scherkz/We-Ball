@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 942449349929109336}
   - component: {fileID: 6620588198494942541}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 7521884158755998019}
   - component: {fileID: 4518439658216784043}
   - component: {fileID: -4227592457166521561}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +284,10 @@ MonoBehaviour:
   hasSelectedBuilding: 0
   hasPlacedBuilding: 0
   hasFinishedRound: 0
-  numberOfSwings: 0
+  numberOfSwingsThisRound: 0
+  score: 0
+  scorePerRound: 
+  timeTookThisRound: 0
   confettiVFX: {fileID: 3854913348936531249, guid: 9a87ab47f99d252488aa0f42364610a3, type: 3}
   buildingActionMapName: Building
   playingActionMapName: Playing
@@ -298,7 +301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3698302202542094682}
   - component: {fileID: 930074497847461570}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cursor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,6 +394,10 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2663503154519183795, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2710516337572897243, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -431,6 +438,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6772527048761243170, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7178234418610352703, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
       propertyPath: isSpecialShotEnabled
       value: 0
@@ -438,6 +449,10 @@ PrefabInstance:
     - target: {fileID: 7358398160097471715, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
       propertyPath: m_Name
       value: PlayerBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358398160097471715, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7436331229087532977, guid: 2859805a09b422c4ea20b3bd1128d5b7, type: 3}
@@ -473,6 +488,10 @@ PrefabInstance:
     - target: {fileID: 6204720415019883559, guid: fb7eba92f1e586d4fa5d25ed6dcdcdee, type: 3}
       propertyPath: m_Name
       value: BuildingGhost
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204720415019883559, guid: fb7eba92f1e586d4fa5d25ed6dcdcdee, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7952283585349015957, guid: fb7eba92f1e586d4fa5d25ed6dcdcdee, type: 3}
       propertyPath: m_LocalPosition.x
