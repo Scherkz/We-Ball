@@ -5,12 +5,12 @@ public abstract class PowerUpBuilding : Building
 {
     public bool hideOnPickupInsteadOfDestroy = false;
     
-    public GameObject collectVfxPrefab;
+    [SerializeField] protected GameObject collectVfxPrefab;
     
     private bool isCollected;
     
-    private SpriteRenderer[] renderers;
-    private Collider2D[] colliders;
+    private SpriteRenderer[] renderers = { };
+    private Collider2D[] colliders = { };
     
     //To activate in GameManager, to reset all the hidden power-ups
     public virtual void ResetForNextRound()
@@ -30,15 +30,18 @@ public abstract class PowerUpBuilding : Building
         }
     }
     
-    protected virtual void OnTriggerEnter2D(Collider2D playerCollider)
+    protected virtual void OnTriggerEnter2D(Collider2D collider)
     {
         if (isCollected)
             return;
-
-        PlayerController controller = playerCollider.GetComponent<PlayerController>();
-        Player pickupPlayer = playerCollider.GetComponentInParent<Player>();
         
-        if (pickupPlayer == null || controller == null) return;
+        Player pickupPlayer = collider.GetComponentInParent<Player>();
+        if (!collider.gameObject.CompareTag("Player"))
+            return;
+
+        PlayerController controller = collider.GetComponent<PlayerController>();
+        if (controller == null)
+            return;
         
         isCollected = true;
 
@@ -48,15 +51,15 @@ public abstract class PowerUpBuilding : Building
         }
 
         OnCollected(pickupPlayer, controller);
-
-        if (hideOnPickupInsteadOfDestroy)
+        
+        var buildGrid = GetComponentInParent<BuildGrid>();
+        if (buildGrid != null)
         {
-            SetVisible(false);
+            buildGrid.RemoveBuildingAtPosition(transform.position);
+            return;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        
+        Destroy(gameObject);
     }
     
     //should be overwritten by each power up
@@ -65,20 +68,14 @@ public abstract class PowerUpBuilding : Building
     //activates or deactivates all the collider and sprites 
     private void SetVisible(bool value)
     {
-        if (renderers != null)
+        foreach (var renderer in renderers)
         {
-            foreach (var rend in renderers)
-            {
-                rend.enabled = value;
-            }
+            renderer.enabled = value;
         }
-
-        if (colliders != null)
+        
+        foreach (var col in colliders)
         {
-            foreach (var col in colliders)
-            {
-                col.enabled = value;
-            }
+            col.enabled = value;
         }
     }
 }
