@@ -5,4 +5,10 @@ using UnityEngine;
 public class PlayerRegistry : ScriptableObject
 {
     public List<Player> players;
+
+    private void OnValidate()
+    {
+        // Reset scriptable object for play mode
+        players.Clear();
+    }
 }
