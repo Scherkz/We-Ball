@@ -245,6 +245,6 @@ MonoBehaviour:
   speed: 12
   steeringAcceleration: 30
   lifeTimeSeconds: 8
-  activationDelaySeconds: 1
+  activationDelaySeconds: 0.3
   explosionVfxPrefab: {fileID: 0}
   knockbackForce: 35

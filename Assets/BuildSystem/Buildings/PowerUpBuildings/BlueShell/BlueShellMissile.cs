@@ -42,8 +42,15 @@ public class BlueShellMissile : MonoBehaviour
     {
         if (target == null || rb == null)
             return;
+
+        var toTarget = target.position - transform.position;
+        toTarget.z = 0;
         
-        Vector2 toTarget = (Vector2)target.position - rb.position;
+        // move the missile upwards until it is able to explode at the target
+        if (Time.time < spawnTime + activationDelaySeconds)
+        {
+            toTarget = Vector3.up;
+        }
 
         var desiredVel = toTarget.normalized * speed;
         rb.linearVelocity = Vector2.MoveTowards(
@@ -54,7 +61,8 @@ public class BlueShellMissile : MonoBehaviour
 
         if (toTarget.sqrMagnitude > 0.001f)
         {
-            rb.MoveRotation(Quaternion.LookRotation(toTarget, Vector3.up));
+            var missileAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
+            rb.MoveRotation(missileAngle);
         }
     }
 
