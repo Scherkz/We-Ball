@@ -49,7 +49,7 @@ public class PlayerBuildController : MonoBehaviour
     {
         if (context.canceled)
         {
-            if (IsInSelectionPhase)
+            if (IsInSelectionPhase && currentBuildingData == null)
             {
                 var hits = Physics2D.OverlapCircleAll(cursor.transform.position, cursorRadius);
                 foreach (var collider in hits)
@@ -57,7 +57,7 @@ public class PlayerBuildController : MonoBehaviour
                     collider.gameObject.SendMessageUpwards("OnBuildingSelectedMessage", this, SendMessageOptions.DontRequireReceiver);
                 }
             }
-            else
+            else if (!IsInSelectionPhase && currentBuildingData != null)
             {
                 placeInput = true;
             }
@@ -144,6 +144,7 @@ public class PlayerBuildController : MonoBehaviour
                 OnBuildingPlaced?.Invoke();
 
                 buildingGhost.gameObject.SetActive(false);
+                currentBuildingData = null;
             }
         }
 
