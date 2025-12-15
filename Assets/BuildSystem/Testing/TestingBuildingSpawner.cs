@@ -13,6 +13,6 @@ public class TestingBuildingSpawner : MonoBehaviour
 
     private void CallBuildingSpawner()
     {
-        buildingSpawner.SpawnBuildings(buildings, buildingCount);
+        buildingSpawner.SpawnBuildings(buildings, buildingCount, 1);
     }
 }

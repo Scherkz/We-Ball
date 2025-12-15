@@ -6,9 +6,11 @@ public class BuildingSpawner : MonoBehaviour
     [SerializeField] private float radius = 3f;
     [SerializeField] private float rotationSpeed = 30f;
 
+    [SerializeField] private int roundsBeforeAntiBuildings = 1;
+
     private Transform anchor;
 
-    public void SpawnBuildings(BuildingData[] buildings, int buildingCount)
+    public void SpawnBuildings(BuildingData[] buildings, int buildingCount, int currentRound)
     {
         // center anchor on the screen
         var screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
@@ -27,9 +29,21 @@ public class BuildingSpawner : MonoBehaviour
             var circlePos = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius;
             buildingGhost.transform.localPosition = circlePos;
 
-            var randomBuildingData = buildings[Random.Range(0, buildings.Length)];
+            var randomBuildingData = GetRandomBuildingData(buildings, currentRound);
             buildingGhost.ShowBuilding(randomBuildingData, true);
         }
+    }
+
+    private BuildingData GetRandomBuildingData(BuildingData[] buildings, int currentRound)
+    {
+        var nonAntiBuildings = System.Array.FindAll(buildings, b => !b.isAntiBuilding);
+        
+        if (currentRound <= roundsBeforeAntiBuildings)
+        {
+            return nonAntiBuildings[Random.Range(0, nonAntiBuildings.Length)];
+        }
+
+        return buildings[Random.Range(0, buildings.Length)];
     }
 
     private void Awake()
