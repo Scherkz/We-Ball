@@ -245,7 +245,6 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7163758404450222394}
   rotation: 0
   rotationAnchor: {fileID: 2525720593299211309}
-  hideOnPickupInsteadOfDestroy: 0
   collectVfxPrefab: {fileID: 0}
   missilePrefab: {fileID: -3318289316768365575, guid: c6ccb6cf5b4164149a0cb4261649bf11, type: 3}
-  missileSpawnOffset: {x: 0, y: 3, z: 0}
+  rocketSpawnDelay: 3
