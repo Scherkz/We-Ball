@@ -38,9 +38,9 @@ public class LobbyManager : MonoBehaviour
 
     private void Start()
     {
-        if(playerSpawner == null) 
-        { 
-            playerSpawner = FindFirstObjectByType<PlayerSpawner>(); 
+        if (playerSpawner == null)
+        {
+            playerSpawner = FindFirstObjectByType<PlayerSpawner>();
         }
 
         playerSpawner.active = true;
@@ -55,7 +55,7 @@ public class LobbyManager : MonoBehaviour
             player = player,
             playerID = players.Count(),
             mapVote = null
-    };
+        };
 
         players.Add(lobbyPlayer);
 
@@ -74,16 +74,16 @@ public class LobbyManager : MonoBehaviour
 
     private void OnMapVoted(MapNode map, Player player)
     {
-        if(countdownActive) return;
+        if (countdownActive) return;
 
         var lobbyPlayer = players.Find(lobbyPlayer => lobbyPlayer.player == player);
-        
+
         if (lobbyPlayer == null) return;
 
         MapNode previousVote = lobbyPlayer.mapVote;
         lobbyPlayer.mapVote = map;
 
-        if (previousVote != null) 
+        if (previousVote != null)
         {
             previousVote.RemoveVote(lobbyPlayer.playerID);
         }
@@ -146,6 +146,7 @@ public class LobbyManager : MonoBehaviour
     {
         yield return new WaitForSeconds(countdown);
 
+        EventBus.Instance?.OnAnnouncePlayers?.Invoke(players.Select(lobbyPlayer => lobbyPlayer.player).ToArray());
         EventBus.Instance.OnSwitchToScene?.Invoke(map.sceneBuildIndex);
     }
 }

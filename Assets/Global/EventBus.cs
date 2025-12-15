@@ -37,7 +37,17 @@ public class EventBus : MonoBehaviour
     ///     </item>
     /// </list>
     /// </summary>
-    public Action<Player[]> OnStartGame;
+    public Action<Player[]> OnAnnouncePlayers;
+
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>Player[]</term>
+    ///         <description>Contains all the joined players.</description>
+    ///     </item>
+    /// </list>
+    /// </summary>
+    public Action OnStartGame;
 
     /// <summary>
     /// <list type="number">
@@ -45,9 +55,13 @@ public class EventBus : MonoBehaviour
     ///         <term>Level</term>
     ///         <description>Contains the currently loaded level.</description>
     ///     </item>
+    ///     <item>
+    ///         <term>bool</term>
+    ///         <description>Is the level the lobby.</description>
+    ///     </item>
     /// </list>
     /// </summary>
-    public Action<Level> OnLevelLoaded;
+    public Action<Level, bool> OnLevelLoaded;
 
     /// <summary>
     /// <list type="number">

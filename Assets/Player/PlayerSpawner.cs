@@ -120,8 +120,10 @@ public class PlayerSpawner : MonoBehaviour
         return 0;
     }
 
-    private void OnLevelLoaded(Level level)
+    private void OnLevelLoaded(Level level, bool isLobby)
     {
+        active = isLobby; // only be active in the lobby
+
         spawnPoints = new SpawnPoint[level.SpawnPointsParent.childCount];
         for (int i = 0; i < level.SpawnPointsParent.childCount; i++)
         {
@@ -150,10 +152,6 @@ public class PlayerSpawner : MonoBehaviour
     {
         if (!active) return;
 
-        // Start game if any player enter the finish area
-        var players = joinedPlayers.Select(player => player.playerInput.GetComponent<Player>());
-        EventBus.Instance?.OnStartGame?.Invoke(players.ToArray());
-
         // Disable self because player spawning during game is not intended
         active = false;
 
@@ -163,6 +161,11 @@ public class PlayerSpawner : MonoBehaviour
             var player = joinedPlayer.playerInput.GetComponent<Player>();
             player.OnFinishedRound -= OnAnyPlayerEnterFinishArea;
         }
+
+        // Start game if any player enter the finish area
+        var players = joinedPlayers.Select(player => player.playerInput.GetComponent<Player>());
+        EventBus.Instance?.OnAnnouncePlayers?.Invoke(players.ToArray());
+        EventBus.Instance?.OnStartGame?.Invoke();
     }
 
 }

@@ -149,7 +149,7 @@ public class GameoverScreen : MonoBehaviour
         }
     }
 
-    private void OnLevelLoaded(Level _level)
+    private void OnLevelLoaded(Level _level, bool _isLobby)
     {
         ResetSelf();
     }

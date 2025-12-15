@@ -66,6 +66,14 @@ public class Player : MonoBehaviour
         playerController.OnSwing -= OnPlayerSwings;
     }
 
+    public void StartNewRound()
+    {
+        ResetSelf();
+
+        hasPlacedBuilding = false;
+        hasFinishedRound = true; // this means we are currently in building phase
+    }
+
     public void ResetSelf()
     {
         playerController.ResetSelf();
@@ -73,13 +81,6 @@ public class Player : MonoBehaviour
         numberOfSwingsThisRound = 0;
         score = 0;
         scorePerRound.Clear();
-    }
-
-    public void StartNewRound()
-    {
-        hasPlacedBuilding = false;
-        hasFinishedRound = true; // this means we are currently in building phase
-        numberOfSwingsThisRound = 0;
     }
 
     public void StartSelectionPhase(Vector2 screenPosition)

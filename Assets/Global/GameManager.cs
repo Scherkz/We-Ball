@@ -42,36 +42,22 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.OnSwitchToScene += OnSwitchToScene;
-        EventBus.Instance.OnStartGame += StartRound;
         EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
+        EventBus.Instance.OnAnnouncePlayers += OnAnnouncePlayers;
+        EventBus.Instance.OnStartGame += StartGame;
     }
 
     private void OnDisable()
     {
         EventBus.Instance.OnSwitchToScene -= OnSwitchToScene;
-        EventBus.Instance.OnStartGame -= StartRound;
         EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
+        EventBus.Instance.OnAnnouncePlayers -= OnAnnouncePlayers;
+        EventBus.Instance.OnStartGame -= StartGame;
     }
 
-    public void StartRound(Player[] players)
+    private void OnLevelLoaded(Level level, bool isLobby)
     {
-        Debug.Log($"Starting game with {players.Length} {(players.Length == 1 ? "player" : "players")}!");
-        this.players = players;
-
-        foreach (var player in players)
-        {
-            player.OnSelectedBuilding += OnPlayerSelectsBuilding;
-            player.OnPlacedBuilding += OnPlayerPlacesBuilding;
-            player.OnFinishedRound += OnPlayerFinishedRound;
-
-            player.StartNewRound();
-        }
-
-        StartBuildingSelectionPhase();
-    }
-
-    private void OnLevelLoaded(Level level)
-    {
+        Debug.Log($"Loaded '{level.name}' with {players.Length} {(players.Length == 1 ? "player" : "players")}!");
         currentLevel = level;
 
         roundCount = 0;
@@ -84,15 +70,30 @@ public class GameManager : MonoBehaviour
             player.ResetSelf();
         }
 
-        if (players.Length <= 0){
-            playerSpawner.active = true;
-        }
-        else
+        if (!isLobby)
         {
-            playerSpawner.active = false;
-            StartRound(players);
+            StartGame();
         }
-        
+    }
+
+    private void OnAnnouncePlayers(Player[] players)
+    {
+        this.players = players;
+    }
+
+    private void StartGame()
+    {
+        Debug.Log($"Starting game with {players.Length} {(players.Length == 1 ? "player" : "players")}!");
+        foreach (var player in players)
+        {
+            player.OnSelectedBuilding += OnPlayerSelectsBuilding;
+            player.OnPlacedBuilding += OnPlayerPlacesBuilding;
+            player.OnFinishedRound += OnPlayerFinishedRound;
+
+            player.StartNewRound();
+        }
+
+        StartBuildingSelectionPhase();
     }
 
     private void StartBuildingSelectionPhase()

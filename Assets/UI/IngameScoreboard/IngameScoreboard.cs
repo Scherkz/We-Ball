@@ -4,6 +4,8 @@ public class IngameScoreboard : MonoBehaviour
 {
     [SerializeField] private GameObject playerScoreCounterPrefab;
 
+    private Player[] players;
+
     public void ResetSelf()
     {
         // clear all children
@@ -16,16 +18,28 @@ public class IngameScoreboard : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
+        EventBus.Instance.OnAnnouncePlayers += OnAnnouncePlayers;
         EventBus.Instance.OnStartGame += OnStartGame;
     }
 
     private void OnDisable()
     {
         EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
+        EventBus.Instance.OnAnnouncePlayers -= OnAnnouncePlayers;
         EventBus.Instance.OnStartGame -= OnStartGame;
     }
 
-    private void OnStartGame(Player[] players)
+    private void OnAnnouncePlayers(Player[] players)
+    {
+        this.players = players;
+    }
+
+    private void OnStartGame()
+    {
+        SetupScoreboard();
+    }
+
+    private void SetupScoreboard()
     {
         // spawn a PlayerScoreCounter for each player
         float prefabHeight = playerScoreCounterPrefab.GetComponent<RectTransform>().rect.height;
@@ -47,7 +61,7 @@ public class IngameScoreboard : MonoBehaviour
         }
     }
 
-    private void OnLevelLoaded(Level _level)
+    private void OnLevelLoaded(Level _level, bool _isLobby)
     {
         ResetSelf();
     }
