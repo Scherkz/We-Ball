@@ -121,16 +121,16 @@ public class BuildGrid : MonoBehaviour
         bool isOutsideGrid(Vector2Int cellOffset) =>
             cellCoords.x + cellOffset.x >= cellCount.x ||
             cellCoords.y + cellOffset.y >= cellCount.y;
-        bool isCellOccupied(Vector2Int cellOffset) => !buildingData.isAntiBuilding && grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)].IsOccupied;
+        bool isCellOccupied(Vector2Int cellOffset) => 
+            !buildingData.isAntiBuilding && 
+            grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)].IsOccupied;
 
 #if UNITY_EDITOR
         if (debug)
         {
             foreach (var cellOffset in IterateBuildingCells(buildingData, rotation))
             {
-                bool invalid = false;
-                if (isOutsideGrid(cellOffset) || isCellOccupied(cellOffset))
-                    invalid = true;
+                bool invalid = isOutsideGrid(cellOffset) || isCellOccupied(cellOffset);
 
                 var cellTLPosition = new Vector3(cellCoords.x + cellOffset.x, cellCoords.y + cellOffset.y + 1, 0);
                 var cellBRPosition = new Vector3(cellCoords.x + cellOffset.x + 1, cellCoords.y + cellOffset.y, 0);
