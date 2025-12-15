@@ -138,6 +138,8 @@ public class PlayerSpawner : MonoBehaviour
             var spawnPoint = spawnPoints[joinedPlayer.spawnPointIndex];
             spawnPoint.occupied = false;
 
+            if (!active) continue; // only setup self not the players if not active
+
             var player = joinedPlayer.playerInput.GetComponent<Player>();
             player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
             player.CallNextFrame(player.StartPlayingPhase, spawnPoint.position);
@@ -146,6 +148,8 @@ public class PlayerSpawner : MonoBehaviour
 
     private void OnAnyPlayerEnterFinishArea()
     {
+        if (!active) return;
+
         // Start game if any player enter the finish area
         var players = joinedPlayers.Select(player => player.playerInput.GetComponent<Player>());
         EventBus.Instance?.OnStartGame?.Invoke(players.ToArray());

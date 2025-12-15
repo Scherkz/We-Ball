@@ -84,7 +84,15 @@ public class GameManager : MonoBehaviour
             player.ResetSelf();
         }
 
-        playerSpawner.active = true;
+        if (players.Length <= 0){
+            playerSpawner.active = true;
+        }
+        else
+        {
+            playerSpawner.active = false;
+            StartRound(players);
+        }
+        
     }
 
     private void StartBuildingSelectionPhase()
@@ -201,8 +209,11 @@ public class GameManager : MonoBehaviour
         // clean up event subscriptions
         foreach (var player in players)
         {
+            player.OnSelectedBuilding -= OnPlayerSelectsBuilding;
             player.OnPlacedBuilding -= OnPlayerPlacesBuilding;
             player.OnFinishedRound -= OnPlayerFinishedRound;
+
+            player.ResetSelf();
         }
 
         // declare winner
