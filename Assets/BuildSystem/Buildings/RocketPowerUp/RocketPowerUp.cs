@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueShellPowerUp : PowerUpBuilding
+public class RocketPowerUp : PowerUpBuilding
 {
-    [SerializeField] private BlueShellMissile missilePrefab;
+    [SerializeField] private RocketMissile missilePrefab;
     
     [SerializeField] private PlayerRegistry playerRegistry;
 

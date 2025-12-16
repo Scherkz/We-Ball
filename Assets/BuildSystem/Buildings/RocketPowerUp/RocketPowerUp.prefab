@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 2005140273207866497}
   - component: {fileID: 3364537246575706537}
   m_Layer: 0
-  m_Name: BlueShellPowerUp
+  m_Name: RocketPowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,4 +247,4 @@ MonoBehaviour:
   rotationAnchor: {fileID: 2525720593299211309}
   collectVfxPrefab: {fileID: 0}
   missilePrefab: {fileID: -3318289316768365575, guid: c6ccb6cf5b4164149a0cb4261649bf11, type: 3}
-  rocketSpawnDelay: 3
+  playerRegistry: {fileID: 11400000, guid: 38a57423f8f7409489d65726fa181edf, type: 2}

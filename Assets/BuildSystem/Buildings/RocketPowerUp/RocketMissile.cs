@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class BlueShellMissile : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+public class RocketMissile : MonoBehaviour
 {
     [SerializeField] private float speed = 8f;
     [SerializeField] private float steeringAcceleration = 30f; 
