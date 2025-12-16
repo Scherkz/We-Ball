@@ -68,7 +68,6 @@ public class RocketMissile : MonoBehaviour
         {
             RotateInDirection(toTarget);
         }
-        
     }
 
     private void OnTriggerEnter2D(Collider2D otherCollider)

@@ -7,7 +7,6 @@ public class RocketPowerUp : PowerUpBuilding
 
     [SerializeField] private PlayerRegistry playerRegistry;
 
-
     protected override void OnCollected(Player collectingPlayer, PlayerController collectingController)
     {
         if (missilePrefab == null)
@@ -21,7 +20,7 @@ public class RocketPowerUp : PowerUpBuilding
         {
             if (leader == null) continue;
 
-            Transform ball = leader.GetBallTransform();
+            Transform ball = leader.GetPlayerController().transform;
             if (ball == null) continue;
 
             Vector3 spawnPos = transform.position;

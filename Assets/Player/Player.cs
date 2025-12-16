@@ -174,9 +174,9 @@ public class Player : MonoBehaviour
         OnScoreChanges?.Invoke(score);
     }
     
-    public Transform GetBallTransform()
+    public PlayerController GetPlayerController()
     {
-        return playerController.transform;
+        return playerController;
     }
 
     // is called via Unity's messaging system
