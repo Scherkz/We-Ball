@@ -32,11 +32,11 @@ public abstract class PowerUpBuilding : Building
         if (isCollected)
             return;
         
-        Player pickupPlayer = collider.GetComponentInParent<Player>();
         if (!collider.gameObject.CompareTag("Player"))
-            return;
-
-        PlayerController controller = collider.GetComponent<PlayerController>();
+                    return;
+        var pickupPlayer = collider.GetComponentInParent<Player>();
+        
+        var controller = collider.GetComponent<PlayerController>();
         if (controller == null)
             return;
         
