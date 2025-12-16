@@ -289,7 +289,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuildingsArt_Missle
+      name: BuildingsArt_Missile
       rect:
         serializedVersion: 2
         x: 1792
@@ -333,7 +333,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuildingsArt_MissleFlame1
+      name: BuildingsArt_MissileFlame1
       rect:
         serializedVersion: 2
         x: 1818
@@ -355,7 +355,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuildingsArt_MissleFlame2
+      name: BuildingsArt_MissileFlame2
       rect:
         serializedVersion: 2
         x: 1897
@@ -377,7 +377,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BuildingsArt_MissleFlame3
+      name: BuildingsArt_MissileFlame3
       rect:
         serializedVersion: 2
         x: 1977
@@ -414,10 +414,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":1.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":1,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      BuildingsArt_Missle: 1652199151
-      BuildingsArt_MissleFlame1: -1192219578
-      BuildingsArt_MissleFlame2: 1984028792
-      BuildingsArt_MissleFlame3: 330290670
+      BuildingsArt_Missile: 1652199151
+      BuildingsArt_MissileFlame1: -1192219578
+      BuildingsArt_MissileFlame2: 1984028792
+      BuildingsArt_MissileFlame3: 330290670
       BuildingsArt_RocketPowerUp: -1767063967
       BuildingsBlackhole: 1049909109
       BuildingsBlock: 3651934981238733184

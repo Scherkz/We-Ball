@@ -26,15 +26,15 @@
      inkscape:pagecheckerboard="true"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="1.1890995"
-     inkscape:cx="1770.2472"
-     inkscape:cy="362.87964"
+     inkscape:zoom="0.84082032"
+     inkscape:cx="1644.8223"
+     inkscape:cy="306.24855"
      inkscape:window-width="1858"
      inkscape:window-height="1057"
      inkscape:window-x="54"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g59"
+     inkscape:current-layer="layer1"
      showgrid="true">
     <inkscape:grid
        id="grid1"
@@ -606,32 +606,27 @@
            style="fill:#d71b0a;fill-opacity:1;stroke:none;stroke-width:2.69168;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-opacity:1"
            d="m 509.92753,135.46667 c -1.29408,-1e-5 -2.54782,0.52353 -3.73982,1.45365 a 4.0223327,4.0223327 0 0 0 3.73982,2.56884 4.0223327,4.0223327 0 0 0 3.73982,-2.56884 c -1.19201,-0.93012 -2.44574,-1.45365 -3.73982,-1.45365 z" />
         <g
-           id="g11"
-           transform="matrix(0.36129628,0,0,0.36129628,546.37977,101.8282)"
+           id="g58-9"
+           transform="matrix(0.55159478,0,0,0.55159478,565.62737,66.642908)"
            inkscape:label="Bomb">
           <circle
              style="fill:#333333;fill-opacity:1;stroke:none;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-             id="circle7"
+             id="circle56-0"
              cx="-100.98011"
              cy="176.43956"
              r="14.90799" />
           <rect
              style="fill:#333333;fill-opacity:1;stroke:none;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-             id="rect8"
+             id="rect56-1"
              width="10.980744"
              height="6.7864728"
              x="-55.731853"
              y="178.76985"
              ry="1.1800231"
              transform="rotate(15)" />
-          <path
-             style="fill:none;fill-opacity:1;stroke:#674726;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-             d="m -94.798588,159.67496 c -1.05853,-5.39898 11.668973,-3.27015 11.398634,-11.04008"
-             id="path8"
-             sodipodi:nodetypes="cc" />
           <rect
              style="fill:#d0d0d0;fill-opacity:1;stroke:none;stroke-width:1.35824;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-             id="rect9"
+             id="rect57-9"
              width="3.283427"
              height="15.988862"
              x="-185.8271"
@@ -640,7 +635,7 @@
              transform="rotate(-34.095118)" />
           <rect
              style="fill:#d0d0d0;fill-opacity:1;stroke:none;stroke-width:1.35824;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-             id="rect11"
+             id="rect58-7"
              width="3.283427"
              height="15.988862"
              x="84.146622"
@@ -685,7 +680,7 @@
     <g
        id="g59"
        transform="translate(-1.927254,-133.65728)"
-       inkscape:label="Missle">
+       inkscape:label="Missile">
       <path
          id="path54"
          style="fill:#eee8f2;fill-opacity:1;stroke-width:4.23333;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-opacity:0.448077"
@@ -708,7 +703,7 @@
          d="m 509.92753,135.46667 c -1.29408,-1e-5 -2.54782,0.52353 -3.73982,1.45365 a 4.0223327,4.0223327 0 0 0 3.73982,2.56884 4.0223327,4.0223327 0 0 0 3.73982,-2.56884 c -1.19201,-0.93012 -2.44574,-1.45365 -3.73982,-1.45365 z" />
       <g
          id="g58"
-         transform="matrix(0.36129628,0,0,0.36129628,546.37977,101.8282)"
+         transform="matrix(0.55159478,0,0,0.55159478,565.62737,66.642908)"
          inkscape:label="Bomb">
         <circle
            style="fill:#333333;fill-opacity:1;stroke:none;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
@@ -725,11 +720,6 @@
            y="178.76985"
            ry="1.1800231"
            transform="rotate(15)" />
-        <path
-           style="fill:none;fill-opacity:1;stroke:#674726;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
-           d="m -94.798588,159.67496 c -1.05853,-5.39898 11.668973,-3.27015 11.398634,-11.04008"
-           id="path57"
-           sodipodi:nodetypes="cc" />
         <rect
            style="fill:#d0d0d0;fill-opacity:1;stroke:none;stroke-width:1.35824;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:17;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
            id="rect57"
@@ -760,7 +750,7 @@
     </g>
     <g
        id="g74"
-       inkscape:label="MissleFire">
+       inkscape:label="MissileFire">
       <g
          id="g71"
          inkscape:label="Flame1">
