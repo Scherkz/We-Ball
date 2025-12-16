@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
 public abstract class PowerUpBuilding : Building
 {
     [SerializeField] protected GameObject collectVfxPrefab;
