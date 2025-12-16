@@ -4,7 +4,7 @@ using UnityEngine;
 public class RocketPowerUp : PowerUpBuilding
 {
     [SerializeField] private RocketMissile missilePrefab;
-    
+
     [SerializeField] private PlayerRegistry playerRegistry;
 
 
@@ -12,11 +12,11 @@ public class RocketPowerUp : PowerUpBuilding
     {
         if (missilePrefab == null)
             return;
-        
+
         var leaders = FindPlayersInLead();
         if (leaders == null || leaders.Count == 0)
             return;
-        
+
         foreach (var leader in leaders)
         {
             if (leader == null) continue;
@@ -26,11 +26,11 @@ public class RocketPowerUp : PowerUpBuilding
 
             Vector3 spawnPos = transform.position;
             var missile = Instantiate(missilePrefab, spawnPos, Quaternion.identity);
-            
-            missile.Launch(ball, Random.Range(0f, 360f));
+
+            missile.Launch(ball, rotationAnchor.eulerAngles.z);
         }
     }
-    
+
     private List<Player> FindPlayersInLead()
     {
         var bestScore = 0;
