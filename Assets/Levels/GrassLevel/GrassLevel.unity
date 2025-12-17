@@ -5896,6 +5896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a9b411cfb3b834f998643fcca9a422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Level
+  isLobby: 0
   buildGrid: {fileID: 2075875164}
   buildingSpawner: {fileID: 563669622}
   spawnPointsParent: {fileID: 698423822}

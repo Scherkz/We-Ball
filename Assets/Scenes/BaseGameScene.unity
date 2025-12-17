@@ -468,6 +468,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8e834cef814c4024d8976b2e9320e57f, type: 2}
   - {fileID: 11400000, guid: 378d3e43f834d2f41ba2ff8714666e39, type: 2}
   - {fileID: 11400000, guid: 54df8a3385e6e614393b0c6bab06a94d, type: 2}
+  - {fileID: 11400000, guid: d6ca7e9b8c35aa2499d8a6b079e12d38, type: 2}
   specialShots:
   - {fileID: 11400000, guid: 41c510f05b83187448ac31d1c8fa7d09, type: 2}
   pointsForWinningRound: 25

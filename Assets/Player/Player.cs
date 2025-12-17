@@ -173,6 +173,11 @@ public class Player : MonoBehaviour
         scorePerRound.Add(scoreAwardedThisRound);
         OnScoreChanges?.Invoke(score);
     }
+    
+    public PlayerController GetPlayerController()
+    {
+        return playerController;
+    }
 
     // is called via Unity's messaging system
     private void OnEnterFinishArea()
@@ -230,5 +235,13 @@ public class Player : MonoBehaviour
     private void StopTimer()
     {
         timeTookThisRound = Time.time - startTime;
+    }
+    
+    // is called via Unity's messaging system
+    private void ApplyForceImpulseMessage(Vector2 impulse)
+    {
+        if (playerControllerRigidbody == null) 
+            return;
+        playerControllerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
     }
 }
