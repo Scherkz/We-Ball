@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxChargeMultiplier = 2f;
 
     [SerializeField] private bool invertedControls = true;
+    
+    [SerializeField] private bool resetOnStart = true;
 
     [Header("AimArrow")]
     [SerializeField] private Transform aimArrow;
@@ -55,7 +57,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        ResetSelf();
+        if (resetOnStart)
+        {
+            ResetSelf(); 
+        }
     }
 
     public void ResetSelf()
@@ -137,6 +142,11 @@ public class PlayerController : MonoBehaviour
     public void SetColor(Color color)
     {
         GetComponent<Renderer>().material.color = color;
+    }
+    
+    public void SetResetOnStart(bool value)
+    {
+        resetOnStart = value;
     }
 
     private void Update()
