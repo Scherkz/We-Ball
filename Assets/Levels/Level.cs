@@ -6,12 +6,14 @@ public class Level : MonoBehaviour
     public BuildingSpawner BuildingSpawner => buildingSpawner;
     public Transform SpawnPointsParent => spawnPointsParent;
 
+    [SerializeField] protected bool isLobby = false;
+
     [SerializeField] private BuildGrid buildGrid;
     [SerializeField] private BuildingSpawner buildingSpawner;
     [SerializeField] private Transform spawnPointsParent;
 
     private void Start()
     {
-        EventBus.Instance?.OnLevelLoaded?.Invoke(this);
+        EventBus.Instance?.OnLevelLoaded?.Invoke(this, isLobby);
     }
 }

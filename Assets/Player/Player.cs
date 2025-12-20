@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     private PlayerInput playerInput;
     private PlayerBuildController buildController;
     private PlayerController playerController;
+    private PlayerIndicator playerIndicator;
 
     private GameObject currentSpecialShotInstance;
     private Rigidbody2D playerControllerRigidbody;
@@ -46,6 +47,8 @@ public class Player : MonoBehaviour
 
         playerController = transform.Find("PlayerBall").GetComponent<PlayerController>();
         playerControllerRigidbody = playerController.GetComponent<Rigidbody2D>();
+
+        playerIndicator = transform.Find("PlayerIndicator").GetComponent<PlayerIndicator>();
     }
 
     private void Start()
@@ -68,6 +71,16 @@ public class Player : MonoBehaviour
         playerController.OnSwing -= OnPlayerSwings;
     }
 
+    public void StartNewRound()
+    {
+        playerController.ResetSelf();
+
+        numberOfSwingsThisRound = 0;
+
+        hasPlacedBuilding = false;
+        hasFinishedRound = true; // this means we are currently in building phase
+    }
+
     public void ResetSelf()
     {
         playerController.ResetSelf();
@@ -75,13 +88,6 @@ public class Player : MonoBehaviour
         numberOfSwingsThisRound = 0;
         score = 0;
         scorePerRound.Clear();
-    }
-
-    public void StartNewRound()
-    {
-        hasPlacedBuilding = false;
-        hasFinishedRound = true; // this means we are currently in building phase
-        numberOfSwingsThisRound = 0;
     }
 
     public void StartSelectionPhase(Vector2 screenPosition)
@@ -166,6 +172,7 @@ public class Player : MonoBehaviour
         this.color = color;
         playerController.SetColor(color);
         buildController.SetColor(color);
+        playerIndicator.SetColor(color);
     }
 
     public void AddScore(int scoreAwardedThisRound)
@@ -173,6 +180,11 @@ public class Player : MonoBehaviour
         score += scoreAwardedThisRound;
         scorePerRound.Add(scoreAwardedThisRound);
         OnScoreChanges?.Invoke(score);
+    }
+
+    public PlayerController GetPlayerController()
+    {
+        return playerController;
     }
 
     // is called via Unity's messaging system
@@ -194,12 +206,18 @@ public class Player : MonoBehaviour
 
         OnFinishedRound?.Invoke();
     }
-
     // is called via Unity's messaging system
     private void OnEnterKillArea()
     {
         playerController.transform.position = spawnPoint;
         playerController.ResetSelf();
+    }
+
+    // is called via Unity's messaging system through MapNode.cs
+    private void OnMapNodeVotedMessage(MapNode map)
+    {
+        // Invoke map vote through event bus
+        EventBus.Instance?.OnMapVoted?.Invoke(map, this);
     }
 
     private void OnBuildingSelected()
@@ -231,5 +249,13 @@ public class Player : MonoBehaviour
     private void StopTimer()
     {
         timeTookThisRound = Time.time - startTime;
+    }
+
+    // is called via Unity's messaging system
+    private void ApplyForceImpulseMessage(Vector2 impulse)
+    {
+        if (playerControllerRigidbody == null)
+            return;
+        playerControllerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
     }
 }
