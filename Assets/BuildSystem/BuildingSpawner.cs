@@ -5,10 +5,11 @@ public class BuildingSpawner : MonoBehaviour
     [SerializeField] private GameObject buildingGhostPrefab;
     [SerializeField] private float radius = 3f;
     [SerializeField] private float rotationSpeed = 30f;
+    [SerializeField] private float maxAntiBuildingChance = 0.5f;
 
     private Transform anchor;
 
-    public void SpawnBuildings(BuildingData[] buildings, int buildingCount)
+    public void SpawnBuildings(BuildingData[] buildings, int buildingSpawnCount, int buildingsOnMap)
     {
         // center anchor on the screen
         var screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
@@ -16,10 +17,10 @@ public class BuildingSpawner : MonoBehaviour
         worldPos.z = 0;
         anchor.position = worldPos;
 
-        EnsureEnoughBuildingsGhosts(buildingCount);
+        EnsureEnoughBuildingsGhosts(buildingSpawnCount);
 
-        var angleStep = 2.0f * Mathf.PI / buildingCount;
-        for (var i = 0; i < buildingCount; i++)
+        var angleStep = 2.0f * Mathf.PI / buildingSpawnCount;
+        for (var i = 0; i < buildingSpawnCount; i++)
         {
             var buildingGhost = anchor.GetChild(i).GetComponent<BuildingGhost>();
 
@@ -27,9 +28,24 @@ public class BuildingSpawner : MonoBehaviour
             var circlePos = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius;
             buildingGhost.transform.localPosition = circlePos;
 
-            var randomBuildingData = buildings[Random.Range(0, buildings.Length)];
+            var randomBuildingData = GetRandomBuildingData(buildings, buildingsOnMap);
             buildingGhost.ShowBuilding(randomBuildingData, true);
         }
+    }
+
+    private BuildingData GetRandomBuildingData(BuildingData[] buildings,int buildSpawnRate, int buildingsOnMap)
+    {
+        BuildingData[] realBuildings = System.Array.FindAll(buildings, b => !b.isAntiBuilding);
+        BuildingData[] antiBuildings = System.Array.FindAll(buildings, b => b.isAntiBuilding);
+
+        float antiBuildingChance = Mathf.Min(buildingsOnMap/buildSpawnRate * 0.1f, maxAntiBuildingChance); // Caps at maxAntiBuildingChance
+
+        if (Random.value < antiBuildingChance)
+        {
+            return antiBuildings[Random.Range(0, antiBuildings.Length)];
+        }
+        return realBuildings[Random.Range(0, realBuildings.Length)];
+
     }
 
     private void Awake()

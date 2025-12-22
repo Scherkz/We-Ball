@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BuildGrid : MonoBehaviour
 {
-    struct GridData
+    struct CellData
     {
         public BuildingData buildingData;
         public GameObject instance;
@@ -14,7 +14,7 @@ public class BuildGrid : MonoBehaviour
     public float cellSize = 0.25f;
     public Vector2Int cellCount;
 
-    private GridData[] grid;
+    private CellData[] grid;
     private SpriteRenderer gridVisualisation;
 
 #if UNITY_EDITOR
@@ -48,7 +48,7 @@ public class BuildGrid : MonoBehaviour
 
     private void Awake()
     {
-        grid = new GridData[cellCount.x * cellCount.y];
+        grid = new CellData[cellCount.x * cellCount.y];
 
         gridVisualisation = transform.Find("GridVisualisation").GetComponent<SpriteRenderer>();
     }
@@ -95,7 +95,7 @@ public class BuildGrid : MonoBehaviour
         }
 
         // store building reference in grid
-        var GridData = new GridData
+        var CellData = new CellData
         {
             buildingData = buildingData,
             instance = instance,
@@ -103,7 +103,7 @@ public class BuildGrid : MonoBehaviour
 
         foreach (var cellOffset in IterateBuildingCells(buildingData, rotation))
         {
-            grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)] = GridData;
+            grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)] = CellData;
         }
 
         return true;
@@ -169,6 +169,20 @@ public class BuildGrid : MonoBehaviour
 
         var cellIndex = GetCellIndex(localPosition);
         RemoveBuildingFromCell(cellIndex);
+    }
+
+    public int GetBuildingCount()
+    {
+        HashSet<GameObject> buildings = new HashSet<GameObject>();
+        foreach (var cell in grid)
+        {
+            if (cell.IsOccupied)
+            {
+                buildings.Add(cell.instance);
+            }
+        }
+
+        return buildings.Count;
     }
 
     private void RemoveBuildingFromCell(int cellIndex)
