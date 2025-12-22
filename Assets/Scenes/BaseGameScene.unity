@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngameScoreboard
   playerScoreCounterPrefab: {fileID: 2506745441221474977, guid: 660b61ed591b8de459f82be945b5409e, type: 3}
+  playerRegistry: {fileID: 11400000, guid: 38a57423f8f7409489d65726fa181edf, type: 2}
 --- !u!1 &1012712182
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a34c3eac6bcca5947b04b688c4b53a4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  playerSpawner: {fileID: 1773535521}
+  playerRegistry: {fileID: 11400000, guid: 38a57423f8f7409489d65726fa181edf, type: 2}
   screenBorderDistance: 64
   maxRoundsPerGame: 6
   buildings:
@@ -466,6 +467,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e350fb932468d1c41b52d76fb6774e0a, type: 2}
   - {fileID: 11400000, guid: 8e834cef814c4024d8976b2e9320e57f, type: 2}
   - {fileID: 11400000, guid: 378d3e43f834d2f41ba2ff8714666e39, type: 2}
+  - {fileID: 11400000, guid: 54df8a3385e6e614393b0c6bab06a94d, type: 2}
+  - {fileID: 11400000, guid: d6ca7e9b8c35aa2499d8a6b079e12d38, type: 2}
   specialShots:
   - {fileID: 11400000, guid: 41c510f05b83187448ac31d1c8fa7d09, type: 2}
   pointsForWinningRound: 25
@@ -1214,6 +1217,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
+      propertyPath: playerRegistry
+      value: 
+      objectReference: {fileID: 11400000, guid: 38a57423f8f7409489d65726fa181edf, type: 2}
+    - target: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
       propertyPath: spawnPointColors.Array.data[0].b
       value: 0.47058824
       objectReference: {fileID: 0}
@@ -1306,17 +1313,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
---- !u!114 &1773535521 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2122849503048574881, guid: 45d9f2cc5a0e016439fcb353ae7fe615, type: 3}
-  m_PrefabInstance: {fileID: 1773535520}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0b6dac0faa05de4393bd074aea93876, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

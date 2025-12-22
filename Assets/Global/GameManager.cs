@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     const int BASE_LEVEL_SCENE_INDEX = 0;
 
-    [SerializeField] private PlayerSpawner playerSpawner;
+    [SerializeField] private PlayerRegistry playerRegistry;
 
     [SerializeField] private float screenBorderDistance;
 
@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int pointsDeductedPerPlacement = 5;
     [SerializeField] private int bonusPointsForFastestPlayer = 10;
 
-    private Player[] players = { };
     private GamePhase currentPhase;
 
     private Level currentLevel;
@@ -42,23 +41,42 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Instance.OnSwitchToScene += OnSwitchToScene;
-        EventBus.Instance.OnStartGame += StartRound;
         EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
+        EventBus.Instance.OnStartGame += StartGame;
     }
 
     private void OnDisable()
     {
         EventBus.Instance.OnSwitchToScene -= OnSwitchToScene;
-        EventBus.Instance.OnStartGame -= StartRound;
         EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
+        EventBus.Instance.OnStartGame -= StartGame;
     }
 
-    public void StartRound(Player[] players)
+    private void OnLevelLoaded(Level level, bool isLobby)
     {
-        Debug.Log($"Starting game with {players.Length} {(players.Length == 1 ? "player" : "players")}!");
-        this.players = players;
+        Debug.Log($"Loaded '{level.name}' with {playerRegistry.players.Count} {(playerRegistry.players.Count == 1 ? "player" : "players")}!");
+        currentLevel = level;
 
-        foreach (var player in players)
+        roundCount = 0;
+
+        currentLevel.BuildGrid.ShowGrid(false);
+        currentLevel.BuildingSpawner.gameObject.SetActive(false);
+
+        foreach (var player in playerRegistry.players)
+        {
+            player.ResetSelf();
+        }
+
+        if (!isLobby && playerRegistry.players.Count > 0)
+        {
+            this.CallNextFrame(StartGame);
+        }
+    }
+
+    private void StartGame()
+    {
+        Debug.Log($"Starting game with {playerRegistry.players.Count} {(playerRegistry.players.Count == 1 ? "player" : "players")}!");
+        foreach (var player in playerRegistry.players)
         {
             player.OnSelectedBuilding += OnPlayerSelectsBuilding;
             player.OnPlacedBuilding += OnPlayerPlacesBuilding;
@@ -70,23 +88,6 @@ public class GameManager : MonoBehaviour
         StartBuildingSelectionPhase();
     }
 
-    private void OnLevelLoaded(Level level)
-    {
-        currentLevel = level;
-
-        roundCount = 0;
-
-        currentLevel.BuildGrid.ShowGrid(false);
-        currentLevel.BuildingSpawner.gameObject.SetActive(false);
-
-        foreach (var player in players)
-        {
-            player.ResetSelf();
-        }
-
-        playerSpawner.active = true;
-    }
-
     private void StartBuildingSelectionPhase()
     {
         currentPhase = GamePhase.Selection;
@@ -96,9 +97,9 @@ public class GameManager : MonoBehaviour
         EventBus.Instance?.OnRoundStart?.Invoke(maxRoundsPerGame, roundCount);
 
         currentLevel.BuildingSpawner.gameObject.SetActive(true);
-        currentLevel.BuildingSpawner.SpawnBuildings(buildings, players.Length + 1, currentLevel.BuildGrid.GetBuildingCount());
+        currentLevel.BuildingSpawner.SpawnBuildings(buildings, playerRegistry.players.Count + 1, currentLevel.BuildGrid.GetBuildingCount());
 
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < playerRegistry.players.Count; i++)
         {
             var positions = new Vector3[]
             {
@@ -107,7 +108,7 @@ public class GameManager : MonoBehaviour
                 new(Screen.width - screenBorderDistance, Screen.height - screenBorderDistance, 0),
                 new(Screen.width - screenBorderDistance, 0, 0)
             };
-            players[i].StartSelectionPhase(positions[i]);
+            playerRegistry.players[i].StartSelectionPhase(positions[i]);
         }
     }
 
@@ -116,7 +117,7 @@ public class GameManager : MonoBehaviour
         if (currentPhase != GamePhase.Selection)
             return;
 
-        foreach (var player in players)
+        foreach (var player in playerRegistry.players)
         {
             if (!player.hasSelectedBuilding)
                 return;
@@ -134,7 +135,7 @@ public class GameManager : MonoBehaviour
 
         currentLevel.BuildGrid.ShowGrid(true);
 
-        foreach (var player in players)
+        foreach (var player in playerRegistry.players)
         {
             player.StartBuildingPhase(currentLevel.BuildGrid, buildings[Random.Range(0, buildings.Length)]);
         }
@@ -145,7 +146,7 @@ public class GameManager : MonoBehaviour
         if (currentPhase != GamePhase.Building)
             return;
 
-        foreach (var player in players)
+        foreach (var player in playerRegistry.players)
         {
             if (!player.hasPlacedBuilding)
                 return;
@@ -163,12 +164,12 @@ public class GameManager : MonoBehaviour
 
         var specialShotForRound = specialShots[Random.Range(0, specialShots.Length)];
 
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < playerRegistry.players.Count; i++)
         {
             var spawnPosition = currentLevel.SpawnPointsParent.GetChild(i).position;
-            players[i].StartPlayingPhase(spawnPosition);
+            playerRegistry.players[i].StartPlayingPhase(spawnPosition);
 
-            players[i].AssignSpecialShot(specialShotForRound);
+            playerRegistry.players[i].AssignSpecialShot(specialShotForRound);
         }
     }
 
@@ -177,7 +178,7 @@ public class GameManager : MonoBehaviour
         if (currentPhase != GamePhase.Playing)
             return;
 
-        foreach (var player in players)
+        foreach (var player in playerRegistry.players)
         {
             if (!player.hasFinishedRound)
                 return;
@@ -199,22 +200,23 @@ public class GameManager : MonoBehaviour
     private void OnGameOver()
     {
         // clean up event subscriptions
-        foreach (var player in players)
+        foreach (var player in playerRegistry.players)
         {
+            player.OnSelectedBuilding -= OnPlayerSelectsBuilding;
             player.OnPlacedBuilding -= OnPlayerPlacesBuilding;
             player.OnFinishedRound -= OnPlayerFinishedRound;
         }
 
         // declare winner
-        var winner = players[0];
-        for (int i = 1; i < players.Length; i++)
+        var winner = playerRegistry.players[0];
+        for (int i = 1; i < playerRegistry.players.Count; i++)
         {
-            if (players[i].score > winner.score)
+            if (playerRegistry.players[i].score > winner.score)
             {
-                winner = players[i];
+                winner = playerRegistry.players[i];
             }
         }
-        EventBus.Instance?.OnWinnerDicided?.Invoke(winner, players, maxRoundsPerGame);
+        EventBus.Instance?.OnWinnerDecided?.Invoke(winner, playerRegistry.players.ToArray(), maxRoundsPerGame);
     }
 
     private async void OnSwitchToScene(int buildIndex)
@@ -243,25 +245,25 @@ public class GameManager : MonoBehaviour
 
     private void AwardScore()
     {
-        var fastestTime = players.Min(player => player.timeTookThisRound);
+        var fastestTime = playerRegistry.players.Min(player => player.timeTookThisRound);
 
-        players = players.OrderBy(player => player.numberOfSwingsThisRound).ToArray();
+        playerRegistry.players = playerRegistry.players.OrderBy(player => player.numberOfSwingsThisRound).ToList();
         int currentPlacement = 0;
-        int currentSwings = players[0].numberOfSwingsThisRound;
+        int currentSwings = playerRegistry.players[0].numberOfSwingsThisRound;
 
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < playerRegistry.players.Count; i++)
         {
-            if (currentSwings != players[i].numberOfSwingsThisRound)
+            if (currentSwings != playerRegistry.players[i].numberOfSwingsThisRound)
             {
                 currentPlacement++;
             }
             int pointsAwarded = pointsForWinningRound - (currentPlacement * pointsDeductedPerPlacement);
 
-            if (players[i].timeTookThisRound == fastestTime)
+            if (playerRegistry.players[i].timeTookThisRound == fastestTime)
             {
                 pointsAwarded += bonusPointsForFastestPlayer;
             }
-            players[i].AddScore(pointsAwarded);
+            playerRegistry.players[i].AddScore(pointsAwarded);
         }
     }
 }

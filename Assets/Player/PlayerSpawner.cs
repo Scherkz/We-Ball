@@ -21,7 +21,9 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     public bool active = false;
-
+    
+    [SerializeField] private PlayerRegistry playerRegistry;
+    
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private Color[] spawnPointColors;
 
@@ -29,6 +31,11 @@ public class PlayerSpawner : MonoBehaviour
     private SpawnPoint[] spawnPoints;
 
     private int playerLastID = 0;
+
+    public Player[] GetPlayers()
+    {
+        return joinedPlayers.Select(joinedPlayer => joinedPlayer.playerInput.gameObject.GetComponent<Player>()).ToArray();
+    }
 
     private void OnEnable()
     {
@@ -86,7 +93,10 @@ public class PlayerSpawner : MonoBehaviour
         joinedPlayers.Add(joinedPlayer);
         spawnPoint.occupied = true;
 
+        playerRegistry.players.Add(player);
+        
         Debug.Log($"Player {joinedPlayer.ID} joined: {joinedPlayer.gamepad.name}");
+        EventBus.Instance?.OnPlayerJoined?.Invoke(player);
     }
 
     private void RemovePlayer(PlayerInput playerInput)
@@ -97,6 +107,11 @@ public class PlayerSpawner : MonoBehaviour
         spawnPoints[joinedPlayer.spawnPointIndex].occupied = false;
 
         Debug.Log($"Lost Player {joinedPlayer.ID}: {joinedPlayer.gamepad.name}");
+
+        var player = playerInput.GetComponent<Player>();
+        playerRegistry.players.Remove(player);
+        
+        EventBus.Instance?.OnPlayerLeft?.Invoke(player);
 
         this.CallNextFrame(Destroy, playerInput.gameObject);
     }
@@ -115,8 +130,10 @@ public class PlayerSpawner : MonoBehaviour
         return 0;
     }
 
-    private void OnLevelLoaded(Level level)
+    private void OnLevelLoaded(Level level, bool isLobby)
     {
+        active = isLobby || joinedPlayers.Count <= 0;
+
         spawnPoints = new SpawnPoint[level.SpawnPointsParent.childCount];
         for (int i = 0; i < level.SpawnPointsParent.childCount; i++)
         {
@@ -131,7 +148,9 @@ public class PlayerSpawner : MonoBehaviour
         foreach (var joinedPlayer in joinedPlayers)
         {
             var spawnPoint = spawnPoints[joinedPlayer.spawnPointIndex];
-            spawnPoint.occupied = false;
+            spawnPoint.occupied = true;
+
+            if (!active) continue; // only setup self not the players if not active
 
             var player = joinedPlayer.playerInput.GetComponent<Player>();
             player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
@@ -141,9 +160,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void OnAnyPlayerEnterFinishArea()
     {
-        // Start game if any player enter the finish area
-        var players = joinedPlayers.Select(player => player.playerInput.GetComponent<Player>());
-        EventBus.Instance?.OnStartGame?.Invoke(players.ToArray());
+        if (!active) return;
 
         // Disable self because player spawning during game is not intended
         active = false;
@@ -154,5 +171,9 @@ public class PlayerSpawner : MonoBehaviour
             var player = joinedPlayer.playerInput.GetComponent<Player>();
             player.OnFinishedRound -= OnAnyPlayerEnterFinishArea;
         }
+
+        // Start game if any player enter the finish area
+        EventBus.Instance?.OnStartGame?.Invoke();
     }
+
 }
