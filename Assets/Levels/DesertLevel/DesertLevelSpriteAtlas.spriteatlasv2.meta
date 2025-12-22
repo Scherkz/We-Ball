@@ -21,7 +21,7 @@ SpriteAtlasImporter:
     allowAlphaSplitting: 0
     enableRotation: 1
     enableTightPacking: 0
-    enableAlphaDilation: 1
+    enableAlphaDilation: 0
   secondaryTextureSettings: {}
   variantMultiplier: 1
   bindAsDefault: 1
