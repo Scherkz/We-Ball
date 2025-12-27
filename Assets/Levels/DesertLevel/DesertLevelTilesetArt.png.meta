@@ -449,7 +449,7 @@ TextureImporter:
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -458,6 +458,28 @@ TextureImporter:
       bones: []
       spriteID: 24252c5f8fce80a4d867de00ed0c25ac
       internalID: 632739861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DesertLevelTilesetArt_Floor
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a6c06e176ab05f4f970411f21fb132a
+      internalID: -555338128
       vertices: []
       indices: 
       edges: []
@@ -487,6 +509,7 @@ TextureImporter:
       DesertLevelTilesetArt_ColumnTop: 334329538
       DesertLevelTilesetArt_Dune1: -758224217930546405
       DesertLevelTilesetArt_Dune2: 7520285820162070122
+      DesertLevelTilesetArt_Floor: -555338128
       DesertLevelTilesetArt_Sand: 3128433011935569001
       DesertLevelTilesetArt_Slope1: -241914932
       DesertLevelTilesetArt_Slope2: -482691711
