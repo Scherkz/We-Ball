@@ -3,14 +3,11 @@ using UnityEngine;
 
 public class PushAwayShot : SpecialShot
 {
-    private bool collisionHappenedDuringPushAwayShot = false;
-
     private PlayerController playerController;
     private Player player;
     private Rigidbody2D body;
 
-    [Range(0, 10f)]
-    [SerializeField] private float maximalImpactRange;
+    private float maximalImpactRange;
 
     [Range(0, 50f)]
     [SerializeField] private float maximalImpactForce;
@@ -33,6 +30,7 @@ public class PushAwayShot : SpecialShot
     public override void Init(PlayerController playerController, Player player, Rigidbody2D body)
     {
         this.playerController = playerController;
+        maximalImpactRange = playerController.GetMaximalCollisionRange();
         this.player = player;
         this.body = body;
 
@@ -64,16 +62,11 @@ public class PushAwayShot : SpecialShot
     // Handle collision for push-away shots
     private void HandleCollision(Collision2D collision)
     {
-        if (playerController.HadCollisonSinceLastShot() || collisionHappenedDuringPushAwayShot) return;
-
         if (!playerController.IsSpecialShotEnabled()) return;
-
-        if (this.body.linearVelocity.magnitude < playerController.GetSignificantVelocity())
-            return;
 
         PushAwayImpact(collision);
         player.UsedSpecialShot();
-        collisionHappenedDuringPushAwayShot = true;
+        playerController.DisableSpecialShot();
 
     }
 
@@ -92,10 +85,6 @@ public class PushAwayShot : SpecialShot
             Rigidbody2D otherBallBody = overlappingCollider.GetComponent<Rigidbody2D>();
             if (otherBallBody != null && otherBallBody != this.body)
             {
-                // Only the faster ball should apply a force to the other balls if both activated push-away shots
-                // Prevents applying forces in both directions
-                if (otherBallBody.linearVelocity.magnitude > this.body.linearVelocity.magnitude) continue;
-
                 Vector2 pushDirection = (otherBallBody.position - impactPosition).normalized;
 
                 float distance = Vector2.Distance(otherBallBody.position, impactPosition);

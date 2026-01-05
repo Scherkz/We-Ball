@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e1539eb8b5341c458072939ebdd60aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PushAwayShot
-  maximalImpactRange: 7
   maximalImpactForce: 35
   specializedShotVFX: {fileID: 6712922998010940935, guid: fba638f777aa8c7448e827fa5e2a74d7, type: 3}
   explodeVFX: {fileID: 3854913348936531249, guid: b94f70aa8466e4442be793c4e8f55b75, type: 3}

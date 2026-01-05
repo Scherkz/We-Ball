@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
         numberOfSwingsThisRound = 0;
 
         playerController.SetSpecialShotAvailability(true);
-        playerController.ResetSpecialShotEnabled();
+        playerController.DisableSpecialShot();
     }
 
     // Generic way to assign a special shot to the player

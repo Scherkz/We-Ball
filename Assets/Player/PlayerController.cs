@@ -20,8 +20,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform aimArrow;
     [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
 
-    // Threshold to determine if the ball is still "in the shot" or just rolling or idling
-    [SerializeField] private float significantVelocity = 0.8f;
+    [Header("Collisions")]
+    [Range(0, 10f)]
+    [SerializeField] private float maximalCollisionRange = 7f;
 
     private Rigidbody2D body;
     private GameObject partyHat;
@@ -33,8 +34,6 @@ public class PlayerController : MonoBehaviour
 
     private bool isSpecialShotEnabled = false;
     private bool specialShotAvailable = false;
-
-    private bool hadCollisonSinceLastShot = false;
 
     public Action GetAssignedSpecialShot;
     public Action HasAvailableSpecialShot;
@@ -83,10 +82,6 @@ public class PlayerController : MonoBehaviour
         {
             if (!specialShotAvailable) return;
 
-            // Only allow enabling the special shot when the ball is rolling "slowly"
-            // disabling should be possible at any time
-            if (!isSpecialShotEnabled && body.linearVelocity.magnitude > significantVelocity) return;
-
             isSpecialShotEnabled = !isSpecialShotEnabled;
 
             if (isSpecialShotEnabled)
@@ -128,7 +123,6 @@ public class PlayerController : MonoBehaviour
             aimArrow.gameObject.SetActive(false);
 
             OnSwing?.Invoke();
-            hadCollisonSinceLastShot = false;
         }
     }
 
@@ -177,11 +171,25 @@ public class PlayerController : MonoBehaviour
         aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
     }
 
-    // Ball collision events are used for special shots or powerups
+    // Ball collision events are used for special shots
+    // All players within a certain range will register a collision in the area
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        BallCollisionEvent?.Invoke(collision);
-        hadCollisonSinceLastShot = true;
+        // Impact from current player position
+        Vector2 impactPosition = transform.position;
+        // Get all rigidbodies in a radius
+        Collider2D[] overlappingColliders = Physics2D.OverlapCircleAll(impactPosition, maximalCollisionRange);
+        foreach (Collider2D overlappingCollider in overlappingColliders)
+        {
+            // Only affect player rigidbodies
+            if (!overlappingCollider.CompareTag("Player")) continue;
+            Rigidbody2D ballBody = overlappingCollider.GetComponent<Rigidbody2D>();
+            if (ballBody != null)
+            {
+                PlayerController overlappingPlayerController = overlappingCollider.GetComponent<PlayerController>();
+                overlappingPlayerController.BallCollisionEvent?.Invoke(collision);
+            }
+        }
     }
 
     public void SetSpecialShotAvailability(bool available)
@@ -189,7 +197,7 @@ public class PlayerController : MonoBehaviour
         specialShotAvailable = available;
     }
 
-    public void ResetSpecialShotEnabled()
+    public void DisableSpecialShot()
     {
         this.isSpecialShotEnabled = false;
     }
@@ -199,13 +207,8 @@ public class PlayerController : MonoBehaviour
         return isSpecialShotEnabled;
     }
 
-    public bool HadCollisonSinceLastShot()
+    public float GetMaximalCollisionRange()
     {
-        return hadCollisonSinceLastShot;
-    }
-
-    public float GetSignificantVelocity()
-    {
-        return significantVelocity;
+        return maximalCollisionRange;
     }
 }
