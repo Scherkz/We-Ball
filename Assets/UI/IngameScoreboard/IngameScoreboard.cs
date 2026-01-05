@@ -3,6 +3,8 @@ using UnityEngine;
 public class IngameScoreboard : MonoBehaviour
 {
     [SerializeField] private GameObject playerScoreCounterPrefab;
+    
+    [SerializeField] private PlayerRegistry playerRegistry;
 
     public void ResetSelf()
     {
@@ -25,15 +27,19 @@ public class IngameScoreboard : MonoBehaviour
         EventBus.Instance.OnStartGame -= OnStartGame;
     }
 
-    private void OnStartGame(Player[] players)
+    private void OnStartGame()
+    {
+        SetupScoreboard();
+    }
+
+    private void SetupScoreboard()
     {
         // spawn a PlayerScoreCounter for each player
         float prefabHeight = playerScoreCounterPrefab.GetComponent<RectTransform>().rect.height;
         float offset = 0;
-        foreach (var player in players)
+        foreach (var player in playerRegistry.players)
         {
-            var counter = Instantiate(playerScoreCounterPrefab);
-            counter.transform.SetParent(transform);
+            var counter = Instantiate(playerScoreCounterPrefab, transform);
             counter.transform.localPosition = new Vector3(0, -offset, 0);
 
             var playerScoreCounter = counter.GetComponent<PlayerScoreCounter>();
@@ -47,7 +53,7 @@ public class IngameScoreboard : MonoBehaviour
         }
     }
 
-    private void OnLevelLoaded(Level _level)
+    private void OnLevelLoaded(Level _level, bool _isLobby)
     {
         ResetSelf();
     }

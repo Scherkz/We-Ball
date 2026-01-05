@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/BaseGameScene.unity
     guid: b188a70e4340a8a458df8bf768430e0a
   - enabled: 1
+    path: Assets/Scenes/LobbyScene.unity
+    guid: f0704d428b6314c48890b637e52a6d5d
+  - enabled: 1
     path: Assets/Levels/GrassLevel/GrassLevel.unity
     guid: db4917884fb45cd45bd8688916be53bc
   m_configObjects:

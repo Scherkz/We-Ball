@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7853706692911780932}
   - component: {fileID: 8118403276702214507}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: dottedArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4975905932587835970}
   - component: {fileID: 799104188797054562}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PartyHat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 120014390223562397}
   - component: {fileID: 910819916042238629}
   - component: {fileID: 7178234418610352703}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerBall
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -468,4 +468,3 @@ MonoBehaviour:
   invertedControls: 1
   aimArrow: {fileID: 7853706692911780932}
   aimArrowMaxLengthMultiplier: 1.5
-  significantVelocity: 0.8
