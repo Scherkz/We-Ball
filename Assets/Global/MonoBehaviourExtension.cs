@@ -25,4 +25,15 @@ public static class MonoBehaviourExtension
         yield return null;
         function.Invoke(arg1);
     }
+
+    public static void CallNextFrame<Arg1, Arg2>(this MonoBehaviour behaviour, Action<Arg1, Arg2> function, Arg1 arg1, Arg2 arg2)
+    {
+        behaviour.StartCoroutine(InvokeNextFrame(function, arg1, arg2));
+    }
+
+    private static IEnumerator InvokeNextFrame<Arg1, Arg2>(Action<Arg1, Arg2> function, Arg1 arg1, Arg2 arg2)
+    {
+        yield return null;
+        function.Invoke(arg1, arg2);
+    }
 }

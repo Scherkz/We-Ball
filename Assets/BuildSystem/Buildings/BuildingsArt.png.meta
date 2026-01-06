@@ -117,7 +117,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1024
+        y: 1536
         width: 512
         height: 512
       alignment: 6
@@ -139,7 +139,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 768
-        y: 768
+        y: 1280
         width: 768
         height: 768
       alignment: 6
@@ -161,7 +161,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 512
-        y: 512
+        y: 1024
         width: 512
         height: 256
       alignment: 0
@@ -183,7 +183,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1024
-        y: 512
+        y: 1024
         width: 512
         height: 256
       alignment: 0
@@ -205,7 +205,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1536
-        y: 512
+        y: 1024
         width: 512
         height: 256
       alignment: 0
@@ -227,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1536
-        y: 1024
+        y: 1536
         width: 256
         height: 256
       alignment: 6
@@ -249,7 +249,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1536
-        y: 1280
+        y: 1792
         width: 256
         height: 256
       alignment: 0
@@ -271,7 +271,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 512
         width: 512
         height: 768
       alignment: 6
@@ -293,7 +293,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1792
-        y: 1280
+        y: 1792
         width: 256
         height: 256
       alignment: 0
@@ -315,7 +315,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1536
-        y: 768
+        y: 1280
         width: 256
         height: 256
       alignment: 6
@@ -337,7 +337,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1818
-        y: 1144
+        y: 1656
         width: 49
         height: 119
       alignment: 2
@@ -359,7 +359,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1897
-        y: 1119
+        y: 1631
         width: 50
         height: 144
       alignment: 2
@@ -381,7 +381,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1977
-        y: 1158
+        y: 1670
         width: 49
         height: 107
       alignment: 2
@@ -394,6 +394,116 @@ TextureImporter:
       bones: []
       spriteID: 14d8cf74b2b75984e838af69e4bca1f9
       internalID: 330290670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildingsSplitBallPowerUp_Frame5
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 512
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3c497d5f1a12484181f06826e28872d
+      internalID: 370589823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildingsSplitBallPowerUp_Frame4
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1b3e7772826f7f41a7fdc10a3e5297a
+      internalID: 1844047857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildingsSplitBallPowerUp_Frame3
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 512
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61ded2d4ba8aeb544be6c4203a3e091f
+      internalID: 541575010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildingsSplitBallPowerUp_Frame2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d661f8d1e17d75045a2b7b58f06b3e62
+      internalID: 345396409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildingsSplitBallPowerUp_Frame1
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 256
+        height: 256
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12d8cd83771214044a4416786a1f7043
+      internalID: -204111336
       vertices: []
       indices: 
       edges: []
@@ -427,6 +537,11 @@ TextureImporter:
       BuildingsFan_Frame2: -1190384712
       BuildingsFan_Frame3: -2123175088
       BuildingsLBlock: 473386621
+      BuildingsSplitBallPowerUp_Frame1: -204111336
+      BuildingsSplitBallPowerUp_Frame2: 345396409
+      BuildingsSplitBallPowerUp_Frame3: 541575010
+      BuildingsSplitBallPowerUp_Frame4: 1844047857
+      BuildingsSplitBallPowerUp_Frame5: -2095161211
       BuildingsWindmill: -1885099844
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

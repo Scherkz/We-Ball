@@ -2,21 +2,11 @@ using UnityEngine;
 
 public class PlayerIndicator : MonoBehaviour
 {
-    [SerializeField] private GameObject playerBall; // player ball
+    [SerializeField] private GameObject playerBall;
 
     private Camera worldCam;
     private SpriteRenderer spriteRenderer;
     private const float EDGE_PADDING = 0.025f;
-
-    private void OnEnable()
-    {
-            EventBus.Instance.OnLevelLoaded += SearchForCamera;
-    }
-
-    private void OnDisable()
-    {
-            EventBus.Instance.OnLevelLoaded -= SearchForCamera;
-    }
 
     private void Awake()
     {
@@ -25,8 +15,18 @@ public class PlayerIndicator : MonoBehaviour
 
         if (playerBall == null)
         {
-            Debug.Log("Please assign player ball to playerIndicator");
+            Debug.LogError("Please assign player ball to playerIndicator");
         }
+    }
+
+    private void OnEnable()
+    {
+        EventBus.Instance.OnLevelLoaded += SearchForCamera;
+    }
+
+    private void OnDisable()
+    {
+        EventBus.Instance.OnLevelLoaded -= SearchForCamera;
     }
 
     private void Update()
@@ -35,16 +35,19 @@ public class PlayerIndicator : MonoBehaviour
 
         Vector3 viewportPosition = worldCam.WorldToViewportPoint(playerBall.transform.position);
 
-        bool offscreen =
-            viewportPosition.x < 0 || viewportPosition.x > 1 ||
-            viewportPosition.y < 0 || viewportPosition.y > 1;
+        bool offscreen = playerBall.activeInHierarchy
+            && (viewportPosition.x < 0 || viewportPosition.x > 1
+            || viewportPosition.y < 0 || viewportPosition.y > 1);
 
         spriteRenderer.enabled = offscreen;
 
         if (!offscreen) return;
 
-        spriteRenderer.flipX = viewportPosition.x < 0.5f; // if the player ball is out of bounds on the left side, flip the icon to the left (flip x values)
-        spriteRenderer.flipY = viewportPosition.y < 0.5f; // if the player ball is out of bounds at the bottom, flip the icon upside down (flip y values)
+        // if the player ball is out of bounds on the left side, flip the icon to the left (flip x values)
+        spriteRenderer.flipX = viewportPosition.x < 0.5f;
+
+        // if the player ball is out of bounds at the bottom, flip the icon upside down (flip y values)
+        spriteRenderer.flipY = viewportPosition.y < 0.5f;
 
         viewportPosition.x = Mathf.Clamp(viewportPosition.x, EDGE_PADDING, 1f - EDGE_PADDING);
         viewportPosition.y = Mathf.Clamp(viewportPosition.y, EDGE_PADDING, 1f - EDGE_PADDING);

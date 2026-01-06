@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
     public Action<bool> OnSpecialShotStateChange;
     public Action<bool> OnToggleSpecialShotVFX;
 
+    private bool resetOnStart = true;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -57,7 +59,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        ResetSelf();
+        if (resetOnStart)
+        {
+            ResetSelf();
+        }
     }
 
     public void ResetSelf()
@@ -137,6 +142,11 @@ public class PlayerController : MonoBehaviour
     public void SetColor(Color color)
     {
         GetComponent<Renderer>().material.color = color;
+    }
+
+    public void DontResetOnStart(bool value)
+    {
+        resetOnStart = value;
     }
 
     private void Update()

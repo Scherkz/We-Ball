@@ -249,6 +249,7 @@ public class Player : MonoBehaviour
     {
         if (playerControllerRigidbody == null)
             return;
+
         playerControllerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
     }
 }
