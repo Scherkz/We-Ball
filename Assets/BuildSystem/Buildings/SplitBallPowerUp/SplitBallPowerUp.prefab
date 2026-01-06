@@ -247,4 +247,4 @@ MonoBehaviour:
   rotationAnchor: {fileID: 2525720593299211309}
   collectVfxPrefab: {fileID: 0}
   cloneSpawnOffset: {x: 0.6, y: 0}
-  spreadDegrees: 16
+  spreadDegrees: 30

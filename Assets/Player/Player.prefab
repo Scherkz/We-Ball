@@ -156,7 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerIndicator
   playerBall: {fileID: 8710573518716127066}
-  edgePadding: 0.025
 --- !u!1 &3288741480610849305
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
   m_Actions: {fileID: -944628639613478452, guid: d1740597e4ce842409cfe37346cb4c93, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 1
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
