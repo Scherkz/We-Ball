@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -43,8 +44,9 @@ public class PlayerController : MonoBehaviour
 
     public Action GetAssignedSpecialShot;
     public Action HasAvailableSpecialShot;
-    public Action<Collision2D> BallCollisionEvent;
-    public Action<bool> OnSpecialShotStateChange;
+    public Action<Collision2D> BallEnterCollisionEvent;
+    public Action<Collider2D> BallExitBuildingTriggerEvent;
+    public Action<bool> OnToggleSpecialShotActivation;
     public Action<bool> OnToggleSpecialShotVFX;
 
     private void Awake()
@@ -89,6 +91,7 @@ public class PlayerController : MonoBehaviour
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
 
+            OnToggleSpecialShotActivation?.Invoke(isSpecialShotEnabled);
             OnToggleSpecialShotVFX?.Invoke(isSpecialShotEnabled);
         }
     }
@@ -187,7 +190,7 @@ public class PlayerController : MonoBehaviour
             if (ballBody != null)
             {
                 PlayerController overlappingPlayerController = overlappingCollider.GetComponent<PlayerController>();
-                overlappingPlayerController.BallCollisionEvent?.Invoke(collision);
+                overlappingPlayerController.BallEnterCollisionEvent?.Invoke(collision);
             }
         }
     }
@@ -195,6 +198,15 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         body.linearDamping = defaultLinearDamping;
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if(collider.gameObject.layer == LayerMask.NameToLayer("Building"))
+        {
+            BallExitBuildingTriggerEvent?.Invoke(collider);
+        }
+        
     }
 
     private void ApplyFrictionFromSurface(Collider2D collider)

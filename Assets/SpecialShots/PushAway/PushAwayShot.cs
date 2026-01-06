@@ -36,7 +36,7 @@ public class PushAwayShot : SpecialShot
 
         if (playerController != null)
         {
-            playerController.BallCollisionEvent += HandleCollision;
+            playerController.BallEnterCollisionEvent += HandleCollision;
             playerController.OnToggleSpecialShotVFX += ToggleSpecialShotVFX;
         }
 
@@ -48,7 +48,7 @@ public class PushAwayShot : SpecialShot
     {
         if (playerController != null)
         {
-            playerController.BallCollisionEvent -= HandleCollision;
+            playerController.BallEnterCollisionEvent -= HandleCollision;
         }
 
     }
