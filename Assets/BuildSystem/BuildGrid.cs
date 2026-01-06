@@ -121,8 +121,8 @@ public class BuildGrid : MonoBehaviour
         bool isOutsideGrid(Vector2Int cellOffset) =>
             cellCoords.x + cellOffset.x >= cellCount.x ||
             cellCoords.y + cellOffset.y >= cellCount.y;
-        bool isCellOccupied(Vector2Int cellOffset) => 
-            !buildingData.isAntiBuilding && 
+        bool isCellOccupied(Vector2Int cellOffset) =>
+            !buildingData.isAntiBuilding &&
             grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)].IsOccupied;
 
 #if UNITY_EDITOR
@@ -162,7 +162,7 @@ public class BuildGrid : MonoBehaviour
         var localCellPosition = InternalGetCellPosition(localPosition);
         return transform.TransformPoint(localCellPosition);
     }
-    
+
     public void RemoveBuildingAtPosition(Vector3 position)
     {
         var localPosition = transform.InverseTransformPoint(position);
@@ -171,18 +171,18 @@ public class BuildGrid : MonoBehaviour
         RemoveBuildingFromCell(cellIndex);
     }
 
-    public int GetBuildingCount()
+    public float GetOccupationPercentage()
     {
-        HashSet<GameObject> buildings = new HashSet<GameObject>();
+        int count = 0;
         foreach (var cell in grid)
         {
             if (cell.IsOccupied)
             {
-                buildings.Add(cell.instance);
+                count++;
             }
         }
 
-        return buildings.Count;
+        return count / grid.Length;
     }
 
     private void RemoveBuildingFromCell(int cellIndex)
@@ -222,7 +222,7 @@ public class BuildGrid : MonoBehaviour
     private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData, Building.Rotation rotation)
     {
         var size = buildingData.cellCount;
-        
+
         for (int y = 0; y < size.y; y++)
         {
             for (int x = 0; x < size.x; x++)
@@ -274,7 +274,7 @@ public class BuildGrid : MonoBehaviour
         int y = (int) Mathf.Floor(localPosition.y / cellSize);
         return new Vector2Int(x, y);
     }
-    
+
     private Vector2Int RotateLocalOffset(Vector2Int local, Vector2Int size, Building.Rotation rotation)
     {
         int x = local.x;
