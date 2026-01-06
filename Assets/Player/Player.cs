@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
         numberOfSwingsThisRound = 0;
 
         playerController.SetSpecialShotAvailability(true);
-        playerController.ResetSpecialShotEnabled();
+        playerController.DisableSpecialShot();
     }
 
     // Generic way to assign a special shot to the player
@@ -153,6 +153,7 @@ public class Player : MonoBehaviour
 
     public void UsedSpecialShot()
     {
+        playerController.OnToggleSpecialShotVFX?.Invoke(false);
         playerController.SetSpecialShotAvailability(false);
 
         OnSpecialShotAssigned?.Invoke(""); // displays nothing in the UI
@@ -177,7 +178,7 @@ public class Player : MonoBehaviour
         scorePerRound.Add(scoreAwardedThisRound);
         OnScoreChanges?.Invoke(score);
     }
-    
+
     public PlayerController GetPlayerController()
     {
         return playerController;
@@ -232,19 +233,21 @@ public class Player : MonoBehaviour
     {
         numberOfSwingsThisRound++;
     }
+
     private void StartTimer()
     {
         startTime = Time.time;
     }
+
     private void StopTimer()
     {
         timeTookThisRound = Time.time - startTime;
     }
-    
+
     // is called via Unity's messaging system
     private void ApplyForceImpulseMessage(Vector2 impulse)
     {
-        if (playerControllerRigidbody == null) 
+        if (playerControllerRigidbody == null)
             return;
         playerControllerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
     }

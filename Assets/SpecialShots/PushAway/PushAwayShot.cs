@@ -3,26 +3,45 @@ using UnityEngine;
 
 public class PushAwayShot : SpecialShot
 {
-    private bool collisionHappenedDuringPushAwayShot = false;
-
     private PlayerController playerController;
     private Player player;
     private Rigidbody2D body;
 
-    [SerializeField] float maximalImpactRange = 10f;
-    [SerializeField] float maximalImpactForce = 35f;
+    private float maximalImpactRange;
+
+    [Range(0, 50f)]
+    [SerializeField] private float maximalImpactForce;
+
+    [SerializeField] private GameObject specializedShotVFX;
+    [SerializeField] private GameObject explodeVFX;
+
+    [Range(0, 1f)]
+    [SerializeField] private float speedWeight;
+    private float distanceWeight;
+
+    // Maximum speed a ball can reach with a standard shot, is used to calculate the speed factor
+    private const float maxBallSpeed = 20f;
+
+    public void Awake()
+    {
+        distanceWeight = 1 - speedWeight;
+    }
 
     public override void Init(PlayerController playerController, Player player, Rigidbody2D body)
     {
         this.playerController = playerController;
+        maximalImpactRange = playerController.GetMaximalCollisionRange();
         this.player = player;
         this.body = body;
-        
-        if(playerController != null)
+
+        if (playerController != null)
         {
             playerController.BallCollisionEvent += HandleCollision;
+            playerController.OnToggleSpecialShotVFX += ToggleSpecialShotVFX;
         }
-        
+
+        currentSpecializedShotVFX = Instantiate(specializedShotVFX, playerController.transform);
+        currentSpecializedShotVFX.SetActive(false);
     }
 
     private void OnDisable()
@@ -37,23 +56,16 @@ public class PushAwayShot : SpecialShot
     // Handle collision for push-away shots
     private void HandleCollision(Collision2D collision)
     {
-        // Dont trigger in the spawing phase
-        if (!playerController.IsFirstShotTakenAfterRoundStart()) return;
-
         if (!playerController.IsSpecialShotEnabled()) return;
-
-        if (collisionHappenedDuringPushAwayShot) return;
 
         PushAwayImpact(collision);
         player.UsedSpecialShot();
-        collisionHappenedDuringPushAwayShot = true;
+        playerController.DisableSpecialShot();
 
     }
 
     private void PushAwayImpact(Collision2D collision)
     {
-        Debug.Log("PushAwayImpact triggered");
-
         // Impact from current player position
         Vector2 impactPosition = transform.position;
         // Get all rigidbodies in a radius
@@ -67,15 +79,20 @@ public class PushAwayShot : SpecialShot
             Rigidbody2D otherBallBody = overlappingCollider.GetComponent<Rigidbody2D>();
             if (otherBallBody != null && otherBallBody != this.body)
             {
-                // Only the faster ball should apply a force to the other balls
-                // Prevents applying forces in both directions
-                if (otherBallBody.linearVelocity.magnitude > this.body.linearVelocity.magnitude) continue;
-
                 Vector2 pushDirection = (otherBallBody.position - impactPosition).normalized;
+
                 float distance = Vector2.Distance(otherBallBody.position, impactPosition);
-                float forceMagnitude = Mathf.Lerp(maximalImpactForce, 0f, Mathf.Pow((distance / maximalImpactRange), 2));
+                float distanceFactor = Mathf.SmoothStep(1f, 0, distance / maximalImpactRange);
+
+                float speedFactor = Mathf.SmoothStep(0, 1f, this.body.linearVelocity.magnitude / maxBallSpeed);
+
+                float forceFactor = speedFactor * speedWeight + distanceFactor * distanceWeight;
+                float forceMagnitude = Mathf.Lerp(0f, maximalImpactForce, forceFactor);
                 otherBallBody.AddForce(pushDirection * forceMagnitude, ForceMode2D.Impulse);
             }
         }
+
+        Destroy(currentSpecializedShotVFX);
+        Instantiate(explodeVFX, playerController.transform);
     }
 }
