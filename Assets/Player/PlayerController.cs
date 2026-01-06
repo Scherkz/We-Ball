@@ -89,14 +89,7 @@ public class PlayerController : MonoBehaviour
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
 
-            if (isSpecialShotEnabled)
-            {
-                OnToggleSpecialShotVFX?.Invoke(true);
-            }
-            else
-            {
-                OnToggleSpecialShotVFX?.Invoke(false);
-            }
+            OnToggleSpecialShotVFX?.Invoke(isSpecialShotEnabled);
         }
     }
 
