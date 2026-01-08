@@ -79,16 +79,6 @@ public class PlayerController : MonoBehaviour
     {
         this.transform.gameObject.layer = LayerMask.NameToLayer("Player");
         buildingsInside = 0;
-
-        // Remove old / still in progress special shot VFX
-        //for (int i = 0; i < transform.childCount; i++)
-        //{
-        //    GameObject child = transform.GetChild(i).gameObject;
-        //    if (child.CompareTag("SpecialShot"))
-        //    {
-        //        Destroy(child);
-        //    }
-        //}
     }
 
     public void TogglePartyHat(bool enable)
