@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     [Range(0, 10f)]
     [SerializeField] private float maximalCollisionRange = 7f;
 
-    private int buildingsInside = 0;
+    private int buildingsInsideTrigger = 0;
 
 #if UNITY_EDITOR
     [Header("Debug")]
@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
     private bool isSpecialShotEnabled = false;
     private bool specialShotAvailable = false;
 
-    public Action GetAssignedSpecialShot;
     public Action HasAvailableSpecialShot;
     public Action<Collision2D> BallEnterCollisionEvent;
     public Action<Collider2D> BallExitBuildingTriggerEvent;
@@ -78,7 +77,7 @@ public class PlayerController : MonoBehaviour
     public void ResetSpecialShotSpecifics()
     {
         this.transform.gameObject.layer = LayerMask.NameToLayer("Player");
-        buildingsInside = 0;
+        buildingsInsideTrigger = 0;
     }
 
     public void TogglePartyHat(bool enable)
@@ -97,6 +96,8 @@ public class PlayerController : MonoBehaviour
         if (context.performed)
         {
             if (!specialShotAvailable) return;
+
+            if (buildingsInsideTrigger > 0 && this.transform.gameObject.layer == LayerMask.NameToLayer("GhostBall")) return;
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
 
@@ -213,7 +214,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.layer == LayerMask.NameToLayer("Building"))
         {
-            buildingsInside++;
+            buildingsInsideTrigger++;
         }
     }
 
@@ -221,12 +222,12 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.layer != LayerMask.NameToLayer("Building")) return;
 
-        buildingsInside--;
+        buildingsInsideTrigger--;
 
         // The ball has to exit every building before firing the exit event so it does not get stuck 
-        if (buildingsInside <= 0)
+        if (buildingsInsideTrigger <= 0)
         {
-            buildingsInside = 0;
+            buildingsInsideTrigger = 0;
             BallExitBuildingTriggerEvent?.Invoke(collider);
         }
     }
