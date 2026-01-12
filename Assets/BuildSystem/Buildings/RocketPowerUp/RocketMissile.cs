@@ -3,6 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class RocketMissile : MonoBehaviour
 {
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip startSfx;
+    [SerializeField] private AudioClip explosionSfx;
+    
     [SerializeField] private float speed = 8f;
     [SerializeField] private float steeringAcceleration = 30f;
     [SerializeField] private float lifeTimeSeconds = 8f;
@@ -20,10 +24,16 @@ public class RocketMissile : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        
+        if (sfxSource == null)
+            sfxSource = GetComponent<AudioSource>();
     }
 
     public void Launch(Transform targetTransform, float initialAngleDeg)
     {
+        if (startSfx != null)
+            sfxSource.PlayOneShot(startSfx);
+        
         spawnTime = Time.time;
         target = targetTransform;
         initialDirection = Quaternion.Euler(0, 0, initialAngleDeg) * Vector3.up;
@@ -87,6 +97,9 @@ public class RocketMissile : MonoBehaviour
         {
             Instantiate(explosionVfxPrefab, transform.position, Quaternion.identity);
         }
+        if (explosionSfx != null)
+            AudioSource.PlayClipAtPoint(explosionSfx, transform.position, 1f);
+        
         Destroy(gameObject);
     }
 
