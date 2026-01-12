@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Action OnSwing;
+    
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip shootSfx;
 
     [SerializeField] private float defaultLinearDamping = 0.1f;
 
@@ -55,6 +58,9 @@ public class PlayerController : MonoBehaviour
         partyHat = transform.Find("PartyHat").gameObject;
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
+        
+        if (sfxSource == null)
+            sfxSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -119,6 +125,9 @@ public class PlayerController : MonoBehaviour
             float chargePercent = chargeTimer / maxChargeTime;
             float chargeMultiplier = maxChargeMultiplier * chargePercent;
             body.AddForce(chargeMultiplier * shootForce * aimInput.normalized, ForceMode2D.Impulse);
+            
+            if (shootSfx != null)
+                sfxSource.PlayOneShot(shootSfx);
 
             isCharging = false;
             chargeTimer = 0f;
