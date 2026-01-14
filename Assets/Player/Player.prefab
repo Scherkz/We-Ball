@@ -397,7 +397,7 @@ MonoBehaviour:
   scorePerRound: 
   timeTookThisRound: 0
   sfxSource: {fileID: 0}
-  finishSfx: {fileID: 8300000, guid: ca0de77eddb9542439d03ab273e83ff3, type: 3}
+  finishSfx: {fileID: 8300000, guid: 93d9fe3c975fdfe41b9d632be3bb6353, type: 3}
   selectSfx: {fileID: 8300000, guid: 4d4bac3f4765a7c4d841d35224df6268, type: 3}
   placeSfx: {fileID: 8300000, guid: 219c6e4bf8db36644a2d9375501e9b94, type: 3}
   confettiVFX: {fileID: 3854913348936531249, guid: 9a87ab47f99d252488aa0f42364610a3, type: 3}
@@ -412,9 +412,9 @@ AudioSource:
   m_GameObject: {fileID: 3288741480610849305}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2052093466795683918, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
+  OutputAudioMixerGroup: {fileID: -3295542736130154956, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ca0de77eddb9542439d03ab273e83ff3, type: 3}
+  m_Resource: {fileID: 8300000, guid: 93d9fe3c975fdfe41b9d632be3bb6353, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -519,7 +519,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 142
+  Priority: 128
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -616,7 +616,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 142
+  Priority: 128
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

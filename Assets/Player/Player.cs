@@ -22,7 +22,8 @@ public class Player : MonoBehaviour
     public List<int> scorePerRound = new();
     public float timeTookThisRound;
     
-    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource placeSelectSource;
+    [SerializeField] private AudioSource finishSource;
     [SerializeField] private AudioClip finishSfx;
     [SerializeField] private AudioClip selectSfx;
     [SerializeField] private AudioClip placeSfx;
@@ -53,8 +54,11 @@ public class Player : MonoBehaviour
 
         playerIndicator = transform.Find("PlayerIndicator").GetComponent<PlayerIndicator>();
         
-        if (sfxSource == null)
-            sfxSource = GetComponent<AudioSource>();
+        if (placeSelectSource == null)
+            placeSelectSource = GetComponent<AudioSource>();
+        if (finishSource == null)
+            finishSource = GetComponent<AudioSource>();
+        
     }
 
     private void Start()
@@ -204,7 +208,7 @@ public class Player : MonoBehaviour
         playerController.CancelShotAndHideArrow();
 
         if (finishSfx != null)
-            sfxSource.PlayOneShot(finishSfx);
+            finishSource.PlayOneShot(finishSfx);
         
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
@@ -229,7 +233,7 @@ public class Player : MonoBehaviour
         buildController.ToggleCursor(false);
         
         if (selectSfx != null)
-            sfxSource.PlayOneShot(selectSfx);
+            placeSelectSource.PlayOneShot(selectSfx);
 
         OnSelectedBuilding?.Invoke();
     }
@@ -241,7 +245,7 @@ public class Player : MonoBehaviour
         buildController.ToggleCursor(false);
         
         if (placeSfx != null)
-            sfxSource.PlayOneShot(placeSfx);
+            placeSelectSource.PlayOneShot(placeSfx);
 
         OnPlacedBuilding?.Invoke();
     }

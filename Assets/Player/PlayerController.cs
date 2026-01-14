@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     public Action OnSwing;
     
-    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource shootSource;
+    [SerializeField] private AudioSource specialShotSource;
     [SerializeField] private AudioClip shootSfx;
     [SerializeField] private AudioClip selectSpecialShotSfx;
     [SerializeField] private AudioClip deselectSpecialShotSfx;
@@ -61,8 +62,10 @@ public class PlayerController : MonoBehaviour
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
         
-        if (sfxSource == null)
-            sfxSource = GetComponent<AudioSource>();
+        if (shootSource == null)
+            shootSource = GetComponent<AudioSource>();
+        if (specialShotSource == null)
+            specialShotSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -104,12 +107,12 @@ public class PlayerController : MonoBehaviour
             if (isSpecialShotEnabled)
             {
                 if (selectSpecialShotSfx != null)
-                    sfxSource.PlayOneShot(selectSpecialShotSfx);
+                    specialShotSource.PlayOneShot(selectSpecialShotSfx);
             }
             else
             {
                 if (deselectSpecialShotSfx != null)
-                    sfxSource.PlayOneShot(deselectSpecialShotSfx);
+                    specialShotSource.PlayOneShot(deselectSpecialShotSfx);
             }
 
             OnToggleSpecialShotVFX?.Invoke(isSpecialShotEnabled);
@@ -139,7 +142,7 @@ public class PlayerController : MonoBehaviour
             body.AddForce(chargeMultiplier * shootForce * aimInput.normalized, ForceMode2D.Impulse);
             
             if (shootSfx != null)
-                sfxSource.PlayOneShot(shootSfx);
+                shootSource.PlayOneShot(shootSfx);
 
             isCharging = false;
             chargeTimer = 0f;
