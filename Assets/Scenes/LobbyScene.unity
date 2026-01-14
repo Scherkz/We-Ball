@@ -1188,6 +1188,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6621192152003244821, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
+      propertyPath: m_Color.b
+      value: 0.14978638
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621192152003244821, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6226415
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621192152003244821, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
+      propertyPath: m_Color.r
+      value: 0.22161457
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3104,7 +3116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2491856781365685616, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: sceneBuildIndex
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3145,6 +3157,18 @@ PrefabInstance:
     - target: {fileID: 2522914335930106163, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621192152003244821, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
+      propertyPath: m_Color.b
+      value: 0.2028302
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621192152003244821, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
+      propertyPath: m_Color.g
+      value: 0.73140204
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621192152003244821, guid: 4a94ea17c6899744ba3498ce2ff3df34, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

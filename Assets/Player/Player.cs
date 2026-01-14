@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
 
     private Color color;
     private float startTime;
+    private Vector3 spawnPoint;
 
     private void Awake()
     {
@@ -132,6 +134,7 @@ public class Player : MonoBehaviour
         StartTimer();
 
         numberOfSwingsThisRound = 0;
+        spawnPoint = spawnPosition;
 
         playerController.SetSpecialShotAvailability(true);
         playerController.DisableSpecialShot();
@@ -204,6 +207,12 @@ public class Player : MonoBehaviour
         confetti.transform.position = playerController.transform.position;
 
         OnFinishedRound?.Invoke();
+    }
+    // is called via Unity's messaging system
+    private void OnEnterKillArea()
+    {
+        playerController.transform.position = spawnPoint;
+        playerController.ResetSelf();
     }
 
     // is called via Unity's messaging system through MapNode.cs
