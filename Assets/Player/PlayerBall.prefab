@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 8315183499297057433}
   - component: {fileID: 120014390223562397}
   - component: {fileID: 910819916042238629}
+  - component: {fileID: 8605476940068559980}
   - component: {fileID: 7178234418610352703}
   m_Layer: 3
   m_Name: PlayerBall
@@ -449,6 +450,42 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!58 &8605476940068559980
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7358398160097471715}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 264
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.55
 --- !u!114 &7178234418610352703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46548b65fd594f34a90bf63ca24e9901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  defaultLinearDamping: 0.1
   shootForce: 10
   arrowLength: 2
   maxChargeTime: 1
@@ -468,3 +506,5 @@ MonoBehaviour:
   invertedControls: 1
   aimArrow: {fileID: 7853706692911780932}
   aimArrowMaxLengthMultiplier: 1.5
+  maximalCollisionRange: 7
+  debugSurfacePhysics: 0

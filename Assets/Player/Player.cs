@@ -112,6 +112,8 @@ public class Player : MonoBehaviour
         buildController.ToggleCursor(true);
 
         buildController.InitBuildingPhase(buildGrid);
+
+        playerController.ResetSpecialShotSpecifics();
     }
 
     public void StartPlayingPhase(Vector3 spawnPosition)

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PushAwayShot : SpecialShot
 {
@@ -14,6 +15,7 @@ public class PushAwayShot : SpecialShot
 
     [SerializeField] private GameObject specializedShotVFX;
     [SerializeField] private GameObject explodeVFX;
+    private GameObject currentExplodeVFX;
 
     [Range(0, 1f)]
     [SerializeField] private float speedWeight;
@@ -36,7 +38,7 @@ public class PushAwayShot : SpecialShot
 
         if (playerController != null)
         {
-            playerController.BallCollisionEvent += HandleCollision;
+            playerController.BallEnterCollisionEvent += HandleCollision;
             playerController.OnToggleSpecialShotVFX += ToggleSpecialShotVFX;
         }
 
@@ -48,7 +50,13 @@ public class PushAwayShot : SpecialShot
     {
         if (playerController != null)
         {
-            playerController.BallCollisionEvent -= HandleCollision;
+            playerController.BallEnterCollisionEvent -= HandleCollision;
+            playerController.OnToggleSpecialShotVFX -= ToggleSpecialShotVFX;
+        }
+
+        if (currentExplodeVFX != null)
+        {
+            Destroy(currentExplodeVFX);
         }
 
     }
@@ -93,6 +101,6 @@ public class PushAwayShot : SpecialShot
         }
 
         Destroy(currentSpecializedShotVFX);
-        Instantiate(explodeVFX, playerController.transform);
+        currentExplodeVFX = Instantiate(explodeVFX, playerController.transform);
     }
 }

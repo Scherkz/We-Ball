@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2005140273207866497}
   - component: {fileID: 7579628494982976359}
   - component: {fileID: 2788915306972404055}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlockBuildingPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,3 +179,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Building
   spriteRenderer: {fileID: 1544847929386954055}
+  rotation: 0
+  rotationAnchor: {fileID: 0}
