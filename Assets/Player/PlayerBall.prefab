@@ -464,7 +464,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46548b65fd594f34a90bf63ca24e9901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  sfxSource: {fileID: 0}
+  shootSource: {fileID: -7560537271165688712}
+  specialShotSource: {fileID: 883579989178358234}
   shootSfx: {fileID: 8300000, guid: f8cf3ad12fc49674fb0cc15da3a5bc74, type: 3}
   selectSpecialShotSfx: {fileID: 8300000, guid: c5ce4a6826da5dd4d983b1204ec4952c, type: 3}
   deselectSpecialShotSfx: {fileID: 8300000, guid: bdf925d81d360774ca9517cd2a5eb01e, type: 3}

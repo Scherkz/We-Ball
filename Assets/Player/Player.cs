@@ -22,7 +22,8 @@ public class Player : MonoBehaviour
     public List<int> scorePerRound = new();
     public float timeTookThisRound;
     
-    [SerializeField] private AudioSource placeSelectSource;
+    [SerializeField] private AudioSource placeSource;
+    [SerializeField] private AudioSource selectSource;
     [SerializeField] private AudioSource finishSource;
     [SerializeField] private AudioClip finishSfx;
     [SerializeField] private AudioClip selectSfx;
@@ -54,8 +55,10 @@ public class Player : MonoBehaviour
 
         playerIndicator = transform.Find("PlayerIndicator").GetComponent<PlayerIndicator>();
         
-        if (placeSelectSource == null)
-            placeSelectSource = GetComponent<AudioSource>();
+        if (placeSource == null)
+            placeSource = GetComponent<AudioSource>();
+        if (selectSource == null)
+            selectSource = GetComponent<AudioSource>();
         if (finishSource == null)
             finishSource = GetComponent<AudioSource>();
         
@@ -233,7 +236,7 @@ public class Player : MonoBehaviour
         buildController.ToggleCursor(false);
         
         if (selectSfx != null)
-            placeSelectSource.PlayOneShot(selectSfx);
+            selectSource.PlayOneShot(selectSfx);
 
         OnSelectedBuilding?.Invoke();
     }
@@ -245,7 +248,7 @@ public class Player : MonoBehaviour
         buildController.ToggleCursor(false);
         
         if (placeSfx != null)
-            placeSelectSource.PlayOneShot(placeSfx);
+            placeSource.PlayOneShot(placeSfx);
 
         OnPlacedBuilding?.Invoke();
     }
