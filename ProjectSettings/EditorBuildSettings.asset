@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/DesertLevel/DesertLevelScene.unity
     guid: 5423378f3eee7ca42b4ac3f8aa7518df
+  - enabled: 1
+    path: Assets/Levels/SpaceLevel/SpaceLevelScene.unity
+    guid: 66664e458ba48f441865385e5f43b91d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
