@@ -27,9 +27,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int pointsForWinningRound = 25;
     [SerializeField] private int pointsDeductedPerPlacement = 5;
     [SerializeField] private int bonusPointsForFastestPlayer = 10;
-    
-    [SerializeField] private AudioSource sfxSource;
-    [SerializeField] private AudioClip winSfx;
 
     private GamePhase currentPhase;
 
@@ -39,9 +36,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         roundCount = 0;
-                
-        if (sfxSource == null)
-            sfxSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -212,9 +206,6 @@ public class GameManager : MonoBehaviour
             player.OnPlacedBuilding -= OnPlayerPlacesBuilding;
             player.OnFinishedRound -= OnPlayerFinishedRound;
         }
-        
-        if (winSfx != null)
-            sfxSource.PlayOneShot(winSfx);
 
         // declare winner
         var winner = playerRegistry.players[0];
