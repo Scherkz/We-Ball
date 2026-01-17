@@ -21,9 +21,9 @@ public class PlayerSpawner : MonoBehaviour
     }
 
     public bool active = false;
-    
+
     [SerializeField] private PlayerRegistry playerRegistry;
-    
+
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private AudioSource playerSpawnSfx;
     [SerializeField] private Color[] spawnPointColors;
@@ -70,7 +70,7 @@ public class PlayerSpawner : MonoBehaviour
     {
         if (playerSpawnSfx != null)
             playerSpawnSfx.Play();
-        
+
         var playerInput = PlayerInput.Instantiate(
             playerPrefab,
             controlScheme: "Gamepad",
@@ -98,7 +98,7 @@ public class PlayerSpawner : MonoBehaviour
         spawnPoint.occupied = true;
 
         playerRegistry.players.Add(player);
-        
+
         Debug.Log($"Player {joinedPlayer.ID} joined: {joinedPlayer.gamepad.name}");
         EventBus.Instance?.OnPlayerJoined?.Invoke(player);
     }
@@ -114,7 +114,7 @@ public class PlayerSpawner : MonoBehaviour
 
         var player = playerInput.GetComponent<Player>();
         playerRegistry.players.Remove(player);
-        
+
         EventBus.Instance?.OnPlayerLeft?.Invoke(player);
 
         this.CallNextFrame(Destroy, playerInput.gameObject);

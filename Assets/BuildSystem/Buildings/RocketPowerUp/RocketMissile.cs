@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class RocketMissile : MonoBehaviour
-{   
+{
     [SerializeField] private float speed = 8f;
     [SerializeField] private float steeringAcceleration = 30f;
     [SerializeField] private float lifeTimeSeconds = 8f;
@@ -28,7 +28,7 @@ public class RocketMissile : MonoBehaviour
     {
         if (startSfx != null)
             startSfx.Play();
-        
+
         spawnTime = Time.time;
         target = targetTransform;
         initialDirection = Quaternion.Euler(0, 0, initialAngleDeg) * Vector3.up;

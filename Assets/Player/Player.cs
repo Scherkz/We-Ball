@@ -189,7 +189,7 @@ public class Player : MonoBehaviour
         StopTimer();
 
         playerController.CancelShotAndHideArrow();
-        
+
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
 
