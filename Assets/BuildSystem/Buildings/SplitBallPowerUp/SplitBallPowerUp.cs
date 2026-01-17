@@ -8,19 +8,10 @@ public class SplitBallPowerUp : PowerUpBuilding
 
     [SerializeField] private float spawnOffset = 0.4f;
     [SerializeField] private float spreadDegrees = 45f;
-    
-    [SerializeField] private AudioSource sfxSource;
-    [SerializeField] private AudioClip collectSfx;
 
     private Color[] colors;
     private int colorIndex = 0;
     private float secondsSinceLastSwitch = 0.0f;
-    
-    private void Awake()
-    {
-        if (sfxSource == null)
-            sfxSource = GetComponent<AudioSource>();
-    }
 
     private void Start()
     {
@@ -48,9 +39,6 @@ public class SplitBallPowerUp : PowerUpBuilding
 
     protected override void OnCollected(Player player, PlayerController controller)
     {
-        if (collectSfx != null)
-            AudioSource.PlayClipAtPoint(collectSfx, transform.position, 10f);
-        
         var playerInput = player.GetComponent<PlayerInput>();
 
         // Clone Player

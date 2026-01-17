@@ -296,8 +296,7 @@ MonoBehaviour:
   rotation: 0
   rotationAnchor: {fileID: 0}
   destroyTimer: 0.8
-  sfxSource: {fileID: -5073137387870701194}
-  explosionBombSfx: {fileID: 8300000, guid: 08cec5b60a4b0ae4ea68799b2744ca80, type: 3}
+  explosionBombSfx: {fileID: -5073137387870701194}
 --- !u!82 &-5073137387870701194
 AudioSource:
   m_ObjectHideFlags: 0
@@ -307,7 +306,7 @@ AudioSource:
   m_GameObject: {fileID: 8987062549701796641}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 3259054941407195745, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
+  OutputAudioMixerGroup: {fileID: -5570710209460085175, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 08cec5b60a4b0ae4ea68799b2744ca80, type: 3}
   m_PlayOnAwake: 0

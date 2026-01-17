@@ -2,11 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class RocketMissile : MonoBehaviour
-{
-    [SerializeField] private AudioSource sfxSource;
-    [SerializeField] private AudioClip startSfx;
-    [SerializeField] private AudioClip explosionSfx;
-    
+{   
     [SerializeField] private float speed = 8f;
     [SerializeField] private float steeringAcceleration = 30f;
     [SerializeField] private float lifeTimeSeconds = 8f;
@@ -14,6 +10,8 @@ public class RocketMissile : MonoBehaviour
 
     [SerializeField] private GameObject explosionVfxPrefab;
     [SerializeField] private float knockbackForce = 35f;
+
+    [SerializeField] private AudioSource startSfx;
 
     private Rigidbody2D rb;
     private Transform target;
@@ -24,15 +22,12 @@ public class RocketMissile : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        
-        if (sfxSource == null)
-            sfxSource = GetComponent<AudioSource>();
     }
 
     public void Launch(Transform targetTransform, float initialAngleDeg)
     {
         if (startSfx != null)
-            sfxSource.PlayOneShot(startSfx);
+            startSfx.Play();
         
         spawnTime = Time.time;
         target = targetTransform;
@@ -41,10 +36,7 @@ public class RocketMissile : MonoBehaviour
         RotateInDirection(initialDirection);
         rb.angularVelocity = 0f;
 
-        if (lifeTimeSeconds > 0f)
-        {
-            Destroy(gameObject, lifeTimeSeconds);
-        }
+        Invoke(nameof(Explode), lifeTimeSeconds);
     }
 
     private void FixedUpdate()
@@ -94,12 +86,8 @@ public class RocketMissile : MonoBehaviour
     private void Explode()
     {
         if (explosionVfxPrefab != null)
-        {
             Instantiate(explosionVfxPrefab, transform.position, Quaternion.identity);
-        }
-        if (explosionSfx != null)
-            AudioSource.PlayClipAtPoint(explosionSfx, transform.position, 1f);
-        
+
         Destroy(gameObject);
     }
 
