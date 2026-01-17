@@ -1,4 +1,5 @@
 using System;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,6 +30,9 @@ public class PlayerController : MonoBehaviour
     [Header("Collisions")]
     [Range(0, 10f)]
     [SerializeField] private float maximalCollisionRange = 7f;
+
+    private int buildingsInsideTrigger = 0;
+
 #if UNITY_EDITOR
     [Header("Debug")]
     [SerializeField] private bool debugSurfacePhysics;
@@ -45,10 +49,10 @@ public class PlayerController : MonoBehaviour
     private bool isSpecialShotEnabled = false;
     private bool specialShotAvailable = false;
 
-    public Action GetAssignedSpecialShot;
     public Action HasAvailableSpecialShot;
-    public Action<Collision2D> BallCollisionEvent;
-    public Action<bool> OnSpecialShotStateChange;
+    public Action<Collision2D> BallEnterCollisionEvent;
+    public Action<Collider2D> BallExitBuildingTriggerEvent;
+    public Action<bool> OnToggleSpecialShotActivation;
     public Action<bool> OnToggleSpecialShotVFX;
 
     private bool resetOnStart = true;
@@ -79,6 +83,12 @@ public class PlayerController : MonoBehaviour
         body.totalForce = Vector2.zero;
     }
 
+    public void ResetSpecialShotSpecifics()
+    {
+        this.transform.gameObject.layer = LayerMask.NameToLayer("Player");
+        buildingsInsideTrigger = 0;
+    }
+
     public void TogglePartyHat(bool enable)
     {
         partyHat.SetActive(enable);
@@ -96,12 +106,15 @@ public class PlayerController : MonoBehaviour
         {
             if (!specialShotAvailable) return;
 
+            if (buildingsInsideTrigger > 0 && this.transform.gameObject.layer == LayerMask.NameToLayer("GhostBall")) return;
+
             isSpecialShotEnabled = !isSpecialShotEnabled;
 
             var sfx = isSpecialShotEnabled ? activateSpecialShotSfx : deactivateSpecialShotSfx;
             if (sfx)
                 sfx.Play();
 
+            OnToggleSpecialShotActivation?.Invoke(isSpecialShotEnabled);
             OnToggleSpecialShotVFX?.Invoke(isSpecialShotEnabled);
         }
     }
@@ -208,7 +221,7 @@ public class PlayerController : MonoBehaviour
             if (ballBody != null)
             {
                 PlayerController overlappingPlayerController = overlappingCollider.GetComponent<PlayerController>();
-                overlappingPlayerController.BallCollisionEvent?.Invoke(collision);
+                overlappingPlayerController.BallEnterCollisionEvent?.Invoke(collision);
             }
         }
     }
@@ -216,6 +229,28 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         body.linearDamping = defaultLinearDamping;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Building"))
+        {
+            buildingsInsideTrigger++;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.layer != LayerMask.NameToLayer("Building")) return;
+
+        buildingsInsideTrigger--;
+
+        // The ball has to exit every building before firing the exit event so it does not get stuck 
+        if (buildingsInsideTrigger <= 0)
+        {
+            buildingsInsideTrigger = 0;
+            BallExitBuildingTriggerEvent?.Invoke(collider);
+        }
     }
 
     private void ApplyFrictionFromSurface(Collider2D collider)

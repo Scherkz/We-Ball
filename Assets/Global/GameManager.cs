@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
         EventBus.Instance?.OnRoundStart?.Invoke(maxRoundsPerGame, roundCount);
 
         currentLevel.BuildingSpawner.gameObject.SetActive(true);
-        currentLevel.BuildingSpawner.SpawnBuildings(buildings, playerRegistry.players.Count + 1);
+        currentLevel.BuildingSpawner.SpawnBuildings(buildings, playerRegistry.players.Count + 1, currentLevel.BuildGrid.GetOccupationPercentage());
 
         for (int i = 0; i < playerRegistry.players.Count; i++)
         {

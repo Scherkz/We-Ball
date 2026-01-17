@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2525720593299211309}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7163758404450222394}
   - component: {fileID: 5836896713504098341}
   - component: {fileID: 7839656911333384817}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 6136598615610933730}
   - component: {fileID: 2005140273207866497}
   - component: {fileID: 2788915306972404055}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LBlockBuildingPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
