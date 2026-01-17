@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +34,16 @@ public class PlayerBuildController : MonoBehaviour
     {
         cursor = transform.Find("Cursor").GetComponent<SpriteRenderer>();
         buildingGhost = cursor.transform.Find("BuildingGhost").GetComponent<BuildingGhost>();
+    }
+
+    private void OnEnable()
+    {
+        ToggleCursor(true);
+    }
+
+    private void OnDisable()
+    {
+        ToggleCursor(false);
     }
 
     public void Move(InputAction.CallbackContext context)
