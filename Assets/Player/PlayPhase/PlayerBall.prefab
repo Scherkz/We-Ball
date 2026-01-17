@@ -464,16 +464,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46548b65fd594f34a90bf63ca24e9901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  shootSource: {fileID: -7560537271165688712}
-  specialShotSource: {fileID: 883579989178358234}
-  shootSfx: {fileID: 8300000, guid: f8cf3ad12fc49674fb0cc15da3a5bc74, type: 3}
-  selectSpecialShotSfx: {fileID: 8300000, guid: c5ce4a6826da5dd4d983b1204ec4952c, type: 3}
-  deselectSpecialShotSfx: {fileID: 8300000, guid: bdf925d81d360774ca9517cd2a5eb01e, type: 3}
   defaultLinearDamping: 0.1
   shootForce: 10
   arrowLength: 2
   maxChargeTime: 1
   maxChargeMultiplier: 2
+  shootSfx: {fileID: -7560537271165688712}
+  activateSpecialShotSfx: {fileID: 6718075606520506883}
+  deactivateSpecialShotSfx: {fileID: 883579989178358234}
+  finishSfx: {fileID: 0}
   invertedControls: 1
   aimArrow: {fileID: 7853706692911780932}
   aimArrowMaxLengthMultiplier: 1.5
@@ -488,7 +487,7 @@ AudioSource:
   m_GameObject: {fileID: 7358398160097471715}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 6564944793945571169, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
+  OutputAudioMixerGroup: {fileID: -4900654420544801288, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: f8cf3ad12fc49674fb0cc15da3a5bc74, type: 3}
   m_PlayOnAwake: 0
@@ -585,9 +584,9 @@ AudioSource:
   m_GameObject: {fileID: 7358398160097471715}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 1759857443595228623, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
+  OutputAudioMixerGroup: {fileID: -4900654420544801288, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: bdf925d81d360774ca9517cd2a5eb01e, type: 3}
+  m_Resource: {fileID: 8300000, guid: c5ce4a6826da5dd4d983b1204ec4952c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -682,9 +681,9 @@ AudioSource:
   m_GameObject: {fileID: 7358398160097471715}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 1759857443595228623, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
+  OutputAudioMixerGroup: {fileID: -4900654420544801288, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: c5ce4a6826da5dd4d983b1204ec4952c, type: 3}
+  m_Resource: {fileID: 8300000, guid: bdf925d81d360774ca9517cd2a5eb01e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

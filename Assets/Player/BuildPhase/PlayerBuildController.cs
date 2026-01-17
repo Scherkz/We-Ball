@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,9 @@ public class PlayerBuildController : MonoBehaviour
 
     [SerializeField] private Color validColor = Color.white;
     [SerializeField] private Color invalidColor = Color.red;
+
+    [SerializeField] private AudioSource selectSfx;
+    [SerializeField] private AudioSource placeSfx;
 
     private Vector2 screenPos;
 
@@ -110,6 +114,9 @@ public class PlayerBuildController : MonoBehaviour
 
     public void SetBuildingData(BuildingData buildingData)
     {
+        if (selectSfx != null)
+            selectSfx.Play();
+
         currentBuildingData = buildingData;
         OnSelectedBuilding?.Invoke();
     }
@@ -144,6 +151,9 @@ public class PlayerBuildController : MonoBehaviour
 
             if (canBuild && placeInput)
             {
+                if (placeSfx != null)
+                    placeSfx.Play();
+
                 grid.AddBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
                 OnBuildingPlaced?.Invoke();
 

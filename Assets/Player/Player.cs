@@ -21,13 +21,6 @@ public class Player : MonoBehaviour
     public int score;
     public List<int> scorePerRound = new();
     public float timeTookThisRound;
-    
-    [SerializeField] private AudioSource placeSource;
-    [SerializeField] private AudioSource selectSource;
-    [SerializeField] private AudioSource finishSource;
-    [SerializeField] private AudioClip finishSfx;
-    [SerializeField] private AudioClip selectSfx;
-    [SerializeField] private AudioClip placeSfx;
 
     [SerializeField] private GameObject confettiVFX;
 
@@ -54,14 +47,6 @@ public class Player : MonoBehaviour
         playerControllerRigidbody = playerController.GetComponent<Rigidbody2D>();
 
         playerIndicator = transform.Find("PlayerIndicator").GetComponent<PlayerIndicator>();
-        
-        if (placeSource == null)
-            placeSource = GetComponent<AudioSource>();
-        if (selectSource == null)
-            selectSource = GetComponent<AudioSource>();
-        if (finishSource == null)
-            finishSource = GetComponent<AudioSource>();
-        
     }
 
     private void Start()
@@ -209,9 +194,6 @@ public class Player : MonoBehaviour
         StopTimer();
 
         playerController.CancelShotAndHideArrow();
-
-        if (finishSfx != null)
-            finishSource.PlayOneShot(finishSfx);
         
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
@@ -234,9 +216,6 @@ public class Player : MonoBehaviour
         hasSelectedBuilding = true;
         buildController.gameObject.SetActive(false);
         buildController.ToggleCursor(false);
-        
-        if (selectSfx != null)
-            selectSource.PlayOneShot(selectSfx);
 
         OnSelectedBuilding?.Invoke();
     }
@@ -246,9 +225,6 @@ public class Player : MonoBehaviour
         hasPlacedBuilding = true;
         buildController.enabled = false;
         buildController.ToggleCursor(false);
-        
-        if (placeSfx != null)
-            placeSource.PlayOneShot(placeSfx);
 
         OnPlacedBuilding?.Invoke();
     }

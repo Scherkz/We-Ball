@@ -46,8 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSpawner
   active: 0
-  sfxSource: {fileID: 0}
-  spawnPlayerSfx: {fileID: 8300000, guid: 7f8345bafcbfcab43acd726cc5a442b7, type: 3}
+  playerSpawnSfx: {fileID: -3575092680532197019}
   playerRegistry: {fileID: 0}
   playerPrefab: {fileID: 3288741480610849305, guid: bcaa9720fe9cabe44ae5c8a230c0a1e0, type: 3}
   spawnPointColors:
@@ -64,7 +63,7 @@ AudioSource:
   m_GameObject: {fileID: 7625386368407876412}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4900654420544801288, guid: c3dcc6c569be6314aa0b57e47e11f4bf, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 7f8345bafcbfcab43acd726cc5a442b7, type: 3}
   m_PlayOnAwake: 0

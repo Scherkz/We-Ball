@@ -7,12 +7,6 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Action OnSwing;
-    
-    [SerializeField] private AudioSource shootSource;
-    [SerializeField] private AudioSource specialShotSource;
-    [SerializeField] private AudioClip shootSfx;
-    [SerializeField] private AudioClip selectSpecialShotSfx;
-    [SerializeField] private AudioClip deselectSpecialShotSfx;
 
     [SerializeField] private float defaultLinearDamping = 0.1f;
 
@@ -21,6 +15,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float maxChargeTime = 1;
     [SerializeField] private float maxChargeMultiplier = 2f;
+
+    [SerializeField] private AudioSource shootSfx;
+    [SerializeField] private AudioSource activateSpecialShotSfx;
+    [SerializeField] private AudioSource deactivateSpecialShotSfx;
 
     [SerializeField] private bool invertedControls = true;
 
@@ -61,11 +59,6 @@ public class PlayerController : MonoBehaviour
         partyHat = transform.Find("PartyHat").gameObject;
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
-        
-        if (shootSource == null)
-            shootSource = GetComponent<AudioSource>();
-        if (specialShotSource == null)
-            specialShotSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -104,16 +97,10 @@ public class PlayerController : MonoBehaviour
             if (!specialShotAvailable) return;
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
-            if (isSpecialShotEnabled)
-            {
-                if (selectSpecialShotSfx != null)
-                    specialShotSource.PlayOneShot(selectSpecialShotSfx);
-            }
-            else
-            {
-                if (deselectSpecialShotSfx != null)
-                    specialShotSource.PlayOneShot(deselectSpecialShotSfx);
-            }
+
+            var sfx = isSpecialShotEnabled ? activateSpecialShotSfx : deactivateSpecialShotSfx;
+            if (sfx)
+                sfx.Play();
 
             OnToggleSpecialShotVFX?.Invoke(isSpecialShotEnabled);
         }
@@ -140,9 +127,9 @@ public class PlayerController : MonoBehaviour
             float chargePercent = chargeTimer / maxChargeTime;
             float chargeMultiplier = maxChargeMultiplier * chargePercent;
             body.AddForce(chargeMultiplier * shootForce * aimInput.normalized, ForceMode2D.Impulse);
-            
+
             if (shootSfx != null)
-                shootSource.PlayOneShot(shootSfx);
+                shootSfx.Play();
 
             isCharging = false;
             chargeTimer = 0f;
