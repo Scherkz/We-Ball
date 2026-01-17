@@ -23,8 +23,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool invertedControls = true;
 
     [Header("AimArrow")]
-    [SerializeField] private Transform aimArrow;
-    [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
+    [SerializeField] private Transform aimArrowAnchor;
+    [SerializeField] private SpriteRenderer aimArrowFill;
+    [SerializeField] private Gradient aimChargeColor;
 
     [Header("Collisions")]
     [Range(0, 10f)]
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isCharging = false;
     private float chargeTimer = 0f;
+    private float aimArrowMaxFillValue;
 
     private bool isSpecialShotEnabled = false;
     private bool specialShotAvailable = false;
@@ -62,6 +64,8 @@ public class PlayerController : MonoBehaviour
         partyHat = transform.Find("PartyHat").gameObject;
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
+
+        aimArrowMaxFillValue = aimArrowFill.size.x;
     }
 
     private void Start()
@@ -132,7 +136,7 @@ public class PlayerController : MonoBehaviour
             {
                 isCharging = false;
                 chargeTimer = 0f;
-                aimArrow.gameObject.SetActive(false);
+                aimArrowAnchor.gameObject.SetActive(false);
                 return;
             }
 
@@ -146,7 +150,7 @@ public class PlayerController : MonoBehaviour
             isCharging = false;
             chargeTimer = 0f;
             aimInput = Vector2.zero;
-            aimArrow.gameObject.SetActive(false);
+            aimArrowAnchor.gameObject.SetActive(false);
 
             OnSwing?.Invoke();
         }
@@ -158,8 +162,8 @@ public class PlayerController : MonoBehaviour
         chargeTimer = 0f;
         aimInput = Vector2.zero;
 
-        if (aimArrow != null)
-            aimArrow.gameObject.SetActive(false);
+        if (aimArrowAnchor != null)
+            aimArrowAnchor.gameObject.SetActive(false);
     }
 
     public void SetColor(Color color)
@@ -178,7 +182,7 @@ public class PlayerController : MonoBehaviour
         if (aimInput.sqrMagnitude > 0.01f)
             ShowAimArrow(aimInput);
         else
-            aimArrow.gameObject.SetActive(false);
+            aimArrowAnchor.gameObject.SetActive(false);
 
         if (isCharging)
         {
@@ -189,17 +193,16 @@ public class PlayerController : MonoBehaviour
 
     private void ShowAimArrow(Vector2 input)
     {
-        aimArrow.gameObject.SetActive(true);
+        aimArrowAnchor.gameObject.SetActive(true);
 
         var dir = input.normalized;
         var chargePercent = isCharging ? (chargeTimer / maxChargeTime) : 0f;
-        var lengthMultiplier = Mathf.Lerp(1f, aimArrowMaxLengthMultiplier, chargePercent);
-        var scaledLength = arrowLength * lengthMultiplier;
 
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        aimArrow.rotation = Quaternion.Euler(0, 0, angle);
+        aimArrowAnchor.rotation = Quaternion.Euler(0, 0, angle);
 
-        aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
+        aimArrowFill.size = new Vector2(Mathf.Lerp(0, aimArrowMaxFillValue, chargePercent), aimArrowFill.size.y);
+        aimArrowFill.color = aimChargeColor.Evaluate(chargePercent);
     }
 
     // Ball collision events are used for special shots
