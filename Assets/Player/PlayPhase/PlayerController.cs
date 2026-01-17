@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
 #endif
 
     private Rigidbody2D body;
+    private TrailRenderer trailRenderer;
     private GameObject partyHat;
 
     private Vector2 aimInput;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        trailRenderer = GetComponent<TrailRenderer>();
         partyHat = transform.Find("PartyHat").gameObject;
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
@@ -78,11 +80,14 @@ public class PlayerController : MonoBehaviour
     public void ResetSelf()
     {
         partyHat.SetActive(false);
+        aimArrowAnchor.gameObject.SetActive(false);
 
         body.angularVelocity = 0;
         body.totalTorque = 0;
         body.linearVelocity = Vector2.zero;
         body.totalForce = Vector2.zero;
+
+        trailRenderer.Clear();
     }
 
     public void ResetSpecialShotSpecifics()
