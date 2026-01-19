@@ -18,7 +18,6 @@ public class GravityPulse : MonoBehaviour
 
         secondsPerAnimationCycle = 4f;
         animationSpeed = maxRadius / secondsPerAnimationCycle;
-        //currentRadius = maxRadius;
     }
 
     private void Update()
