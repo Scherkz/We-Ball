@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GravityField
   gravityFactor: 9.81
-  visualizersOffset: 0.4
+  visualizersOffset: 0.5
 --- !u!1 &7953147676563741800
 GameObject:
   m_ObjectHideFlags: 0

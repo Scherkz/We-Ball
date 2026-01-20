@@ -41,6 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _FadeInTime: 0.5
     - _PulseSize: 1
     - _PulseSpeed: 0.2
     - _PulseWidth: 0.005
