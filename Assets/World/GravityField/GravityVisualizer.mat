@@ -42,11 +42,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _PulseSize: 1
-    - _PulseSpeed: 0.6
+    - _PulseSpeed: 0.2
     - _PulseWidth: 0.005
-    - _TimeOffset: 0
+    - _TimeOffset: 0.56
     m_Colors:
-    - _Color: {r: 0.18689926, g: 0.30593058, b: 0.5283019, a: 1}
+    - _Color: {r: 0.18689921, g: 0.30593055, b: 0.5283019, a: 0.3137255}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &6488552887630315896

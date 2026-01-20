@@ -6,9 +6,12 @@ public class GravityField : MonoBehaviour
 
     public float gravityFactor = 9.81f;
 
+    [SerializeField][Range(0f, 1f)] private float visualizersOffset = 0.8f;
+
     private void Awake()
     {
         var radius = GetComponent<CircleCollider2D>().radius;
+        var offset = Random.value;
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -18,8 +21,11 @@ public class GravityField : MonoBehaviour
                 child.transform.localScale = new Vector3(radius, radius, 1);
 
                 var propBlock = new MaterialPropertyBlock();
-                propBlock.SetFloat(TimeOffsetShaderPropertyName, Random.value);
+                Debug.Log(offset);
+                propBlock.SetFloat(TimeOffsetShaderPropertyName, offset);
                 child.GetComponent<SpriteRenderer>().SetPropertyBlock(propBlock);
+
+                offset += visualizersOffset;
             }
         }
     }
