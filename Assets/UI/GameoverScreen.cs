@@ -13,6 +13,8 @@ public class GameoverScreen : MonoBehaviour
     [SerializeField] private string[] taunts;
     [SerializeField] private InputAction rematchInputAction;
 
+    [SerializeField] private AudioSource gameoverSfx;
+
     private Image colorCircle;
     private TMP_Text winnerTaunt;
     private Transform scoreboard;
@@ -65,6 +67,9 @@ public class GameoverScreen : MonoBehaviour
 
     private void OnWinnerDecided(Player winner, Player[] players, int roundsPlayed)
     {
+        if (gameoverSfx != null)
+            gameoverSfx.Play();
+
         rematchInputAction.Enable();
         ToggleCildren(true);
 

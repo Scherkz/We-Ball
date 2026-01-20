@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
@@ -53,7 +52,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        buildController.gameObject.SetActive(false);
+        buildController.enabled = false;
         playerController.gameObject.SetActive(false);
     }
 
@@ -100,9 +99,6 @@ public class Player : MonoBehaviour
         hasSelectedBuilding = false;
 
         buildController.enabled = true;
-        buildController.gameObject.SetActive(true);
-        buildController.ToggleCursor(true);
-
         buildController.InitSelectionPhase(screenPosition);
     }
 
@@ -110,9 +106,7 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = false;
 
-        buildController.gameObject.SetActive(true);
-        buildController.ToggleCursor(true);
-
+        buildController.enabled = true;
         buildController.InitBuildingPhase(buildGrid);
 
         playerController.ResetSpecialShotSpecifics();
@@ -122,7 +116,7 @@ public class Player : MonoBehaviour
     {
         playerInput.SwitchCurrentActionMap(playingActionMapName);
 
-        buildController.gameObject.SetActive(false);
+        buildController.enabled = false;
 
         hasFinishedRound = false;
 
@@ -225,8 +219,7 @@ public class Player : MonoBehaviour
     private void OnBuildingSelected()
     {
         hasSelectedBuilding = true;
-        buildController.gameObject.SetActive(false);
-        buildController.ToggleCursor(false);
+        buildController.enabled = false;
 
         OnSelectedBuilding?.Invoke();
     }
@@ -235,7 +228,6 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = true;
         buildController.enabled = false;
-        buildController.ToggleCursor(false);
 
         OnPlacedBuilding?.Invoke();
     }
