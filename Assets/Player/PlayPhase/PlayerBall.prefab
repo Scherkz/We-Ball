@@ -727,7 +727,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   defaultLinearDamping: 0.1
   shootForce: 10
-  arrowLength: 2
   maxChargeTime: 1
   maxChargeMultiplier: 2
   invertedControls: 1
@@ -742,8 +741,8 @@ MonoBehaviour:
     minHitSpeed: 1
   - material: {fileID: 6200000, guid: a03b268a4258b294e82e3eae0156b1ca, type: 2}
     clip: {fileID: 8300000, guid: 717f5c410be689847a5913ea1e0e01d7, type: 3}
-    volume: 1
-    minHitSpeed: 0
+    volume: 0.5
+    minHitSpeed: 1
   - material: {fileID: 6200000, guid: 11ad2bf7accd068468aba1a93a367f56, type: 2}
     clip: {fileID: 8300000, guid: 5439c4c274ba27c4194ed056a3124851, type: 3}
     volume: 0.1
