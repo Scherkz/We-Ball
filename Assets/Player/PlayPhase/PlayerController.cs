@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
 
-        aimArrowMaxFillValue = aimArrowFill.size.x;
+        aimArrowMaxFillValue = aimArrowFill.sprite.bounds.size.x;
     }
 
     private void Start()
