@@ -202,8 +202,9 @@ public class Player : MonoBehaviour
 
         OnFinishedRound?.Invoke();
     }
+
     // is called via Unity's messaging system
-    private void OnEnterKillArea()
+    private void OnEnterKillAreaMessage()
     {
         playerController.transform.position = spawnPoint;
         playerController.ResetSelf();

@@ -226,12 +226,12 @@ TextureImporter:
       name: BuildingsBlackhole
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 1536
+        x: 512
+        y: 256
         width: 256
         height: 256
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -508,6 +508,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: BuildingsBlackhole_Flare
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 320
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44c3df547f4f6e1409af7585668e4d5b
+      internalID: 472661421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -530,6 +552,7 @@ TextureImporter:
       BuildingsArt_MissileFlame3: 330290670
       BuildingsArt_RocketPowerUp: -1767063967
       BuildingsBlackhole: 1049909109
+      BuildingsBlackhole_Flare: 472661421
       BuildingsBlock: 3651934981238733184
       BuildingsBomb: -953383292
       BuildingsFanWindEffect: -358048681

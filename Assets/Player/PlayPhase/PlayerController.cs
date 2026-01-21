@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(LineRenderer))]
 public class PlayerController : MonoBehaviour
 {
     [Serializable]
@@ -20,7 +19,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float defaultLinearDamping = 0.1f;
 
     [SerializeField] private float shootForce = 10f;
-    [SerializeField] private float arrowLength = 3f;
 
     [SerializeField] private float maxChargeTime = 1;
     [SerializeField] private float maxChargeMultiplier = 2f;
@@ -36,8 +34,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float hitSfxCooldown = 1f;
 
     [Header("AimArrow")]
-    [SerializeField] private Transform aimArrow;
-    [SerializeField] private float aimArrowMaxLengthMultiplier = 1.5f;
+    [SerializeField] private Transform aimArrowAnchor;
+    [SerializeField] private SpriteRenderer aimArrowFill;
+    [SerializeField] private Gradient aimChargeColor;
 
     [Header("Collisions")]
     [Range(0, 10f)]
@@ -51,12 +50,14 @@ public class PlayerController : MonoBehaviour
 #endif
 
     private Rigidbody2D body;
+    private TrailRenderer trailRenderer;
     private GameObject partyHat;
 
     private Vector2 aimInput;
 
     private bool isCharging = false;
     private float chargeTimer = 0f;
+    private float aimArrowMaxFillValue;
 
     private bool isSpecialShotEnabled = false;
     private bool specialShotAvailable = false;
@@ -74,9 +75,12 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
+        trailRenderer = GetComponent<TrailRenderer>();
         partyHat = transform.Find("PartyHat").gameObject;
 
         GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV(0, 1, 1, 1, 1, 1);
+
+        aimArrowMaxFillValue = aimArrowFill.sprite.bounds.size.x;
     }
 
     private void Start()
@@ -90,11 +94,14 @@ public class PlayerController : MonoBehaviour
     public void ResetSelf()
     {
         partyHat.SetActive(false);
+        aimArrowAnchor.gameObject.SetActive(false);
 
         body.angularVelocity = 0;
         body.totalTorque = 0;
         body.linearVelocity = Vector2.zero;
         body.totalForce = Vector2.zero;
+
+        trailRenderer.Clear();
     }
 
     public void ResetSpecialShotSpecifics()
@@ -147,7 +154,7 @@ public class PlayerController : MonoBehaviour
             {
                 isCharging = false;
                 chargeTimer = 0f;
-                aimArrow.gameObject.SetActive(false);
+                aimArrowAnchor.gameObject.SetActive(false);
                 return;
             }
 
@@ -161,7 +168,7 @@ public class PlayerController : MonoBehaviour
             isCharging = false;
             chargeTimer = 0f;
             aimInput = Vector2.zero;
-            aimArrow.gameObject.SetActive(false);
+            aimArrowAnchor.gameObject.SetActive(false);
 
             OnSwing?.Invoke();
         }
@@ -173,8 +180,8 @@ public class PlayerController : MonoBehaviour
         chargeTimer = 0f;
         aimInput = Vector2.zero;
 
-        if (aimArrow != null)
-            aimArrow.gameObject.SetActive(false);
+        if (aimArrowAnchor != null)
+            aimArrowAnchor.gameObject.SetActive(false);
     }
 
     public void SetColor(Color color)
@@ -193,7 +200,7 @@ public class PlayerController : MonoBehaviour
         if (aimInput.sqrMagnitude > 0.01f)
             ShowAimArrow(aimInput);
         else
-            aimArrow.gameObject.SetActive(false);
+            aimArrowAnchor.gameObject.SetActive(false);
 
         if (isCharging)
         {
@@ -204,17 +211,16 @@ public class PlayerController : MonoBehaviour
 
     private void ShowAimArrow(Vector2 input)
     {
-        aimArrow.gameObject.SetActive(true);
+        aimArrowAnchor.gameObject.SetActive(true);
 
         var dir = input.normalized;
         var chargePercent = isCharging ? (chargeTimer / maxChargeTime) : 0f;
-        var lengthMultiplier = Mathf.Lerp(1f, aimArrowMaxLengthMultiplier, chargePercent);
-        var scaledLength = arrowLength * lengthMultiplier;
 
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        aimArrow.rotation = Quaternion.Euler(0, 0, angle);
+        aimArrowAnchor.rotation = Quaternion.Euler(0, 0, angle);
 
-        aimArrow.localScale = new Vector3(scaledLength, 1f, 1f);
+        aimArrowFill.size = new Vector2(Mathf.Lerp(0, aimArrowMaxFillValue, chargePercent), aimArrowFill.size.y);
+        aimArrowFill.color = aimChargeColor.Evaluate(chargePercent);
     }
 
     // Ball collision events are used for special shots

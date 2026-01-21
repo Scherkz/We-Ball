@@ -7,7 +7,6 @@ public class SandFountain : MonoBehaviour
     [SerializeField] private float eruptionInterval = 10f;
     [SerializeField] private float eruptionDuration = 3f;
     [SerializeField] private float pushForce = 32f;
-    [SerializeField] private float eruptionSpeed = 5f;
 
     private void Start()
     {

@@ -34,7 +34,8 @@ public class GhostShot : SpecialShot
             playerController.OnToggleSpecialShotActivation -= ToggleSpecialShotActivation;
         }
 
-        ballSprite.color = new Color(ballSprite.color.r, ballSprite.color.g, ballSprite.color.b, 1f);
+        if (ballSprite != null)
+            ballSprite.color = new Color(ballSprite.color.r, ballSprite.color.g, ballSprite.color.b, 1f);
 
     }
 
