@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float defaultLinearDamping = 0.1f;
 
     [SerializeField] private float shootForce = 10f;
-    [SerializeField] private float arrowLength = 3f;
 
     [SerializeField] private float maxChargeTime = 1;
     [SerializeField] private float maxChargeMultiplier = 2f;
