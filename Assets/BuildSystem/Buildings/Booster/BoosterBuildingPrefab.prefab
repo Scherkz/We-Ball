@@ -112,12 +112,12 @@ SpriteRenderer:
   m_SortingLayerID: 402704941
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4365544765984126881, guid: 9f0aa9b7617843d46b6d535e0e6797d8, type: 3}
+  m_Sprite: {fileID: -1367700939, guid: a53a588a7fc2b4a42a879e3947d79bc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3, y: 2}
+  m_Size: {x: 3.0007327, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -210,8 +210,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6136598615610933730}
-  - component: {fileID: 845358915996775524}
   - component: {fileID: 838769573164313213}
+  - component: {fileID: 3069842415484603502}
+  - component: {fileID: 845358915996775524}
   m_Layer: 0
   m_Name: BoosterBuildingPrefab
   m_TagString: Untagged
@@ -235,22 +236,6 @@ Transform:
   - {fileID: 8213192476866012643}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &845358915996775524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8889352517432693169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67c7fa52a697f8a439c5615de0b20578, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BoosterBuilding
-  spriteRenderer: {fileID: 7691929721822909986}
-  rotation: 0
-  rotationAnchor: {fileID: 8213192476866012643}
-  boostForce: 7
 --- !u!50 &838769573164313213
 Rigidbody2D:
   serializedVersion: 5
@@ -278,3 +263,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &3069842415484603502
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8889352517432693169}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 22d59c27cf9b95e418bada578ed88da1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &845358915996775524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8889352517432693169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c7fa52a697f8a439c5615de0b20578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoosterBuilding
+  spriteRenderer: {fileID: 7691929721822909986}
+  rotation: 0
+  rotationAnchor: {fileID: 8213192476866012643}
+  boostForce: 7
