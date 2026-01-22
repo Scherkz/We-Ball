@@ -182,7 +182,7 @@ public class BuildGrid : MonoBehaviour
             }
         }
 
-        return count / grid.Length;
+        return count / (float)grid.Length;
     }
 
     private void RemoveBuildingFromCell(int cellIndex)
