@@ -21,7 +21,6 @@ public class GravityField : MonoBehaviour
                 child.transform.localScale = new Vector3(radius, radius, 1);
 
                 var propBlock = new MaterialPropertyBlock();
-                Debug.Log(offset);
                 propBlock.SetFloat(TimeOffsetShaderPropertyName, offset);
                 child.GetComponent<SpriteRenderer>().SetPropertyBlock(propBlock);
 
