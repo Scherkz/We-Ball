@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
 
     public void StartSelectionPhase(Vector2 screenPosition)
     {
+        playerInput.ActivateInput();
         playerInput.SwitchCurrentActionMap(buildingActionMapName);
 
         playerController.TogglePartyHat(false);
@@ -104,6 +105,8 @@ public class Player : MonoBehaviour
 
     public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
     {
+        playerInput.ActivateInput();
+        
         hasPlacedBuilding = false;
 
         buildController.enabled = true;
@@ -114,6 +117,7 @@ public class Player : MonoBehaviour
 
     public void StartPlayingPhase(Vector3 spawnPosition)
     {
+        playerInput.ActivateInput();
         playerInput.SwitchCurrentActionMap(playingActionMapName);
 
         buildController.enabled = false;
@@ -193,7 +197,8 @@ public class Player : MonoBehaviour
         StopTimer();
 
         playerController.CancelShotAndHideArrow();
-
+        playerInput.DeactivateInput();
+        
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
 
@@ -221,6 +226,8 @@ public class Player : MonoBehaviour
     {
         hasSelectedBuilding = true;
         buildController.enabled = false;
+        
+        playerInput.ActivateInput();
 
         OnSelectedBuilding?.Invoke();
     }
@@ -229,6 +236,8 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = true;
         buildController.enabled = false;
+        
+        playerInput.DeactivateInput();
 
         OnPlacedBuilding?.Invoke();
     }
