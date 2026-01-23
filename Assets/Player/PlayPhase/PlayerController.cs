@@ -70,8 +70,6 @@ public class PlayerController : MonoBehaviour
 
     private bool resetOnStart = true;
 
-    private float lastHitSfxTime = -999f;
-
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -332,8 +330,6 @@ public class PlayerController : MonoBehaviour
         if (surfaceHitAudioSource == null || surfaceSfx == null || surfaceSfx.Length == 0)
             return;
 
-        if (Time.time - lastHitSfxTime < hitSfxCooldown)
-            return;
         var mat = collision.collider.sharedMaterial;
         if (mat == null) 
             if (collision.rigidbody != null)
@@ -357,7 +353,6 @@ public class PlayerController : MonoBehaviour
                 return;
 
             surfaceHitAudioSource.PlayOneShot(entry.clip, entry.volume);
-            lastHitSfxTime = Time.time;
             return;
         }
     }
