@@ -19,9 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float defaultLinearDamping = 0.1f;
 
     [SerializeField] private float shootForce = 10f;
-
-    [SerializeField] private float maxChargeTime = 1;
-    [SerializeField] private float maxChargeMultiplier = 2f;
+    [SerializeField] private float maxChargeTime = 1f;
 
     [SerializeField] private bool invertedControls = true;
 
@@ -54,9 +52,9 @@ public class PlayerController : MonoBehaviour
     private GameObject partyHat;
 
     private Vector2 aimInput;
-
-    private bool isCharging = false;
-    private float chargeTimer = 0f;
+    
+    private float shootInputStartTime;
+    private bool isCharging;
     private float aimArrowMaxFillValue;
 
     private bool isSpecialShotEnabled = false;
@@ -117,6 +115,12 @@ public class PlayerController : MonoBehaviour
 
     public void Aim(InputAction.CallbackContext context)
     {
+        if (context.started)
+        {
+            // reset the charge when starting to aim
+            shootInputStartTime = Time.realtimeSinceStartup;
+        }
+        
         var aimDirection = context.ReadValue<Vector2>();
         aimInput = invertedControls ? -aimDirection : aimDirection;
     }
@@ -127,7 +131,8 @@ public class PlayerController : MonoBehaviour
         {
             if (!specialShotAvailable) return;
 
-            if (buildingsInsideTrigger > 0 && this.transform.gameObject.layer == LayerMask.NameToLayer("GhostBall")) return;
+            if (buildingsInsideTrigger > 0 && gameObject.layer == LayerMask.NameToLayer("GhostBall")) 
+                return;
 
             isSpecialShotEnabled = !isSpecialShotEnabled;
 
@@ -142,34 +147,33 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
+            // context.duration always reads 0 therefore we have to do it manually
+            shootInputStartTime = Time.realtimeSinceStartup;
             isCharging = true;
-            chargeTimer = 0f;
         }
-
+        
         if (context.canceled && isCharging)
         {
             if (aimInput.sqrMagnitude < 0.01f)
             {
-                isCharging = false;
-                chargeTimer = 0f;
                 aimArrowAnchor.gameObject.SetActive(false);
                 return;
             }
-
-            float chargePercent = chargeTimer / maxChargeTime;
-            float chargeMultiplier = maxChargeMultiplier * chargePercent;
-            body.AddForce(chargeMultiplier * shootForce * aimInput.normalized, ForceMode2D.Impulse);
+            
+            var inputDuration = Time.realtimeSinceStartup - shootInputStartTime;
+            var chargeTime = Mathf.Min(inputDuration, maxChargeTime);
+            var chargeAmount = chargeTime / maxChargeTime;
+            body.AddForce(chargeAmount * shootForce * aimInput.normalized, ForceMode2D.Impulse);
 
             if (shootSfx != null)
                 shootSfx.Play();
-
-            isCharging = false;
-            chargeTimer = 0f;
+            
             aimInput = Vector2.zero;
             aimArrowAnchor.gameObject.SetActive(false);
-
+            isCharging = false;
+            
             OnSwing?.Invoke();
         }
     }
@@ -177,7 +181,6 @@ public class PlayerController : MonoBehaviour
     public void CancelShotAndHideArrow()
     {
         isCharging = false;
-        chargeTimer = 0f;
         aimInput = Vector2.zero;
 
         if (aimArrowAnchor != null)
@@ -201,12 +204,6 @@ public class PlayerController : MonoBehaviour
             ShowAimArrow(aimInput);
         else
             aimArrowAnchor.gameObject.SetActive(false);
-
-        if (isCharging)
-        {
-            chargeTimer += Time.deltaTime;
-            chargeTimer = Mathf.Min(chargeTimer, maxChargeTime);
-        }
     }
 
     private void ShowAimArrow(Vector2 input)
@@ -214,13 +211,14 @@ public class PlayerController : MonoBehaviour
         aimArrowAnchor.gameObject.SetActive(true);
 
         var dir = input.normalized;
-        var chargePercent = isCharging ? (chargeTimer / maxChargeTime) : 0f;
-
+        var chargeDuration = Time.realtimeSinceStartup - shootInputStartTime;
+        var chargeAmount = isCharging ? chargeDuration / maxChargeTime : 0f;
+        
         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         aimArrowAnchor.rotation = Quaternion.Euler(0, 0, angle);
 
-        aimArrowFill.size = new Vector2(Mathf.Lerp(0, aimArrowMaxFillValue, chargePercent), aimArrowFill.size.y);
-        aimArrowFill.color = aimChargeColor.Evaluate(chargePercent);
+        aimArrowFill.size = new Vector2(Mathf.Lerp(0, aimArrowMaxFillValue, chargeAmount), aimArrowFill.size.y);
+        aimArrowFill.color = aimChargeColor.Evaluate(chargeAmount);
     }
 
     // Ball collision events are used for special shots
@@ -279,7 +277,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collider != null)
         {
-
             PhysicsMaterial2D material = collider.sharedMaterial;
 
             if (material != null)

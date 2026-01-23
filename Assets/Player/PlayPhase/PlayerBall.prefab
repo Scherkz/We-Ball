@@ -726,9 +726,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   defaultLinearDamping: 0.1
-  shootForce: 10
+  shootForce: 20
   maxChargeTime: 1
-  maxChargeMultiplier: 2
   invertedControls: 1
   shootSfx: {fileID: -7560537271165688712}
   activateSpecialShotSfx: {fileID: 6718075606520506883}
