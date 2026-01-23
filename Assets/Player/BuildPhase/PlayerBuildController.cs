@@ -86,7 +86,10 @@ public class PlayerBuildController : MonoBehaviour
         if (context.canceled)
         {
             var building = buildingGhost.currentBuilding;
-            building.SetRotation(buildingGhost.data, building.GetNextRotation(true));
+            if (building != null)
+            {
+                building.SetRotation(buildingGhost.data, building.GetNextRotation(true));
+            }
         }
     }
 
@@ -95,7 +98,10 @@ public class PlayerBuildController : MonoBehaviour
         if (context.canceled)
         {
             var building = buildingGhost.currentBuilding;
-            building.SetRotation(buildingGhost.data, building.GetNextRotation(false));
+            if (building != null)
+            {
+                building.SetRotation(buildingGhost.data, building.GetNextRotation(false));
+            }
         }
     }
 
