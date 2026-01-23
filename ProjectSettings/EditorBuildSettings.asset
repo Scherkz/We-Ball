@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/SpaceLevel/SpaceLevelScene.unity
     guid: 66664e458ba48f441865385e5f43b91d
+  - enabled: 1
+    path: Assets/Levels/RubberLevel/RubberLevelScene.unity
+    guid: 527ca2ae90339d74585895c3db79c714
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
