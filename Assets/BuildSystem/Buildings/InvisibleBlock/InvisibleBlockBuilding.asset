@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 074acda9f5fee7e45aa6970d8a88f99f, type: 3}
-  m_Name: InivisibleBlockBuilding
+  m_Name: InvisibleBlockBuilding
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  name: Block
-  prefab: {fileID: 8889352517432693169, guid: 57b06be994685044f97f181a257d9817, type: 3}
+  name: Invisible Block
+  prefab: {fileID: 8889352517432693169, guid: 5c7c34a045eedd34594418e30e0fd29d, type: 3}
   isAntiBuilding: 0
   isInvisibleBuilding: 1
   cellCount: {x: 2, y: 2}

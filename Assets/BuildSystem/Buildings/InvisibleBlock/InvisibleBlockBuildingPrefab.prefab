@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7579628494982976359}
   - component: {fileID: 6577856518834875205}
   m_Layer: 0
-  m_Name: InivisibleBlockBuildingPrefab
+  m_Name: InvisibleBlockBuildingPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
