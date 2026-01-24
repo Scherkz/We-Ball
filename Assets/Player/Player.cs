@@ -17,7 +17,11 @@ public class Player : MonoBehaviour
     public Action OnFinishedRound;
     public Action<int> OnScoreChanges;
     public Action<string> OnSpecialShotAssigned;
+    public Action<bool> OnSurrenderHintVisible;
+    [SerializeField] private int surrenderHintSwingsThreshold = 12;
 
+    private bool surrenderHintShown = false;
+    
     public int score;
     public List<int> scorePerRound = new();
     public float timeTookThisRound;
@@ -83,6 +87,9 @@ public class Player : MonoBehaviour
         playerController.ResetSelf();
 
         numberOfSwingsThisRound = 0;
+        
+        surrenderHintShown = false;
+        OnSurrenderHintVisible?.Invoke(false);
 
         hasPlacedBuilding = false;
         hasFinishedRound = true; // this means we are currently in building phase
@@ -140,6 +147,10 @@ public class Player : MonoBehaviour
         StartTimer();
 
         numberOfSwingsThisRound = 0;
+        
+        surrenderHintShown = false;
+        OnSurrenderHintVisible?.Invoke(false);
+        
         spawnPoint = spawnPosition;
 
         playerController.SetSpecialShotAvailability(true);
@@ -202,6 +213,8 @@ public class Player : MonoBehaviour
 
         hasFinishedRound = true;
         StopTimer();
+        
+        OnSurrenderHintVisible?.Invoke(false);
 
         playerController.CancelShotAndHideArrow();
         playerInput.DeactivateInput();
@@ -268,6 +281,13 @@ public class Player : MonoBehaviour
     private void OnPlayerSwings()
     {
         numberOfSwingsThisRound++;
+        Debug.Log($"Swings: {numberOfSwingsThisRound}");
+        
+        if (!surrenderHintShown && numberOfSwingsThisRound >= surrenderHintSwingsThreshold)
+        {
+            surrenderHintShown = true;
+            OnSurrenderHintVisible?.Invoke(true);
+        }
     }
 
     private void StartTimer()
