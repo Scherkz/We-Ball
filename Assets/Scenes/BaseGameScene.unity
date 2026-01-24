@@ -564,12 +564,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8e834cef814c4024d8976b2e9320e57f, type: 2}
   - {fileID: 11400000, guid: a611068c21d8e294f84f5916f5918e57, type: 2}
   - {fileID: 11400000, guid: 378d3e43f834d2f41ba2ff8714666e39, type: 2}
+  - {fileID: 11400000, guid: 1f890f4d74c898840bcb92febe750e19, type: 2}
   - {fileID: 11400000, guid: 04fa0426341b1a74290371ba78fc53fb, type: 2}
   - {fileID: 11400000, guid: 54df8a3385e6e614393b0c6bab06a94d, type: 2}
   - {fileID: 11400000, guid: d6ca7e9b8c35aa2499d8a6b079e12d38, type: 2}
+  - {fileID: 11400000, guid: 93863df28f59fc144ac4b1528fa66f13, type: 2}
   - {fileID: 11400000, guid: 1fe0ad4f67dfa6c4484a64e73634484b, type: 2}
   - {fileID: 11400000, guid: e350fb932468d1c41b52d76fb6774e0a, type: 2}
-  - {fileID: 11400000, guid: 1f890f4d74c898840bcb92febe750e19, type: 2}
   specialShots:
   - {fileID: 11400000, guid: 41c510f05b83187448ac31d1c8fa7d09, type: 2}
   - {fileID: 11400000, guid: 3925c1aa0d4a2d74ea70ca99ed87497e, type: 2}
