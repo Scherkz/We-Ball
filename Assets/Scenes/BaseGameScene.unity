@@ -570,6 +570,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1fe0ad4f67dfa6c4484a64e73634484b, type: 2}
   - {fileID: 11400000, guid: e350fb932468d1c41b52d76fb6774e0a, type: 2}
   - {fileID: 11400000, guid: 1f890f4d74c898840bcb92febe750e19, type: 2}
+  - {fileID: 11400000, guid: 95a0b963394aa894a8421b4118819c7b, type: 2}
   specialShots:
   - {fileID: 11400000, guid: 41c510f05b83187448ac31d1c8fa7d09, type: 2}
   - {fileID: 11400000, guid: 3925c1aa0d4a2d74ea70ca99ed87497e, type: 2}
