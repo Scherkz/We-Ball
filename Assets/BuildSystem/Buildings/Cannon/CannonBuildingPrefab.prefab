@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5984170097484219599}
-  - component: {fileID: 7979676045911663736}
+  - component: {fileID: 7202806304560855455}
   m_Layer: 8
   m_Name: Effect
   m_TagString: Untagged
@@ -155,7 +155,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8213192476866012643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &7979676045911663736
+--- !u!61 &7202806304560855455
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,10 +192,10 @@ BoxCollider2D:
   m_Offset: {x: 0.5, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3, y: 2}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0

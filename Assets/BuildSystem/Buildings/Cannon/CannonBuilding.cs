@@ -68,6 +68,9 @@ public class CannonBuilding : Building
         foreach (Collider c in playerGameObject.GetComponentsInChildren<Collider>())
             c.enabled = false;
 
+        foreach (SpriteRenderer sp in playerGameObject.GetComponentsInChildren<SpriteRenderer>())
+            sp.enabled = false;
+
         Vector2 midPoint = transform.position;
         midPoint.x += 0.5f;
         midPoint.y += 0.5f;
@@ -84,6 +87,9 @@ public class CannonBuilding : Building
 
         foreach (Collider c in playerGameObject.GetComponentsInChildren<Collider>())
             c.enabled = true;
+
+        foreach (SpriteRenderer sp in playerGameObject.GetComponentsInChildren<SpriteRenderer>())
+            sp.enabled = true;
     }
 
     private void Update()
