@@ -127,32 +127,32 @@ public class MovingPlatform : Building
         };
     }
 
-    protected override void RotateSelf(BuildingData _buildingData, Rotation rotation)
-    {
-        switch (rotation)
-        {
-            default:
-            case Rotation.Degree0:
-                currentStartPoint = startPointHorizontal;
-                currentEndPoint = endPointHorizontal;
-                UpdateMarkers();
-                break;
-            case Rotation.Degree180:
-                currentStartPoint = startPointVertical;
-                currentEndPoint = endPointVertical;
-                UpdateMarkers();
-                break;
-        }
-    }
+    //protected override void RotateSelf(BuildingData _buildingData, Rotation rotation)
+    //{
+    //    switch (rotation)
+    //    {
+    //        default:
+    //        case Rotation.Degree0:
+    //            currentStartPoint = startPointHorizontal;
+    //            currentEndPoint = endPointHorizontal;
+    //            UpdateMarkers();
+    //            break;
+    //        case Rotation.Degree180:
+    //            currentStartPoint = startPointVertical;
+    //            currentEndPoint = endPointVertical;
+    //            UpdateMarkers();
+    //            break;
+    //    }
+    //}
 
-    private void UpdateMarkers()
-    {
-        if (startMarker == null || endMarker == null) return;
+    //private void UpdateMarkers()
+    //{
+    //    if (startMarker == null || endMarker == null) return;
 
-        startMarker.transform.localPosition = currentStartPoint.localPosition;
-        endMarker.transform.localPosition = currentEndPoint.localPosition;
+    //    startMarker.transform.localPosition = currentStartPoint.localPosition;
+    //    endMarker.transform.localPosition = currentEndPoint.localPosition;
 
-        startMarker.SetActive(true);
-        endMarker.SetActive(true);
-    }
+    //    startMarker.SetActive(true);
+    //    endMarker.SetActive(true);
+    //}
 }
