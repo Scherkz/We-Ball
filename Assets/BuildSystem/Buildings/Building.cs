@@ -11,7 +11,8 @@ public class Building : MonoBehaviour
     }
 
     public SpriteRenderer spriteRenderer;
-    public Rotation rotation;
+
+    protected Rotation rotation;
 
     // leave this null if the building is not rotatable
     [SerializeField] protected Transform rotationAnchor;
@@ -45,7 +46,12 @@ public class Building : MonoBehaviour
         };
     }
 
-    public void SetRotation(BuildingData buildingData, Rotation rotation)
+    public virtual Rotation GetRotation()
+    {
+        return rotation;
+    }
+
+    public virtual void SetRotation(BuildingData buildingData, Rotation rotation)
     {
         if (rotationAnchor == null)
             return;
@@ -57,7 +63,6 @@ public class Building : MonoBehaviour
 
     protected virtual void RotateSelf(BuildingData buildingData, Rotation rotation)
     {
-
         switch (this.rotation)
         {
             default:
