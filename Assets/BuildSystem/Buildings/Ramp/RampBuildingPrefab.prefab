@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 1604700139872755679}
   - component: {fileID: 7579295545057690656}
   m_Layer: 8
-  m_Name: RampPrefab
+  m_Name: RampBuildingPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
