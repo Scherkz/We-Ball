@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 310657331}
   - component: {fileID: 310657330}
   m_Layer: 5
-  m_Name: SurrenderUI
+  m_Name: SurrenderHint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,7 +332,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 5.6151, y: 203.5}
-  m_SizeDelta: {x: 292.6497, y: 50}
+  m_SizeDelta: {x: 446.5515, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &310657330
 MonoBehaviour:
@@ -346,8 +346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1854c660ab4b843a934e73f9a94dca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SurrenderUI
-  player: {fileID: -4227592457166521561, guid: bcaa9720fe9cabe44ae5c8a230c0a1e0, type: 3}
-  canvasGroup: {fileID: 0}
 --- !u!114 &310657331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,7 +366,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Surrender: \nPress South D-Pad "
+  m_text: Hold South D-Pad to surrender!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

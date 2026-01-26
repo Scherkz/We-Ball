@@ -137,4 +137,14 @@ public class EventBus : MonoBehaviour
     /// </summary>
     public Action<MapNode, int> OnMapSelected;
 
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>bool</term>
+    ///         <description>Should the hint be visible. </description>
+    ///     </item>
+    /// </list>
+    /// </summary>
+    public Action<bool> OnToggleSurrenderHint;
+
 }

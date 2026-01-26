@@ -1,43 +1,29 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class SurrenderUI : MonoBehaviour
 {
-    [SerializeField] private Player player;
-    [SerializeField] private CanvasGroup canvasGroup;
+    private TMP_Text text;
 
     private void Awake()
     {
-        Debug.Log("SurrenderHintUI Awake on: " + gameObject.name);
-        if (canvasGroup == null)
-        {
-            canvasGroup = GetComponent<CanvasGroup>();
-        }
-        SetVisible(false); 
+        text = GetComponent<TMP_Text>();
+
+        SetVisible(false);
     }
 
     private void OnEnable()
     {
-        if (player != null)
-        {
-            player.OnSurrenderHintVisible += SetVisible;
-        }
+        EventBus.Instance.OnToggleSurrenderHint += SetVisible;
     }
 
     private void OnDisable()
     {
-        if (player != null)
-        {
-            player.OnSurrenderHintVisible -= SetVisible;
-        }
+        EventBus.Instance.OnToggleSurrenderHint -= SetVisible;
     }
 
     private void SetVisible(bool visible)
     {
-        if (canvasGroup == null) 
-            return;
-        canvasGroup.alpha = visible ? 1f : 0f;
-        canvasGroup.interactable = visible;
-        canvasGroup.blocksRaycasts = visible;
+        text.enabled = visible;
     }
 }

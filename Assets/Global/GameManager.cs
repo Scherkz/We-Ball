@@ -187,6 +187,9 @@ public class GameManager : MonoBehaviour
         // all players finished the round
         AwardScore();
 
+        // disable UI hints
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
+
         if (roundCount >= maxRoundsPerGame)
         {
             this.CallNextFrame(OnGameOver);

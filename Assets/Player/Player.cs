@@ -17,11 +17,7 @@ public class Player : MonoBehaviour
     public Action OnFinishedRound;
     public Action<int> OnScoreChanges;
     public Action<string> OnSpecialShotAssigned;
-    public Action<bool> OnSurrenderHintVisible;
-    [SerializeField] private int surrenderHintSwingsThreshold = 12;
 
-    private bool surrenderHintShown = false;
-    
     public int score;
     public List<int> scorePerRound = new();
     public float timeTookThisRound;
@@ -30,6 +26,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] private string buildingActionMapName = "Building";
     [SerializeField] private string playingActionMapName = "Playing";
+
+    [SerializeField] private int surrenderHintSwingsThreshold = 12;
 
     private PlayerInput playerInput;
     private PlayerBuildController buildController;
@@ -42,7 +40,7 @@ public class Player : MonoBehaviour
     private Color color;
     private float startTime;
     private Vector3 spawnPoint;
-    
+
     private enum RoundFinishReason
     {
         ReachedFinish,
@@ -87,9 +85,6 @@ public class Player : MonoBehaviour
         playerController.ResetSelf();
 
         numberOfSwingsThisRound = 0;
-        
-        surrenderHintShown = false;
-        OnSurrenderHintVisible?.Invoke(false);
 
         hasPlacedBuilding = false;
         hasFinishedRound = true; // this means we are currently in building phase
@@ -121,7 +116,7 @@ public class Player : MonoBehaviour
     public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
     {
         playerInput.ActivateInput();
-        
+
         hasPlacedBuilding = false;
 
         buildController.enabled = true;
@@ -147,10 +142,7 @@ public class Player : MonoBehaviour
         StartTimer();
 
         numberOfSwingsThisRound = 0;
-        
-        surrenderHintShown = false;
-        OnSurrenderHintVisible?.Invoke(false);
-        
+
         spawnPoint = spawnPosition;
 
         playerController.SetSpecialShotAvailability(true);
@@ -213,12 +205,10 @@ public class Player : MonoBehaviour
 
         hasFinishedRound = true;
         StopTimer();
-        
-        OnSurrenderHintVisible?.Invoke(false);
 
         playerController.CancelShotAndHideArrow();
         playerInput.DeactivateInput();
-        
+
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
 
@@ -228,7 +218,7 @@ public class Player : MonoBehaviour
                 numberOfSwingsThisRound = int.MaxValue;
                 timeTookThisRound = float.MaxValue;
                 break;
-            
+
             case RoundFinishReason.ReachedFinish:
                 var confetti = Instantiate(confettiVFX);
                 confetti.transform.position = playerController.transform.position;
@@ -237,7 +227,7 @@ public class Player : MonoBehaviour
 
         OnFinishedRound?.Invoke();
     }
-    
+
     // is called via Unity's messaging system
     private void OnEnterFinishArea()
     {
@@ -262,7 +252,7 @@ public class Player : MonoBehaviour
     {
         hasSelectedBuilding = true;
         buildController.enabled = false;
-        
+
         playerInput.ActivateInput();
 
         OnSelectedBuilding?.Invoke();
@@ -272,7 +262,7 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = true;
         buildController.enabled = false;
-        
+
         playerInput.DeactivateInput();
 
         OnPlacedBuilding?.Invoke();
@@ -281,12 +271,10 @@ public class Player : MonoBehaviour
     private void OnPlayerSwings()
     {
         numberOfSwingsThisRound++;
-        Debug.Log($"Swings: {numberOfSwingsThisRound}");
-        
-        if (!surrenderHintShown && numberOfSwingsThisRound >= surrenderHintSwingsThreshold)
+
+        if (numberOfSwingsThisRound >= surrenderHintSwingsThreshold)
         {
-            surrenderHintShown = true;
-            OnSurrenderHintVisible?.Invoke(true);
+            EventBus.Instance?.OnToggleSurrenderHint?.Invoke(true);
         }
     }
 
