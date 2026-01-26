@@ -42,6 +42,19 @@ public class BuildingSpawner : MonoBehaviour
 
     private BuildingData GetRandomBuildingData(BuildingData[] realBuildings, BuildingData[] antiBuildings, float buildGridOccupationPercentage, int antiBuildingSelectionCount)
     {
+#if UNITY_EDITOR
+        // fast path when testing a specific building
+        if (realBuildings.Length == 1 && antiBuildings.Length == 0)
+        {
+            return realBuildings[0];
+        }
+
+        if (antiBuildings.Length == 1 && realBuildings.Length == 0)
+        {
+            return antiBuildings[0];
+        }
+#endif
+
         var chance = antiBuildingChance.Evaluate(buildGridOccupationPercentage);
         chance *= Mathf.Pow(0.5f, antiBuildingSelectionCount); // each selected anti building halfes the probability of selecting another
 

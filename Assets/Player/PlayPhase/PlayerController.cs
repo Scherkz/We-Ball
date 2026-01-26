@@ -30,7 +30,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource deactivateSpecialShotSfx;
     [SerializeField] private AudioSource surfaceHitAudioSource;
     [SerializeField] private SurfaceSfx[] surfaceSfx;
-    [SerializeField] private float hitSfxCooldown = 1f;
 
     [Header("AimArrow")]
     [SerializeField] private Transform aimArrowAnchor;
@@ -360,10 +359,10 @@ public class PlayerController : MonoBehaviour
                 continue;
 
             if (hitSpeed < entry.minHitSpeed)
-                return;
+                break;
 
             surfaceHitAudioSource.PlayOneShot(entry.clip, entry.volume);
-            return;
+            break;
         }
     }
 }

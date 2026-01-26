@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 7053464410264243093}
   - component: {fileID: -5073137387870701194}
   m_Layer: 6
-  m_Name: BombBuilding
+  m_Name: BombAntiBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

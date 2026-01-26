@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BombBuilding : Building
+public class BombAntiBuilding : Building
 {
     [SerializeField] private float destroyTimer;
     [SerializeField] private AudioSource explosionBombSfx;
