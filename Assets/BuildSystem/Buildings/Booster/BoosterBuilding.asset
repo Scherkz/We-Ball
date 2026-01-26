@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074acda9f5fee7e45aa6970d8a88f99f, type: 3}
+  m_Name: BoosterBuilding
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingData
+  name: Booster
+  prefab: {fileID: 8889352517432693169, guid: 8e97c130f72b93f4a8265443c27ec7df, type: 3}
+  isAntiBuilding: 0
+  cellCount: {x: 3, y: 2}
+  bitmask: 010101010101

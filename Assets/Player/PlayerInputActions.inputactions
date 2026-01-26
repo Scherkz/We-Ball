@@ -636,6 +636,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Surrender",
+                    "type": "Button",
+                    "id": "f790a5bb-6ad3-493c-98c8-3708e43a5002",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold(duration=2)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -669,6 +678,17 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "ToggleSpecialShot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98a0eef2-cb8a-4f31-bd51-62d7b888299d",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Surrender",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

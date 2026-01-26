@@ -32,8 +32,6 @@ public abstract class PowerUpBuilding : Building
             buildGrid.RemoveBuildingAtPosition(transform.position);
             return;
         }
-
-        Destroy(gameObject);
     }
 
     //should be overwritten by each power up

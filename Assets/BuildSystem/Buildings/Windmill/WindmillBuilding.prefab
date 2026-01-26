@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 151092759018211522}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7680726988624413297}
   - component: {fileID: 7293939932764660765}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 3899771823412555221}
   - component: {fileID: 8435706345378198300}
   - component: {fileID: 2373064402094021163}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 1620851587231191193}
   - component: {fileID: 7711286332873396046}
   - component: {fileID: 5793148161791036529}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WindmillBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -48,6 +48,57 @@ MonoBehaviour:
   buildingGhostPrefab: {fileID: 6204720415019883559, guid: fb7eba92f1e586d4fa5d25ed6dcdcdee, type: 3}
   radius: 3
   rotationSpeed: 30
+  antiBuildingChance:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.450415
+      outSlope: 0
+      tangentMode: 65
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.009
+      value: 0
+      inSlope: -0
+      outSlope: 21.254236
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.01
+      value: 0.2
+      inSlope: 199.99997
+      outSlope: 2.7191644
+      tangentMode: 5
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.11040415
+    - serializedVersion: 3
+      time: 0.7
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.56243056
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6304729977629877757
 GameObject:
   m_ObjectHideFlags: 0

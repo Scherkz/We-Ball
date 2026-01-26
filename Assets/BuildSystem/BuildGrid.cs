@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BuildGrid : MonoBehaviour
 {
-    struct GridData
+    struct CellData
     {
         public BuildingData buildingData;
         public GameObject instance;
@@ -14,7 +14,7 @@ public class BuildGrid : MonoBehaviour
     public float cellSize = 0.25f;
     public Vector2Int cellCount;
 
-    private GridData[] grid;
+    private CellData[] grid;
     private SpriteRenderer gridVisualisation;
 
 #if UNITY_EDITOR
@@ -48,7 +48,7 @@ public class BuildGrid : MonoBehaviour
 
     private void Awake()
     {
-        grid = new GridData[cellCount.x * cellCount.y];
+        grid = new CellData[cellCount.x * cellCount.y];
 
         gridVisualisation = transform.Find("GridVisualisation").GetComponent<SpriteRenderer>();
     }
@@ -95,7 +95,7 @@ public class BuildGrid : MonoBehaviour
         }
 
         // store building reference in grid
-        var GridData = new GridData
+        var CellData = new CellData
         {
             buildingData = buildingData,
             instance = instance,
@@ -103,7 +103,7 @@ public class BuildGrid : MonoBehaviour
 
         foreach (var cellOffset in IterateBuildingCells(buildingData, rotation))
         {
-            grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)] = GridData;
+            grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)] = CellData;
         }
 
         return true;
@@ -121,8 +121,8 @@ public class BuildGrid : MonoBehaviour
         bool isOutsideGrid(Vector2Int cellOffset) =>
             cellCoords.x + cellOffset.x >= cellCount.x ||
             cellCoords.y + cellOffset.y >= cellCount.y;
-        bool isCellOccupied(Vector2Int cellOffset) => 
-            !buildingData.isAntiBuilding && 
+        bool isCellOccupied(Vector2Int cellOffset) =>
+            !buildingData.isAntiBuilding &&
             grid[cellIndex + GetCellIndex(cellOffset.x, cellOffset.y)].IsOccupied;
 
 #if UNITY_EDITOR
@@ -162,13 +162,27 @@ public class BuildGrid : MonoBehaviour
         var localCellPosition = InternalGetCellPosition(localPosition);
         return transform.TransformPoint(localCellPosition);
     }
-    
+
     public void RemoveBuildingAtPosition(Vector3 position)
     {
         var localPosition = transform.InverseTransformPoint(position);
 
         var cellIndex = GetCellIndex(localPosition);
         RemoveBuildingFromCell(cellIndex);
+    }
+
+    public float GetOccupationPercentage()
+    {
+        int count = 0;
+        foreach (var cell in grid)
+        {
+            if (cell.IsOccupied)
+            {
+                count++;
+            }
+        }
+
+        return count / (float)grid.Length;
     }
 
     private void RemoveBuildingFromCell(int cellIndex)
@@ -208,7 +222,7 @@ public class BuildGrid : MonoBehaviour
     private IEnumerable<Vector2Int> IterateBuildingCells(BuildingData buildingData, Building.Rotation rotation)
     {
         var size = buildingData.cellCount;
-        
+
         for (int y = 0; y < size.y; y++)
         {
             for (int x = 0; x < size.x; x++)
@@ -260,7 +274,7 @@ public class BuildGrid : MonoBehaviour
         int y = (int) Mathf.Floor(localPosition.y / cellSize);
         return new Vector2Int(x, y);
     }
-    
+
     private Vector2Int RotateLocalOffset(Vector2Int local, Vector2Int size, Building.Rotation rotation)
     {
         int x = local.x;

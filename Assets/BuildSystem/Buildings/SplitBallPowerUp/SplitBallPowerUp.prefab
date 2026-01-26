@@ -268,8 +268,9 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7163758404450222394}
   rotation: 0
   rotationAnchor: {fileID: 2525720593299211309}
-  collectVfxPrefab: {fileID: 0}
+  collectVfxPrefab: {fileID: 4115603082977504118, guid: bd96bf9b5cb205e4983dc4b0b834e0e1, type: 3}
   playersRegistry: {fileID: 11400000, guid: 38a57423f8f7409489d65726fa181edf, type: 2}
   colorSwitchSeconds: 1
   spawnOffset: 0.4
   spreadDegrees: 30
+  collectSfx: {fileID: 0}

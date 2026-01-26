@@ -37,6 +37,13 @@ public class Player : MonoBehaviour
 
     private Color color;
     private float startTime;
+    private Vector3 spawnPoint;
+    
+    private enum RoundFinishReason
+    {
+        ReachedFinish,
+        Surrender
+    }
 
     private void Awake()
     {
@@ -51,7 +58,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        buildController.gameObject.SetActive(false);
+        buildController.enabled = false;
         playerController.gameObject.SetActive(false);
     }
 
@@ -60,6 +67,7 @@ public class Player : MonoBehaviour
         buildController.OnSelectedBuilding += OnBuildingSelected;
         buildController.OnBuildingPlaced += OnBuildingPlaced;
         playerController.OnSwing += OnPlayerSwings;
+        playerController.onSurrenderConfirmed += OnPlayerSurrendered;
     }
 
     private void OnDisable()
@@ -67,6 +75,7 @@ public class Player : MonoBehaviour
         buildController.OnSelectedBuilding -= OnBuildingSelected;
         buildController.OnBuildingPlaced -= OnBuildingPlaced;
         playerController.OnSwing -= OnPlayerSwings;
+        playerController.onSurrenderConfirmed -= OnPlayerSurrendered;
     }
 
     public void StartNewRound()
@@ -90,6 +99,7 @@ public class Player : MonoBehaviour
 
     public void StartSelectionPhase(Vector2 screenPosition)
     {
+        playerInput.ActivateInput();
         playerInput.SwitchCurrentActionMap(buildingActionMapName);
 
         playerController.TogglePartyHat(false);
@@ -98,27 +108,27 @@ public class Player : MonoBehaviour
         hasSelectedBuilding = false;
 
         buildController.enabled = true;
-        buildController.gameObject.SetActive(true);
-        buildController.ToggleCursor(true);
-
         buildController.InitSelectionPhase(screenPosition);
     }
 
     public void StartBuildingPhase(BuildGrid buildGrid, BuildingData buildingData)
     {
+        playerInput.ActivateInput();
+        
         hasPlacedBuilding = false;
 
-        buildController.gameObject.SetActive(true);
-        buildController.ToggleCursor(true);
-
+        buildController.enabled = true;
         buildController.InitBuildingPhase(buildGrid);
+
+        playerController.ResetSpecialShotSpecifics();
     }
 
     public void StartPlayingPhase(Vector3 spawnPosition)
     {
+        playerInput.ActivateInput();
         playerInput.SwitchCurrentActionMap(playingActionMapName);
 
-        buildController.gameObject.SetActive(false);
+        buildController.enabled = false;
 
         hasFinishedRound = false;
 
@@ -130,6 +140,7 @@ public class Player : MonoBehaviour
         StartTimer();
 
         numberOfSwingsThisRound = 0;
+        spawnPoint = spawnPosition;
 
         playerController.SetSpecialShotAvailability(true);
         playerController.DisableSpecialShot();
@@ -184,8 +195,7 @@ public class Player : MonoBehaviour
         return playerController;
     }
 
-    // is called via Unity's messaging system
-    private void OnEnterFinishArea()
+    private void FinishRound(RoundFinishReason reason)
     {
         if (hasFinishedRound)
             return; // we are currently in build mode -> ignore event
@@ -194,14 +204,38 @@ public class Player : MonoBehaviour
         StopTimer();
 
         playerController.CancelShotAndHideArrow();
-
+        playerInput.DeactivateInput();
+        
         playerController.TogglePartyHat(true);
         playerController.enabled = false;
 
-        var confetti = Instantiate(confettiVFX);
-        confetti.transform.position = playerController.transform.position;
+        switch (reason)
+        {
+            case RoundFinishReason.Surrender:
+                numberOfSwingsThisRound = int.MaxValue;
+                timeTookThisRound = float.MaxValue;
+                break;
+            
+            case RoundFinishReason.ReachedFinish:
+                var confetti = Instantiate(confettiVFX);
+                confetti.transform.position = playerController.transform.position;
+                break;
+        }
 
         OnFinishedRound?.Invoke();
+    }
+    
+    // is called via Unity's messaging system
+    private void OnEnterFinishArea()
+    {
+        FinishRound(RoundFinishReason.ReachedFinish);
+    }
+
+    // is called via Unity's messaging system
+    private void OnEnterKillAreaMessage()
+    {
+        playerController.transform.position = spawnPoint;
+        playerController.ResetSelf();
     }
 
     // is called via Unity's messaging system through MapNode.cs
@@ -214,8 +248,9 @@ public class Player : MonoBehaviour
     private void OnBuildingSelected()
     {
         hasSelectedBuilding = true;
-        buildController.gameObject.SetActive(false);
-        buildController.ToggleCursor(false);
+        buildController.enabled = false;
+        
+        playerInput.ActivateInput();
 
         OnSelectedBuilding?.Invoke();
     }
@@ -224,7 +259,8 @@ public class Player : MonoBehaviour
     {
         hasPlacedBuilding = true;
         buildController.enabled = false;
-        buildController.ToggleCursor(false);
+        
+        playerInput.DeactivateInput();
 
         OnPlacedBuilding?.Invoke();
     }
@@ -251,5 +287,10 @@ public class Player : MonoBehaviour
             return;
 
         playerControllerRigidbody.AddForce(impulse, ForceMode2D.Impulse);
+    }
+
+    private void OnPlayerSurrendered()
+    {
+        FinishRound(RoundFinishReason.Surrender);
     }
 }

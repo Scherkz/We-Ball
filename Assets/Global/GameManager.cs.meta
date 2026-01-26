@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: a34c3eac6bcca5947b04b688c4b53a4e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerRegistry: {instanceID: 0}
+  - sfxSource: {instanceID: 0}
+  - winSfx: {fileID: 8300000, guid: 7f8345bafcbfcab43acd726cc5a442b7, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
