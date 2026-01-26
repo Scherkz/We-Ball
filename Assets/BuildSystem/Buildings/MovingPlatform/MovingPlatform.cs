@@ -33,6 +33,8 @@ public class MovingPlatform : Building
 
         if (transform == null || currentStartPoint == null || currentEndPoint == null) return;
 
+        UpdateMarkers();
+
         boxCollider2D = transform.Find("Platform").GetComponent<BoxCollider2D>();
         rigidBody2D = transform.Find("Platform").GetComponent<Rigidbody2D>();
 
@@ -127,32 +129,32 @@ public class MovingPlatform : Building
         };
     }
 
-    //protected override void RotateSelf(BuildingData _buildingData, Rotation rotation)
-    //{
-    //    switch (rotation)
-    //    {
-    //        default:
-    //        case Rotation.Degree0:
-    //            currentStartPoint = startPointHorizontal;
-    //            currentEndPoint = endPointHorizontal;
-    //            UpdateMarkers();
-    //            break;
-    //        case Rotation.Degree180:
-    //            currentStartPoint = startPointVertical;
-    //            currentEndPoint = endPointVertical;
-    //            UpdateMarkers();
-    //            break;
-    //    }
-    //}
+    protected override void RotateSelf(BuildingData _buildingData, Rotation rotation)
+    {
+        switch (rotation)
+        {
+            default:
+            case Rotation.Degree0:
+                currentStartPoint = startPointHorizontal;
+                currentEndPoint = endPointHorizontal;
+                UpdateMarkers();
+                break;
+            case Rotation.Degree180:
+                currentStartPoint = startPointHorizontal; // when using vertical movement: startPointVertical
+                currentEndPoint = endPointHorizontal; // when using vertical movement: endPointVertical
+                UpdateMarkers();
+                break;
+        }
+    }
 
-    //private void UpdateMarkers()
-    //{
-    //    if (startMarker == null || endMarker == null) return;
+    private void UpdateMarkers()
+    {
+        if (startMarker == null || endMarker == null) return;
 
-    //    startMarker.transform.localPosition = currentStartPoint.localPosition;
-    //    endMarker.transform.localPosition = currentEndPoint.localPosition;
+        startMarker.transform.localPosition = currentStartPoint.localPosition;
+        endMarker.transform.localPosition = currentEndPoint.localPosition;
 
-    //    startMarker.SetActive(true);
-    //    endMarker.SetActive(true);
-    //}
+        startMarker.SetActive(true);
+        endMarker.SetActive(true);
+    }
 }
