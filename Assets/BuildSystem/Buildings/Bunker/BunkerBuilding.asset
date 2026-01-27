@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Bunker
   prefab: {fileID: 8712711289104464687, guid: 021b801ec632b364d8695c138974f787, type: 3}
   isAntiBuilding: 0
-  cellCount: {x: 4, y: 1}
-  bitmask: 01010101
+  cellCount: {x: 3, y: 1}
+  bitmask: 010101
