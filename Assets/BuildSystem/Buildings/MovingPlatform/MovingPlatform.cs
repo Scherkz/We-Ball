@@ -18,8 +18,8 @@ public class MovingPlatform : Building
 
     private BoxCollider2D boxCollider2D;
     private Rigidbody2D rigidBody2D;
-    private Transform currentStartPoint;
-    private Transform currentEndPoint;
+    private Vector3 currentStartPoint;
+    private Vector3 currentEndPoint;
     private Vector3 realStart;
     private Vector3 realEnd;
     private Coroutine moveRoutine;
@@ -33,21 +33,21 @@ public class MovingPlatform : Building
 
         if(currentStartPoint == null || currentEndPoint == null)
         {
-            currentStartPoint = startPointHorizontal;
-            currentEndPoint = endPointHorizontal;
+            currentStartPoint = startPointHorizontal.localPosition;
+            currentEndPoint = endPointHorizontal.localPosition;
             UpdateMarkers();
         }
 
         boxCollider2D = transform.Find("Anchor/Platform").GetComponent<BoxCollider2D>();
         rigidBody2D = transform.Find("Anchor/Platform").GetComponent<Rigidbody2D>();
 
-        Vector2 closestPlatformPointToStart = boxCollider2D.ClosestPoint(currentStartPoint.position);
+        Vector2 closestPlatformPointToStart = boxCollider2D.ClosestPoint(transform.TransformPoint(currentStartPoint));
         Vector2 startOffset = rigidBody2D.position - closestPlatformPointToStart;
-        realStart = (Vector2) currentStartPoint.position + startOffset;
+        realStart = (Vector2)transform.TransformPoint(currentStartPoint) + startOffset;
 
-        Vector2 closestPlatformPointToEnd = boxCollider2D.ClosestPoint(currentEndPoint.position);
+        Vector2 closestPlatformPointToEnd = boxCollider2D.ClosestPoint(transform.TransformPoint(currentEndPoint));
         Vector2 endOffset = rigidBody2D.position - closestPlatformPointToEnd;
-        realEnd = (Vector2) currentEndPoint.position + endOffset;
+        realEnd = (Vector2)transform.TransformPoint(currentEndPoint) + endOffset;
 
         rigidBody2D.position = realStart;
 
@@ -124,6 +124,9 @@ public class MovingPlatform : Building
 
     public override Rotation GetNextRotation(bool _clockWise)
     {
+        if (rotationAnchor == null)
+            return Rotation.Degree0;
+
         return rotation switch
         {
             Rotation.Degree0 => Rotation.Degree90,
@@ -139,26 +142,19 @@ public class MovingPlatform : Building
             case Rotation.Degree0:
                 rotationAnchor.eulerAngles = Vector3.zero;
                 rotationAnchor.localPosition = Vector3.zero;
-                if (currentStartPoint == null || currentEndPoint == null)
-                {
-                    currentStartPoint = startPointHorizontal;
-                    currentEndPoint = endPointHorizontal;
-                }
-                currentStartPoint.localPosition = currentStartPoint.localPosition - new Vector3(-1.25f, 1.25f, 0f);
-                currentEndPoint.localPosition = currentEndPoint.localPosition - new Vector3(-1.25f, 1.25f, 0f);
+                currentStartPoint = startPointHorizontal.localPosition;
+                currentEndPoint = endPointHorizontal.localPosition;
                 UpdateMarkers();
+                Debug.Log("0 Degree => Rotation anchor:" + rotationAnchor.localPosition + ", current start point: " + currentStartPoint + ", current end point: " + currentEndPoint);
                 break;
+
             case Rotation.Degree90:
-                if (currentStartPoint == null || currentEndPoint == null)
-                {
-                    currentStartPoint = startPointHorizontal;
-                    currentEndPoint = endPointHorizontal;
-                }
                 rotationAnchor.eulerAngles = new Vector3(0, 0, -90);
                 rotationAnchor.localPosition = new Vector3(0, buildingData.cellCount.x, 0);
-                currentStartPoint.localPosition = currentStartPoint.localPosition + new Vector3(-1.25f, 1.25f, 0f);
-                currentEndPoint.localPosition = currentEndPoint.localPosition + new Vector3(-1.25f, 1.25f, 0f);
+                currentStartPoint = startPointHorizontal.localPosition + new Vector3(-1.25f, 1.25f, 0f);
+                currentEndPoint = endPointHorizontal.localPosition + new Vector3(-1.25f, 1.25f, 0f);
                 UpdateMarkers();
+                Debug.Log("90 Degree => Rotation anchor:" + rotationAnchor.localPosition + ", current start point: " + currentStartPoint + ", current end point: " + currentEndPoint);
                 break;
         }
     }
@@ -167,8 +163,8 @@ public class MovingPlatform : Building
     {
         if (startMarker == null || endMarker == null) return;
 
-        startMarker.transform.localPosition = currentStartPoint.localPosition;
-        endMarker.transform.localPosition = currentEndPoint.localPosition;
+        startMarker.transform.localPosition = currentStartPoint;
+        endMarker.transform.localPosition = currentEndPoint;
 
         startMarker.SetActive(true);
         endMarker.SetActive(true);
