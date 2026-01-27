@@ -733,20 +733,6 @@ MonoBehaviour:
   activateSpecialShotSfx: {fileID: 6718075606520506883}
   deactivateSpecialShotSfx: {fileID: 883579989178358234}
   surfaceHitAudioSource: {fileID: -5448778839478159633}
-  crazyScaryAudioSource: {fileID: 0}
-  crazyScarySfxClips:
-  - clip: {fileID: 8300000, guid: 041e953d14e63a8489ee45e2badadc9d, type: 3}
-    volume: 0.1
-  - clip: {fileID: 8300000, guid: 4666b974e3a98fc4695a496f66957504, type: 3}
-    volume: 0.1
-  - clip: {fileID: 8300000, guid: 8ec91950eb12f1f479075479013f14e3, type: 3}
-    volume: 0.1
-  - clip: {fileID: 8300000, guid: cc66f5f2f1b807a4e8594a93af2815b6, type: 3}
-    volume: 0.1
-  - clip: {fileID: 8300000, guid: 6579ac103e3e2fe4fb6f5ee959c44011, type: 3}
-    volume: 0.1
-  probabilityOfCrazyScarySfx: 0.1
-  minHitSpeedForCrazyScarySfx: 8
   surfaceSfx:
   - material: {fileID: 6200000, guid: 007e5d43b104c004f90264295ac60b86, type: 2}
     clip: {fileID: 8300000, guid: c4431bdf58090a54ba09c0eb23d5406f, type: 3}
@@ -760,7 +746,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 5439c4c274ba27c4194ed056a3124851, type: 3}
     volume: 0.1
     minHitSpeed: 1
-  hitSfxCooldown: 0.5
+  - material: {fileID: 6200000, guid: 52a59854da27e884aaf79003c801a014, type: 2}
+    clip: {fileID: 8300000, guid: 5439c4c274ba27c4194ed056a3124851, type: 3}
+    volume: 0.1
+    minHitSpeed: 1
+  - material: {fileID: 6200000, guid: 5f4df05bbc896684a8a58d20590ce1c0, type: 2}
+    clip: {fileID: 8300000, guid: fd7a412d167c1b943841c329ae859d5e, type: 3}
+    volume: 0.1
+    minHitSpeed: 1
   aimArrowAnchor: {fileID: 7853706692911780932}
   aimArrowFill: {fileID: 3428478221274380372}
   aimChargeColor:

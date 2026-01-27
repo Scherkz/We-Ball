@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 1099047445347813268}
   - component: {fileID: 4007438410819936260}
   m_Layer: 8
-  m_Name: Visuals
+  m_Name: SandVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,5 +432,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Building
   spriteRenderer: {fileID: 1099047445347813268}
-  rotation: 0
   rotationAnchor: {fileID: 5720656294910162503}
