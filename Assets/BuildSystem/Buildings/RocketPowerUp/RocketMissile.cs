@@ -11,6 +11,8 @@ public class RocketMissile : MonoBehaviour
     [SerializeField] private GameObject explosionVfxPrefab;
     [SerializeField] private float knockbackForce = 35f;
 
+    [SerializeField] private AudioSource startSfx;
+
     private Rigidbody2D rb;
     private Transform target;
     private Vector3 initialDirection;
@@ -24,6 +26,9 @@ public class RocketMissile : MonoBehaviour
 
     public void Launch(Transform targetTransform, float initialAngleDeg)
     {
+        if (startSfx != null)
+            startSfx.Play();
+
         spawnTime = Time.time;
         target = targetTransform;
         initialDirection = Quaternion.Euler(0, 0, initialAngleDeg) * Vector3.up;
@@ -31,10 +36,7 @@ public class RocketMissile : MonoBehaviour
         RotateInDirection(initialDirection);
         rb.angularVelocity = 0f;
 
-        if (lifeTimeSeconds > 0f)
-        {
-            Destroy(gameObject, lifeTimeSeconds);
-        }
+        Invoke(nameof(Explode), lifeTimeSeconds);
     }
 
     private void FixedUpdate()
@@ -84,9 +86,8 @@ public class RocketMissile : MonoBehaviour
     private void Explode()
     {
         if (explosionVfxPrefab != null)
-        {
             Instantiate(explosionVfxPrefab, transform.position, Quaternion.identity);
-        }
+
         Destroy(gameObject);
     }
 

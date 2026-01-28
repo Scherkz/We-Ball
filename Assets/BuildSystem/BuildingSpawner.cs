@@ -22,6 +22,7 @@ public class BuildingSpawner : MonoBehaviour
         BuildingData[] realBuildings = System.Array.FindAll(buildings, b => !b.isAntiBuilding);
         BuildingData[] antiBuildings = System.Array.FindAll(buildings, b => b.isAntiBuilding);
 
+        var antiBuildingSelectionCount = 0;
         var angleStep = 2.0f * Mathf.PI / buildingSpawnCount;
         for (var i = 0; i < buildingSpawnCount; i++)
         {
@@ -31,14 +32,33 @@ public class BuildingSpawner : MonoBehaviour
             var circlePos = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f) * radius;
             buildingGhost.transform.localPosition = circlePos;
 
-            var randomBuildingData = GetRandomBuildingData(realBuildings, antiBuildings, buildGridOccupationPercentage);
+            var randomBuildingData = GetRandomBuildingData(realBuildings, antiBuildings, buildGridOccupationPercentage, antiBuildingSelectionCount);
             buildingGhost.ShowBuilding(randomBuildingData, true);
+
+            if (randomBuildingData.isAntiBuilding)
+                antiBuildingSelectionCount++;
         }
     }
 
-    private BuildingData GetRandomBuildingData(BuildingData[] realBuildings, BuildingData[] antiBuildings, float buildGridOccupationPercentage)
+    private BuildingData GetRandomBuildingData(BuildingData[] realBuildings, BuildingData[] antiBuildings, float buildGridOccupationPercentage, int antiBuildingSelectionCount)
     {
-        if (Random.value < antiBuildingChance.Evaluate(buildGridOccupationPercentage))
+#if UNITY_EDITOR
+        // fast path when testing a specific building
+        if (realBuildings.Length == 1 && antiBuildings.Length == 0)
+        {
+            return realBuildings[0];
+        }
+
+        if (antiBuildings.Length == 1 && realBuildings.Length == 0)
+        {
+            return antiBuildings[0];
+        }
+#endif
+
+        var chance = antiBuildingChance.Evaluate(buildGridOccupationPercentage);
+        chance *= Mathf.Pow(0.5f, antiBuildingSelectionCount); // each selected anti building halfes the probability of selecting another
+
+        if (Random.value < chance)
         {
             return antiBuildings[Random.Range(0, antiBuildings.Length)];
         }

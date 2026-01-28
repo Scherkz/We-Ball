@@ -100,3 +100,4 @@ InitTestScene*.unity*
 
 # IDE settings
 .idea/
+.vscode/

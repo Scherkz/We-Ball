@@ -201,7 +201,7 @@ public class BuildGrid : MonoBehaviour
             }
         }
 
-        return count / grid.Length;
+        return count / (float) grid.Length;
     }
 
     private void RemoveBuildingFromCell(int cellIndex)
@@ -214,7 +214,7 @@ public class BuildGrid : MonoBehaviour
         var instancePosition = cellData.instance.transform.position;
         var localPosition = transform.InverseTransformPoint(instancePosition);
 
-        var rotation = cellData.instance.GetComponent<Building>().rotation;
+        var rotation = cellData.instance.GetComponent<Building>().GetRotation();
 
         // clear all the occupied cells
         var originCellIndex = GetCellIndex(localPosition);
@@ -250,10 +250,10 @@ public class BuildGrid : MonoBehaviour
                     continue;
 
                 var local = new Vector2Int(x, y);
-
-                var rotated = RotateLocalOffset(local, size, rotation);
-
-                yield return rotated;
+                if (!buildingData.isOccupationRotationDependent)
+                    yield return local;
+                else
+                    yield return RotateLocalOffset(local, size, rotation);
             }
         }
     }

@@ -226,12 +226,12 @@ TextureImporter:
       name: BuildingsBlackhole
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 1536
+        x: 512
+        y: 256
         width: 256
         height: 256
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -508,6 +508,116 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: BuildingsBlackhole_Flare
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 320
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44c3df547f4f6e1409af7585668e4d5b
+      internalID: 472661421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildingsBooster_Frame1
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 1536
+        width: 768
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3390ba935f4bd8a41a235f28aa55e0a5
+      internalID: -1367700939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildingsBooster_Frame2
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 1024
+        width: 768
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9f4f6eac5646324d92e8ac9634f543f
+      internalID: 679819893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildingsBooster_Frame3
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 512
+        width: 768
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2530771bb2c40184cb149ffdb3e8c41f
+      internalID: -1197306938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BuildingsBooster_Frame4
+      rect:
+        serializedVersion: 2
+        x: 2304
+        y: 0
+        width: 768
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3fd98aab0f6975458a14b6be8580817
+      internalID: -158389944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -530,8 +640,13 @@ TextureImporter:
       BuildingsArt_MissileFlame3: 330290670
       BuildingsArt_RocketPowerUp: -1767063967
       BuildingsBlackhole: 1049909109
+      BuildingsBlackhole_Flare: 472661421
       BuildingsBlock: 3651934981238733184
       BuildingsBomb: -953383292
+      BuildingsBooster_Frame1: -1367700939
+      BuildingsBooster_Frame2: 679819893
+      BuildingsBooster_Frame3: -1197306938
+      BuildingsBooster_Frame4: -158389944
       BuildingsFanWindEffect: -358048681
       BuildingsFan_Frame1: 1593744147
       BuildingsFan_Frame2: -1190384712

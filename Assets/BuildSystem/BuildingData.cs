@@ -9,6 +9,8 @@ public class BuildingData : ScriptableObject
     public bool isAntiBuilding = false;
     public bool isInvisibleBuilding = false;
     public Vector2Int cellCount = Vector2Int.one;
+
+    public bool isOccupationRotationDependent = true;
     
     [HideInInspector][SerializeField] private bool[] bitmask;
 
