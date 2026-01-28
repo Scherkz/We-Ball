@@ -70,7 +70,7 @@ public class BuildGrid : MonoBehaviour
         
         foreach (var gridData in grid)
         {
-            if (gridData.IsOccupied && gridData.instance != null && gridData.buildingData != null && gridData.buildingData.isInvisibleBuilding)
+            if (gridData.IsOccupied && gridData.instance != null && gridData.buildingData?.isInvisibleBuilding == true)
             {
                 var building = gridData.instance.GetComponent<Building>();
                 if (building != null && !buildings.Contains(building))
@@ -79,9 +79,8 @@ public class BuildGrid : MonoBehaviour
                 }
             }
         }
-
         return buildings;
-    }
+}
 
     public bool AddBuilding(Vector3 position, BuildingData buildingData, Building.Rotation rotation)
     {

@@ -10,7 +10,6 @@ public class InvisibleBlock : Building
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Player entered invisible block area.");
         StartCoroutine(Pulse());
     }
 
