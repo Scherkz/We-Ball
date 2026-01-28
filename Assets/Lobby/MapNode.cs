@@ -13,9 +13,6 @@ public class MapNode : MonoBehaviour
 
     private void Start()
     {
-        var visuals = transform.Find("Visuals");
-        visuals.gameObject.GetComponent<SpriteRenderer>().sprite = mapIcon;
-
         var voteIconsParent = transform.Find("VoteSlots");
         voteIcons = new SpriteRenderer[voteIconsParent.childCount];
         for (int i = 0; i < voteIconsParent.childCount; i++)

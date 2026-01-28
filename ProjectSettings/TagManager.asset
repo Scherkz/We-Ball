@@ -47,6 +47,9 @@ TagManager:
   - name: Level
     uniqueID: 1883875967
     locked: 0
+  - name: Outline
+    uniqueID: 3906947521
+    locked: 0
   - name: Building
     uniqueID: 402704941
     locked: 0
