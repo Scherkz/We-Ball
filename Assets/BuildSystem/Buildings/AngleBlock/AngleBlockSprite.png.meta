@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b5df2cb9b9604dc47a3b5135466fc2e6
+guid: 971e56d7dcc972646995260a9c815f95
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6959043997279702839
-    second: RampBuildingSprite_0
+      213: 668023861213669960
+    second: AngleBlock_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,14 +49,14 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 6
-  spritePivot: {x: 0, y: 0}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 256
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RampBuildingSprite_0
+      name: AngleBlock_0
       rect:
         serializedVersion: 2
-        x: 20
+        x: 0
         y: 0
-        width: 492
-        height: 256
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,36 +128,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 73fcb2a15ad739060800000000000000
-      internalID: 6959043997279702839
+      spriteID: 84a2025992c454900800000000000000
+      internalID: 668023861213669960
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
     customData: 
-    physicsShape:
-    - - {x: 256, y: 128}
-      - {x: 200, y: 128}
-      - {x: 194, y: 70}
-      - {x: 164, y: 5}
-      - {x: 102, y: -54}
-      - {x: 16, y: -97}
-      - {x: -84, y: -121}
-      - {x: -224, y: -128}
-      - {x: 256, y: -128}
+    physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: e06521a292dd38947b5d2aa0310c1666
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      RampBuildingSprite_0: 6959043997279702839
+      AngleBlock_0: 668023861213669960
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -710,6 +710,7 @@ MonoBehaviour:
   screenBorderDistance: 64
   maxRoundsPerGame: 6
   buildings:
+  - {fileID: 11400000, guid: 08a7a390647d4e8479b1493f006aad0a, type: 2}
   - {fileID: 11400000, guid: 8e834cef814c4024d8976b2e9320e57f, type: 2}
   - {fileID: 11400000, guid: a611068c21d8e294f84f5916f5918e57, type: 2}
   - {fileID: 11400000, guid: 378d3e43f834d2f41ba2ff8714666e39, type: 2}
