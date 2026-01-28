@@ -414,6 +414,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_Sun
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 1280
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30fd715be81bbc94bb903cb047f4707a
+      internalID: -862841822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_SunBeams
+      rect:
+        serializedVersion: 2
+        x: 3328
+        y: 256
+        width: 512
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cde47cdf20dd3f4baa528c5ce590c1e
+      internalID: 24650059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -451,6 +495,8 @@ TextureImporter:
       SolarSystemLevelArt_PlanetRings2_T: 62298524
       SolarSystemLevelArt_SmallPlanet: -4675753395283582149
       SolarSystemLevelArt_SmallPlanetClouds: 6089988556227012178
+      SolarSystemLevelArt_Sun: -862841822
+      SolarSystemLevelArt_SunBeams: 24650059
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
