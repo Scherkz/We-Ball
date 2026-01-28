@@ -23,13 +23,11 @@ public class MovingPlatform : Building
     private Vector3 realStart;
     private Vector3 realEnd;
     private Coroutine moveRoutine;
-    private readonly List<Rigidbody2D> playersOnTop = new List<Rigidbody2D>();
+    private readonly List<Rigidbody2D> playersOnTop = new();
 
     public override void Init()
     {
         base.Init();
-
-        if (transform == null) return;
 
         if(currentStartPoint == null || currentEndPoint == null)
         {
@@ -50,9 +48,6 @@ public class MovingPlatform : Building
         realEnd = (Vector2)transform.TransformPoint(currentEndPoint) + endOffset;
 
         rigidBody2D.position = realStart;
-
-        //startMarker.SetActive(false);
-        //endMarker.SetActive(false);
 
         if (moveRoutine != null) StopCoroutine(moveRoutine);
         moveRoutine = StartCoroutine(MoveLoop());
@@ -145,7 +140,6 @@ public class MovingPlatform : Building
                 currentStartPoint = startPointHorizontal.localPosition;
                 currentEndPoint = endPointHorizontal.localPosition;
                 UpdateMarkers();
-                Debug.Log("0 Degree => Rotation anchor:" + rotationAnchor.localPosition + ", current start point: " + currentStartPoint + ", current end point: " + currentEndPoint);
                 break;
 
             case Rotation.Degree90:
@@ -154,7 +148,6 @@ public class MovingPlatform : Building
                 currentStartPoint = startPointHorizontal.localPosition + new Vector3(-1f, 1.25f, 0f);
                 currentEndPoint = endPointHorizontal.localPosition + new Vector3(-1f, 1.25f, 0f);
                 UpdateMarkers();
-                Debug.Log("90 Degree => Rotation anchor:" + rotationAnchor.localPosition + ", current start point: " + currentStartPoint + ", current end point: " + currentEndPoint);
                 break;
         }
     }
