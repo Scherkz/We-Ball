@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class InvisibleBlock : Building
@@ -7,25 +8,49 @@ public class InvisibleBlock : Building
 
     public bool isInvisibleBuilding = true;
 
-    protected void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Player entered invisible block area.");
-        if (!collision.otherRigidbody.gameObject.CompareTag("Player"))
-            return;
-
-        var player = collision.otherRigidbody.GetComponentInParent<Player>();
-        if (player == null)
-            return;
-
-        SetVisibility(false);
+        StartCoroutine(Pulse());
     }
 
-    public void SetVisibility(bool visibility)
+    public IEnumerator Pulse()
     {
         var spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
-            spriteRenderer.enabled = visibility;
+            float fadeInDuration = 0.3f;
+            float fadeOutDuration = 0.2f;
+            float elapsed = 0f;
+            
+            Color color = spriteRenderer.color;
+            color.a = 0f;
+            spriteRenderer.color = color;
+
+            spriteRenderer.enabled = true;
+            
+            // Fade in
+            while (elapsed < fadeInDuration)
+            {
+                elapsed += Time.deltaTime;
+                color.a = Mathf.Clamp01(elapsed / fadeInDuration);
+                spriteRenderer.color = color;
+                yield return null;
+            }
+            
+            // Fade out
+            elapsed = 0f;
+            while (elapsed < fadeOutDuration)
+            {
+                elapsed += Time.deltaTime;
+                color.a = Mathf.Clamp01(1f - (elapsed / fadeOutDuration));
+                spriteRenderer.color = color;
+                yield return null;
+            }
+            spriteRenderer.enabled = false;
+            color.a = 1f;
+            spriteRenderer.color = color;
         }
     }
+
 }
