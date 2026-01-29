@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 074acda9f5fee7e45aa6970d8a88f99f, type: 3}
+  m_Name: MovingPlatformBuilding
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingData
+  name: Moving Platform
+  prefab: {fileID: 263591180274831570, guid: ff791b2cbbe0e274d87c2ea0a6b63156, type: 3}
+  isAntiBuilding: 0
+  cellCount: {x: 3, y: 1}
+  bitmask: 010101
