@@ -3,10 +3,10 @@ using System.Collections;
 
 public class CarMovement : MonoBehaviour
 {
-    public Transform pointA;        // spawn point
-    public Transform pointB;        // target point
-    public float moveDuration = 2f; // time to move one way
-    public float interval = 10f;    // wait time after full cycle
+    public Transform pointA; 
+    public Transform pointB;        
+    public float moveDuration = 2f; 
+    public float interval = 10f;    
 
     private void Start()
     {
@@ -18,13 +18,8 @@ public class CarMovement : MonoBehaviour
     {
         while (true)
         {
-            // Move A to B
             yield return StartCoroutine(MoveOverTime(pointA.position, pointB.position));
-
-            // Move B to A
             yield return StartCoroutine(MoveOverTime(pointB.position, pointA.position));
-
-            // Wait before next loop
             yield return new WaitForSeconds(interval);
         }
     }
