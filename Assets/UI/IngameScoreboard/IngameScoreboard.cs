@@ -56,5 +56,9 @@ public class IngameScoreboard : MonoBehaviour
     private void OnLevelLoaded(Level _level, bool _isLobby)
     {
         ResetSelf();
+        if (!_isLobby)
+        {
+            SetupScoreboard();
+        }
     }
 }
