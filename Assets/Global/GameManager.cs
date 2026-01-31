@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
 
     private Level currentLevel;
     private int roundCount;
+    
+    private bool isLobby;
 
     private void Awake()
     {
@@ -54,6 +56,11 @@ public class GameManager : MonoBehaviour
 
     private void OnLevelLoaded(Level level, bool isLobby)
     {
+        this.isLobby = isLobby;
+        EventBus.Instance?.InLobby?.Invoke(isLobby);
+        if (isLobby)
+            EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
+        
         Debug.Log($"Loaded '{level.name}' with {playerRegistry.players.Count} {(playerRegistry.players.Count == 1 ? "player" : "players")}!");
         currentLevel = level;
 
@@ -61,7 +68,7 @@ public class GameManager : MonoBehaviour
 
         currentLevel.BuildGrid.ShowGrid(false);
         currentLevel.BuildingSpawner.gameObject.SetActive(false);
-
+        
         foreach (var player in playerRegistry.players)
         {
             player.ResetSelf();
@@ -91,6 +98,7 @@ public class GameManager : MonoBehaviour
     private void StartBuildingSelectionPhase()
     {
         currentPhase = GamePhase.Selection;
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
 
         // selection phase begins a new round
         roundCount++;
@@ -130,6 +138,7 @@ public class GameManager : MonoBehaviour
     private void StartBuildingPhase()
     {
         currentPhase = GamePhase.Building;
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
 
         currentLevel.BuildingSpawner.gameObject.SetActive(false);
 
@@ -161,6 +170,7 @@ public class GameManager : MonoBehaviour
     private void StartPlayingPhase()
     {
         currentPhase = GamePhase.Playing;
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
 
         currentLevel.BuildGrid.ShowGrid(false);
 
@@ -238,6 +248,8 @@ public class GameManager : MonoBehaviour
     private async void OnSwitchToScene(int buildIndex)
     {
         var unloadOperations = new List<AsyncOperation>();
+        
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
 
         // unload all the scenes besides the base scene
         for (int i = 0; i < SceneManager.sceneCount; i++)

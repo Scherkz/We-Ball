@@ -146,5 +146,15 @@ public class EventBus : MonoBehaviour
     /// </list>
     /// </summary>
     public Action<bool> OnToggleSurrenderHint;
+    
+    /// <summary>
+    /// <list type="number">
+    ///     <item>
+    ///         <term>bool</term>
+    ///         <description>Should the hint be visible. </description>
+    ///     </item>
+    /// </list>
+    /// </summary>
+    public Action<bool> InLobby;
 
 }
