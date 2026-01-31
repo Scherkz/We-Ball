@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/RubberLevel/RubberLevelScene.unity
     guid: 527ca2ae90339d74585895c3db79c714
+  - enabled: 1
+    path: Assets/Levels/SolarSystemLevel/SolarSystemLevelScene.unity
+    guid: baf3b0fc8b69f9e40a7e9f3a07c1bf96
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

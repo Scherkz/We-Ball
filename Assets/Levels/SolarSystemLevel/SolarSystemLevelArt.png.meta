@@ -1,0 +1,504 @@
+fileFormatVersion: 2
+guid: 2fcaced8b258d5245b3e6f9e3bc1a1b9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6292926786552848370
+    second: SolarSystemLevelArt_0
+  - first:
+      213: -8751707955188862542
+    second: SolarSystemLevelArt_1
+  - first:
+      213: 6670626539196335808
+    second: SolarSystemLevelArt_2
+  - first:
+      213: -7711563573648650703
+    second: SolarSystemLevelArt_3
+  - first:
+      213: 3046681815094743820
+    second: SolarSystemLevelArt_4
+  - first:
+      213: -4668044088240414758
+    second: SolarSystemLevelArt_5
+  - first:
+      213: 4825713125619054144
+    second: SolarSystemLevelArt_6
+  - first:
+      213: -2820438684749183315
+    second: SolarSystemLevelArt_7
+  - first:
+      213: 8835057179792139907
+    second: SolarSystemLevelArt_8
+  - first:
+      213: -4675753395283582149
+    second: SolarSystemLevelArt_9
+  - first:
+      213: 5687018749173318818
+    second: SolarSystemLevelArt_10
+  - first:
+      213: -5440903522123675958
+    second: SolarSystemLevelArt_11
+  - first:
+      213: -8970199574095166861
+    second: SolarSystemLevelArt_12
+  - first:
+      213: 3273108551965042952
+    second: SolarSystemLevelArt_13
+  - first:
+      213: -4279052638476819641
+    second: SolarSystemLevelArt_14
+  - first:
+      213: 507736906539309281
+    second: SolarSystemLevelArt_15
+  - first:
+      213: -813254158308956533
+    second: SolarSystemLevelArt_16
+  - first:
+      213: 6089988556227012178
+    second: SolarSystemLevelArt_17
+  - first:
+      213: -1059533193109225303
+    second: SolarSystemLevelArt_18
+  - first:
+      213: -780295230739217051
+    second: SolarSystemLevelArt_19
+  - first:
+      213: -5233124104558545453
+    second: SolarSystemLevelArt_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_Earth
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 831
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e002af1dd680ba8a0800000000000000
+      internalID: -6292926786552848370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_EarthClouds
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 848
+        width: 558
+        height: 354
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b1f109bbffab8680800000000000000
+      internalID: -8751707955188862542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_LargePlanet
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 511
+        width: 514
+        height: 514
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 046b670258068f240800000000000000
+      internalID: 4825713125619054144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_LargePlanetClouds
+      rect:
+        serializedVersion: 2
+        x: 1868
+        y: 516
+        width: 1157
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da641c4a5f9cbd8d0800000000000000
+      internalID: -2820438684749183315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_Mercury
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 554
+        width: 172
+        height: 172
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38666c3e1bd6c9a70800000000000000
+      internalID: 8835057179792139907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_SmallPlanet
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 511
+        width: 258
+        height: 258
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b33abc86f036c1fb0800000000000000
+      internalID: -4675753395283582149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_SmallPlanetClouds
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 519
+        width: 482
+        height: 229
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 256ea14635cf38450800000000000000
+      internalID: 6089988556227012178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_PlanetRings2_B
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 118
+        width: 1025
+        height: 138
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5658bdf2f95db25f0800000000000000
+      internalID: -780295230739217051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_PlanetRings1_T
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 256
+        width: 1026
+        height: 138
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d5f04a6a553067b0800000000000000
+      internalID: -5233124104558545453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_PlanetRings1_B
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 118
+        width: 1026
+        height: 138
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6007c736bc72c3043979d7c73c90563a
+      internalID: -316856983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_PlanetRings2_T
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 1025
+        height: 138
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e4860f88c51ab94e8ae10c3cb85bd34
+      internalID: 62298524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_Sun
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 0
+        width: 1280
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30fd715be81bbc94bb903cb047f4707a
+      internalID: -862841822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SolarSystemLevelArt_SunBeams
+      rect:
+        serializedVersion: 2
+        x: 3328
+        y: 256
+        width: 512
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cde47cdf20dd3f4baa528c5ce590c1e
+      internalID: 24650059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 780a4090cb42d8840a7d89e730b7263b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      SolarSystemLevelArt_10: 5687018749173318818
+      SolarSystemLevelArt_11: -5440903522123675958
+      SolarSystemLevelArt_12: -8970199574095166861
+      SolarSystemLevelArt_13: 3273108551965042952
+      SolarSystemLevelArt_14: -4279052638476819641
+      SolarSystemLevelArt_15: 507736906539309281
+      SolarSystemLevelArt_16: -813254158308956533
+      SolarSystemLevelArt_18: -1059533193109225303
+      SolarSystemLevelArt_2: 6670626539196335808
+      SolarSystemLevelArt_3: -7711563573648650703
+      SolarSystemLevelArt_4: 3046681815094743820
+      SolarSystemLevelArt_5: -4668044088240414758
+      SolarSystemLevelArt_Earth: -6292926786552848370
+      SolarSystemLevelArt_EarthClouds: -8751707955188862542
+      SolarSystemLevelArt_LargePlanet: 4825713125619054144
+      SolarSystemLevelArt_LargePlanetClouds: -2820438684749183315
+      SolarSystemLevelArt_Mercury: 8835057179792139907
+      SolarSystemLevelArt_PlanetRings1_B: -316856983
+      SolarSystemLevelArt_PlanetRings1_T: -5233124104558545453
+      SolarSystemLevelArt_PlanetRings2_B: -780295230739217051
+      SolarSystemLevelArt_PlanetRings2_T: 62298524
+      SolarSystemLevelArt_SmallPlanet: -4675753395283582149
+      SolarSystemLevelArt_SmallPlanetClouds: 6089988556227012178
+      SolarSystemLevelArt_Sun: -862841822
+      SolarSystemLevelArt_SunBeams: 24650059
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
