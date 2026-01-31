@@ -754,6 +754,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: fd7a412d167c1b943841c329ae859d5e, type: 3}
     volume: 0.1
     minHitSpeed: 1
+  - material: {fileID: 6200000, guid: b7f5d0193a3b26046aab1b6284a2aca3, type: 2}
+    clip: {fileID: 8300000, guid: c4431bdf58090a54ba09c0eb23d5406f, type: 3}
+    volume: 0.2
+    minHitSpeed: 1
+  - material: {fileID: 6200000, guid: 570f19a930c0eae4487b999d40288790, type: 2}
+    clip: {fileID: 8300000, guid: d3b4782e0dfcd4a499be94fba18eeffb, type: 3}
+    volume: 0.2
+    minHitSpeed: 1
   aimArrowAnchor: {fileID: 7853706692911780932}
   aimArrowFill: {fileID: 3428478221274380372}
   aimChargeColor:
