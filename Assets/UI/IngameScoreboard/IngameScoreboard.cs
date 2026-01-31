@@ -3,7 +3,7 @@ using UnityEngine;
 public class IngameScoreboard : MonoBehaviour
 {
     [SerializeField] private GameObject playerScoreCounterPrefab;
-    
+
     [SerializeField] private PlayerRegistry playerRegistry;
 
     public void ResetSelf()
@@ -53,12 +53,10 @@ public class IngameScoreboard : MonoBehaviour
         }
     }
 
-    private void OnLevelLoaded(Level _level, bool _isLobby)
+    private void OnLevelLoaded(Level _level, bool isLobby)
     {
         ResetSelf();
-        if (!_isLobby)
-        {
+        if (!isLobby)
             SetupScoreboard();
-        }
     }
 }
