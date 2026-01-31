@@ -44,6 +44,12 @@ TagManager:
   - name: Background
     uniqueID: 1368769259
     locked: 0
+  - name: Outline
+    uniqueID: 3906947521
+    locked: 0
+  - name: MapNode
+    uniqueID: 4185344611
+    locked: 0
   - name: Level
     uniqueID: 1883875967
     locked: 0
