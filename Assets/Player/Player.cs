@@ -270,12 +270,6 @@ public class Player : MonoBehaviour
 
     private void OnPlayerSwings()
     {
-        if(playerInput.currentActionMap == null || playerInput.currentActionMap.name != playingActionMapName)
-            return;
-        
-        if(hasFinishedRound)
-            return;
-        
         numberOfSwingsThisRound++;
 
         if (numberOfSwingsThisRound >= surrenderHintSwingsThreshold)
