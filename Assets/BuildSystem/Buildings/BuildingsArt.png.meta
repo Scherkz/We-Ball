@@ -126,7 +126,7 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
       spriteID: 089be8344874ea230800000000000000
       internalID: 3651934981238733184
@@ -227,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 512
-        y: 256
+        y: 258
         width: 256
         height: 256
       alignment: 0
@@ -618,6 +618,42 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: BuildingsMovingPlatform
+      rect:
+        serializedVersion: 2
+        x: 1150
+        y: 0
+        width: 772
+        height: 130
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 386, y: -50.26227}
+        - {x: 386, y: 50.26227}
+        - {x: 382.00003, y: 65}
+        - {x: -385.99997, y: 65}
+        - {x: -385.99997, y: -50.26227}
+        - {x: -370.99997, y: -65}
+        - {x: 371.50003, y: -65}
+      physicsShape:
+      - - {x: 386, y: -50.26227}
+        - {x: 386, y: 50.26227}
+        - {x: 382.00003, y: 65}
+        - {x: -385.99997, y: 65}
+        - {x: -385.99997, y: -50.26227}
+        - {x: -370.99997, y: -65}
+        - {x: 371.50003, y: -65}
+      tessellationDetail: 0
+      bones: []
+      spriteID: c75db677cbec6f64fa9692d598dcc678
+      internalID: -970817254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -632,7 +668,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":1.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":1,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":2,"spriteAlignment":6,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       BuildingsArt_Missile: 1652199151
       BuildingsArt_MissileFlame1: -1192219578
@@ -652,6 +688,7 @@ TextureImporter:
       BuildingsFan_Frame2: -1190384712
       BuildingsFan_Frame3: -2123175088
       BuildingsLBlock: 473386621
+      BuildingsMovingPlatform: -970817254
       BuildingsSplitBallPowerUp_Frame1: -204111336
       BuildingsSplitBallPowerUp_Frame2: 345396409
       BuildingsSplitBallPowerUp_Frame3: 541575010

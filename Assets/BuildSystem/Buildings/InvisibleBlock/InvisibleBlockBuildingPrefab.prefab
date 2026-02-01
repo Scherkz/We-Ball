@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7579628494982976359}
   - component: {fileID: 5497090509753236014}
   - component: {fileID: 6577856518834875205}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: InvisibleBlockBuildingPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InvisibleBlock
   spriteRenderer: {fileID: 1544847929386954055}
-  rotation: 0
   rotationAnchor: {fileID: 0}
   collectVfxPrefab: {fileID: 0}
   isInvisibleBuilding: 1
