@@ -1,3 +1,4 @@
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     }
 
     const int BASE_LEVEL_SCENE_INDEX = 0;
+    const int LOBBY_LEVEL_SCENE_INDEX = 1;
 
     [SerializeField] private PlayerRegistry playerRegistry;
 
@@ -36,6 +38,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         roundCount = 0;
+
+        StartCoroutine(LoadLobbyFallback());
     }
 
     private void OnEnable()
@@ -50,6 +54,19 @@ public class GameManager : MonoBehaviour
         EventBus.Instance.OnSwitchToScene -= OnSwitchToScene;
         EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
         EventBus.Instance.OnStartGame -= StartGame;
+    }
+
+    private IEnumerator LoadLobbyFallback()
+    {
+        // if we load just the basescene this is a fallback to then switch to the lobby scene
+
+        // wait 3 frames before switching - and hope its enough ¯\_(ツ)_/¯
+        yield return null;
+        yield return null;
+        yield return null;
+
+        if (currentLevel == null)
+            EventBus.Instance.OnSwitchToScene?.Invoke(LOBBY_LEVEL_SCENE_INDEX);
     }
 
     private void OnLevelLoaded(Level level, bool isLobby)
