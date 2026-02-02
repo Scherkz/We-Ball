@@ -3128,11 +3128,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 473123123099556447, guid: 15e627f91fbcf354bb690dd2d601674b, type: 3}
       propertyPath: pullStrength
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 473123123099556447, guid: 15e627f91fbcf354bb690dd2d601674b, type: 3}
       propertyPath: rotationStrength
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1800814068548631166, guid: 15e627f91fbcf354bb690dd2d601674b, type: 3}
       propertyPath: m_Name
