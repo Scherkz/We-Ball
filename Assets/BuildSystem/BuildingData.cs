@@ -7,6 +7,7 @@ public class BuildingData : ScriptableObject
     public GameObject prefab;
 
     public bool isAntiBuilding = false;
+    public bool isInvisibleBuilding = false;
     public Vector2Int cellCount = Vector2Int.one;
 
     public bool isOccupationRotationDependent = true;
@@ -18,4 +19,5 @@ public class BuildingData : ScriptableObject
         var index = x + y * cellCount.x;
         return bitmask[index];
     }
+
 }

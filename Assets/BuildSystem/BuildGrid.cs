@@ -64,6 +64,24 @@ public class BuildGrid : MonoBehaviour
         gridVisualisation.enabled = enabled;
     }
 
+    public List<Building> GetAllInvisibleBuildings()
+    {
+        var buildings = new List<Building>();
+        
+        foreach (var gridData in grid)
+        {
+            if (gridData.IsOccupied && gridData.instance != null && gridData.buildingData?.isInvisibleBuilding == true)
+            {
+                var building = gridData.instance.GetComponent<Building>();
+                if (building != null && !buildings.Contains(building))
+                {
+                    buildings.Add(building);
+                }
+            }
+        }
+        return buildings;
+}
+
     public bool AddBuilding(Vector3 position, BuildingData buildingData, Building.Rotation rotation)
     {
         if (!CanPlaceBuilding(position, buildingData, rotation))

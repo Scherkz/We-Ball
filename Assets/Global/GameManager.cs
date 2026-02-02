@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
     private void StartBuildingSelectionPhase()
     {
         currentPhase = GamePhase.Selection;
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
 
         // selection phase begins a new round
         roundCount++;
@@ -135,6 +136,8 @@ public class GameManager : MonoBehaviour
 
         currentLevel.BuildGrid.ShowGrid(true);
 
+        ToggleInvisibleBlocks(true);
+
         foreach (var player in playerRegistry.players)
         {
             player.StartBuildingPhase(currentLevel.BuildGrid, buildings[Random.Range(0, buildings.Length)]);
@@ -162,6 +165,8 @@ public class GameManager : MonoBehaviour
 
         currentLevel.BuildGrid.ShowGrid(false);
 
+        ToggleInvisibleBlocks(false);
+
         var specialShotForRound = specialShots[Random.Range(0, specialShots.Length)];
 
         for (int i = 0; i < playerRegistry.players.Count; i++)
@@ -170,6 +175,15 @@ public class GameManager : MonoBehaviour
             playerRegistry.players[i].StartPlayingPhase(spawnPosition);
 
             playerRegistry.players[i].AssignSpecialShot(specialShotForRound);
+        }
+    }
+
+    private void ToggleInvisibleBlocks(bool visible)
+    {
+        var invisibleBuildings = currentLevel.BuildGrid.GetAllInvisibleBuildings();
+        foreach (var building in invisibleBuildings)
+        {
+            building.GetComponent<SpriteRenderer>().enabled = visible;
         }
     }
 
@@ -202,6 +216,8 @@ public class GameManager : MonoBehaviour
 
     private void OnGameOver()
     {
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
+
         // clean up event subscriptions
         foreach (var player in playerRegistry.players)
         {
@@ -225,6 +241,8 @@ public class GameManager : MonoBehaviour
     private async void OnSwitchToScene(int buildIndex)
     {
         var unloadOperations = new List<AsyncOperation>();
+
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
 
         // unload all the scenes besides the base scene
         for (int i = 0; i < SceneManager.sceneCount; i++)

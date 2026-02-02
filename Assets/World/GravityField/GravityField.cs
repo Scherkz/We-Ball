@@ -33,6 +33,8 @@ public class GravityField : MonoBehaviour
     {
         var dir = transform.position - collision.transform.position;
         var gravity = dir.normalized * gravityFactor / dir.sqrMagnitude;
-        collision.attachedRigidbody.AddForce(gravity, ForceMode2D.Force);
+        Rigidbody2D attachedRigidbody = collision.attachedRigidbody;
+        if (attachedRigidbody.bodyType == RigidbodyType2D.Dynamic)
+            attachedRigidbody.AddForce(gravity, ForceMode2D.Force);
     }
 }
