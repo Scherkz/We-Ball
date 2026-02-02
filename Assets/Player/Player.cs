@@ -76,7 +76,6 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
-
         buildController.OnSelectedBuilding -= OnBuildingSelected;
         buildController.OnBuildingPlaced -= OnBuildingPlaced;
         playerController.OnSwing -= OnPlayerSwings;
