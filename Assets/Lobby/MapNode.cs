@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,11 +12,10 @@ public class MapNode : MonoBehaviour
 
     private readonly Dictionary<int, int> activeVotes = new(); // int: playerID, int: voteIconIndex
 
+    private bool active = false;
+
     private void Start()
     {
-        var visuals = transform.Find("Visuals");
-        visuals.gameObject.GetComponent<SpriteRenderer>().sprite = mapIcon;
-
         var voteIconsParent = transform.Find("VoteSlots");
         voteIcons = new SpriteRenderer[voteIconsParent.childCount];
         for (int i = 0; i < voteIconsParent.childCount; i++)
@@ -23,10 +23,21 @@ public class MapNode : MonoBehaviour
             voteIcons[i] = voteIconsParent.GetChild(i).GetComponent<SpriteRenderer>();
             voteIcons[i].gameObject.SetActive(false);
         }
+
+        active = false;
+    }
+
+    // gets called by the animator
+    private void OnFadeInAnimationFinished()
+    {
+        active = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!active)
+            return;
+
         collision.gameObject.SendMessageUpwards("OnMapNodeVotedMessage", this, SendMessageOptions.DontRequireReceiver);
     }
 

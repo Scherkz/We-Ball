@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class LevelLoadingScreen : MonoBehaviour
 {
     private Image mapIcon;
+    private Image mapIconOutline;
     private TMP_Text selectionText;
     private TMP_Text countdownText;
 
@@ -14,6 +15,7 @@ public class LevelLoadingScreen : MonoBehaviour
     private void Awake()
     {
         mapIcon = transform.Find("MapIcon").GetComponent<Image>();
+        mapIconOutline = transform.Find("MapIconOutline").GetComponent<Image>();
         selectionText = transform.Find("SelectionText").GetComponent<TMP_Text>();
         countdownText = transform.Find("CountdownText").GetComponent<TMP_Text>();
     }
@@ -39,6 +41,7 @@ public class LevelLoadingScreen : MonoBehaviour
 
         selectionText.text = $"{map.mapName} has been selected!";
         mapIcon.sprite = map.mapIcon;
+        mapIconOutline.sprite = map.mapIcon;
 
         if (countdownCoroutine != null) StopCoroutine(countdownCoroutine);
         countdownCoroutine = StartCoroutine(CountdownCoroutine(countdown));
