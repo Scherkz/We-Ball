@@ -26,6 +26,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Levels/SolarSystemLevel/SolarSystemLevelScene.unity
     guid: baf3b0fc8b69f9e40a7e9f3a07c1bf96
+  - enabled: 1
+    path: Assets/Levels/UnderwaterLevel/UnderwaterLevelScene.unity
+    guid: 16187ba90d40de04b96974e84720b4ac
+  - enabled: 1
+    path: Assets/Levels/CityLevel/CityLevel_CarAndBoost.unity
+    guid: d589339d27a86524791a6ba09a698e77
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
