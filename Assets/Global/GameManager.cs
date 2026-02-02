@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
     private void StartBuildingSelectionPhase()
     {
         currentPhase = GamePhase.Selection;
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
 
         // selection phase begins a new round
         roundCount++;
@@ -215,6 +216,8 @@ public class GameManager : MonoBehaviour
 
     private void OnGameOver()
     {
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
+
         // clean up event subscriptions
         foreach (var player in playerRegistry.players)
         {
@@ -238,6 +241,8 @@ public class GameManager : MonoBehaviour
     private async void OnSwitchToScene(int buildIndex)
     {
         var unloadOperations = new List<AsyncOperation>();
+
+        EventBus.Instance?.OnToggleSurrenderHint?.Invoke(false);
 
         // unload all the scenes besides the base scene
         for (int i = 0; i < SceneManager.sceneCount; i++)

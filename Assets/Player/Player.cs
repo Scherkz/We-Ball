@@ -41,6 +41,8 @@ public class Player : MonoBehaviour
     private float startTime;
     private Vector3 spawnPoint;
 
+    private bool canSurrender;
+
     private enum RoundFinishReason
     {
         ReachedFinish,
@@ -125,7 +127,7 @@ public class Player : MonoBehaviour
         playerController.ResetSpecialShotSpecifics();
     }
 
-    public void StartPlayingPhase(Vector3 spawnPosition)
+    public void StartPlayingPhase(Vector3 spawnPosition, bool canSurrender = true)
     {
         playerInput.ActivateInput();
         playerInput.SwitchCurrentActionMap(playingActionMapName);
@@ -133,6 +135,8 @@ public class Player : MonoBehaviour
         buildController.enabled = false;
 
         hasFinishedRound = false;
+
+        this.canSurrender = canSurrender;
 
         playerController.enabled = true;
         playerController.gameObject.SetActive(true);
@@ -299,6 +303,9 @@ public class Player : MonoBehaviour
 
     private void OnPlayerSurrendered()
     {
+        if (!canSurrender)
+            return;
+
         FinishRound(RoundFinishReason.Surrender);
     }
 }
