@@ -4,8 +4,8 @@ using UnityEngine;
 public class SurrenderUI : MonoBehaviour
 {
     private TMP_Text text;
-    
-    private bool isLobby;
+
+    private bool disabled;
 
     private void Awake()
     {
@@ -16,32 +16,31 @@ public class SurrenderUI : MonoBehaviour
 
     private void OnEnable()
     {
-        EventBus.Instance.InLobby += OnLobbyChanged;
+        EventBus.Instance.OnLevelLoaded += OnLevelLoaded;
         EventBus.Instance.OnToggleSurrenderHint += SetVisible;
     }
 
     private void OnDisable()
     {
-        EventBus.Instance.InLobby -= OnLobbyChanged;
+        EventBus.Instance.OnLevelLoaded -= OnLevelLoaded;
         EventBus.Instance.OnToggleSurrenderHint -= SetVisible;
     }
 
     private void SetVisible(bool visible)
     {
-        if (isLobby)
-        {
+        if (disabled)
             visible = false;
-        }
-        
+
         text.enabled = visible;
     }
-    private void OnLobbyChanged(bool lobby)
-    {
-        isLobby = lobby;
 
+    private void OnLevelLoaded(Level _level, bool isLobby)
+    {
         if (isLobby)
         {
-            text.enabled = false;
+            SetVisible(false);
         }
+
+        disabled = isLobby;
     }
 }

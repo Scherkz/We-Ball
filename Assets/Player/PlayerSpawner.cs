@@ -31,6 +31,8 @@ public class PlayerSpawner : MonoBehaviour
     private readonly List<JoinedPlayer> joinedPlayers = new();
     private SpawnPoint[] spawnPoints;
 
+    private bool inLobby;
+
     private int playerLastID = 0;
 
     public Player[] GetPlayers()
@@ -90,7 +92,7 @@ public class PlayerSpawner : MonoBehaviour
 
         var player = playerInput.GetComponent<Player>();
         player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
-        player.CallNextFrame(player.StartPlayingPhase, spawnPoint.position);
+        player.CallNextFrame(player.StartPlayingPhase, spawnPoint.position, !inLobby);
         player.gameObject.name = $"Player {joinedPlayer.ID} [{gamepad.device.displayName}]";
         player.SetColor(spawnPoint.color);
 
@@ -136,6 +138,7 @@ public class PlayerSpawner : MonoBehaviour
 
     private void OnLevelLoaded(Level level, bool isLobby)
     {
+        inLobby = isLobby;
         active = isLobby || joinedPlayers.Count <= 0;
 
         spawnPoints = new SpawnPoint[level.SpawnPointsParent.childCount];
@@ -158,7 +161,7 @@ public class PlayerSpawner : MonoBehaviour
 
             var player = joinedPlayer.playerInput.GetComponent<Player>();
             player.OnFinishedRound += OnAnyPlayerEnterFinishArea;
-            player.CallNextFrame(player.StartPlayingPhase, spawnPoint.position);
+            player.CallNextFrame(player.StartPlayingPhase, spawnPoint.position, !inLobby);
         }
     }
 
