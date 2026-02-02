@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.visible = false;
+
         roundCount = 0;
 
         StartCoroutine(LoadLobbyFallback());
