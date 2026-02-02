@@ -1053,23 +1053,23 @@ PrefabInstance:
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8ce62a9fabec45c40a04fa83f9f9e552, type: 3}
+      objectReference: {fileID: 21300000, guid: 98d75077514a0a04d9333596339d07e5, type: 3}
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Color.b
-      value: 0.6039216
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Color.g
-      value: 0.9803922
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4787957742744937130, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: mapIcon
       value: 
-      objectReference: {fileID: 21300000, guid: 0130f2a803803614d93b1b6913c1a8ce, type: 3}
+      objectReference: {fileID: 21300000, guid: 7601f537298a426419cae8f517319ee5, type: 3}
     - target: {fileID: 4787957742744937130, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: mapName
       value: Solarsystem Map
@@ -3197,23 +3197,23 @@ PrefabInstance:
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8ce62a9fabec45c40a04fa83f9f9e552, type: 3}
+      objectReference: {fileID: 21300000, guid: f7e5a6748a889eb46b8dd1c6976b0061, type: 3}
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4787957742744937130, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: mapIcon
       value: 
-      objectReference: {fileID: 21300000, guid: 0130f2a803803614d93b1b6913c1a8ce, type: 3}
+      objectReference: {fileID: 21300000, guid: eb4616d0333b06145bf43b5642eca5f2, type: 3}
     - target: {fileID: 4787957742744937130, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: mapName
       value: Underwater Map
@@ -4559,14 +4559,14 @@ PrefabInstance:
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8ce62a9fabec45c40a04fa83f9f9e552, type: 3}
+      objectReference: {fileID: 21300000, guid: 55e1ae2c615372a4a812b1c1f55bd769, type: 3}
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1637369672854419806, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: m_Color.r
@@ -4575,7 +4575,7 @@ PrefabInstance:
     - target: {fileID: 4787957742744937130, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: mapIcon
       value: 
-      objectReference: {fileID: 21300000, guid: 0130f2a803803614d93b1b6913c1a8ce, type: 3}
+      objectReference: {fileID: 21300000, guid: 7c9ce8a7a4a3f0d4b987c7fe381471aa, type: 3}
     - target: {fileID: 4787957742744937130, guid: a1e366e3c6e58cd42b124c1f1dda01ab, type: 3}
       propertyPath: mapName
       value: Halfpipe Map
