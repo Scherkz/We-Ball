@@ -1415,7 +1415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 618773830000752258, guid: 355a98d054eb94e4ca86b06d89f7d10b, type: 3}
       propertyPath: gravityFactor
-      value: 24
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 3788154135239296601, guid: 355a98d054eb94e4ca86b06d89f7d10b, type: 3}
       propertyPath: m_LocalScale.y
@@ -3604,7 +3604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 618773830000752258, guid: 355a98d054eb94e4ca86b06d89f7d10b, type: 3}
       propertyPath: gravityFactor
-      value: 34
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 3788154135239296601, guid: 355a98d054eb94e4ca86b06d89f7d10b, type: 3}
       propertyPath: m_LocalScale.x
@@ -3745,7 +3745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 618773830000752258, guid: 355a98d054eb94e4ca86b06d89f7d10b, type: 3}
       propertyPath: gravityFactor
-      value: 22
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 3788154135239296601, guid: 355a98d054eb94e4ca86b06d89f7d10b, type: 3}
       propertyPath: m_LocalScale.x
@@ -5866,7 +5866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 618773830000752258, guid: 355a98d054eb94e4ca86b06d89f7d10b, type: 3}
       propertyPath: gravityFactor
-      value: 18
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5450625659997553403, guid: 355a98d054eb94e4ca86b06d89f7d10b, type: 3}
       propertyPath: m_Radius
@@ -12566,7 +12566,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3552079244957213390, guid: d6bba021df5ea3447940e64238ef769a, type: 3}
       propertyPath: gravityFactor
-      value: 40
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 3562933548412030827, guid: d6bba021df5ea3447940e64238ef769a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12798,7 +12798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 618773830000752258, guid: 355a98d054eb94e4ca86b06d89f7d10b, type: 3}
       propertyPath: gravityFactor
-      value: 28
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3788154135239296601, guid: 355a98d054eb94e4ca86b06d89f7d10b, type: 3}
       propertyPath: m_LocalScale.x
