@@ -146,5 +146,4 @@ public class EventBus : MonoBehaviour
     /// </list>
     /// </summary>
     public Action<bool> OnToggleSurrenderHint;
-
 }

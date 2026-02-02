@@ -158,8 +158,9 @@ public class PlayerBuildController : MonoBehaviour
         // try snapping buildingGhost to grid if we are in the building phase
         if (grid != null && currentBuildingData != null)
         {
+            var buildingRotation = buildingGhost.currentBuilding.GetRotation();
             var cellPos = grid.IsPositionInsideGrid(worldPos) ? grid.GetCellPosition(worldPos) : worldPos;
-            var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
+            var canBuild = grid.CanPlaceBuilding(cellPos, currentBuildingData, buildingRotation);
 
             cursor.transform.position = cellPos;
             buildingGhost.SetTint(canBuild ? validColor : invalidColor);
@@ -169,7 +170,7 @@ public class PlayerBuildController : MonoBehaviour
                 if (placeSfx != null)
                     placeSfx.Play();
 
-                grid.AddBuilding(cellPos, currentBuildingData, buildingGhost.currentBuilding.rotation);
+                grid.AddBuilding(cellPos, currentBuildingData, buildingRotation);
                 OnBuildingPlaced?.Invoke();
 
                 buildingGhost.gameObject.SetActive(false);

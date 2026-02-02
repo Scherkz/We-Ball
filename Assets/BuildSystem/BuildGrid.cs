@@ -64,6 +64,24 @@ public class BuildGrid : MonoBehaviour
         gridVisualisation.enabled = enabled;
     }
 
+    public List<Building> GetAllInvisibleBuildings()
+    {
+        var buildings = new List<Building>();
+        
+        foreach (var gridData in grid)
+        {
+            if (gridData.IsOccupied && gridData.instance != null && gridData.buildingData?.isInvisibleBuilding == true)
+            {
+                var building = gridData.instance.GetComponent<Building>();
+                if (building != null && !buildings.Contains(building))
+                {
+                    buildings.Add(building);
+                }
+            }
+        }
+        return buildings;
+}
+
     public bool AddBuilding(Vector3 position, BuildingData buildingData, Building.Rotation rotation)
     {
         if (!CanPlaceBuilding(position, buildingData, rotation))
@@ -182,7 +200,7 @@ public class BuildGrid : MonoBehaviour
             }
         }
 
-        return count / (float)grid.Length;
+        return count / (float) grid.Length;
     }
 
     private void RemoveBuildingFromCell(int cellIndex)
@@ -195,7 +213,7 @@ public class BuildGrid : MonoBehaviour
         var instancePosition = cellData.instance.transform.position;
         var localPosition = transform.InverseTransformPoint(instancePosition);
 
-        var rotation = cellData.instance.GetComponent<Building>().rotation;
+        var rotation = cellData.instance.GetComponent<Building>().GetRotation();
 
         // clear all the occupied cells
         var originCellIndex = GetCellIndex(localPosition);
@@ -231,10 +249,10 @@ public class BuildGrid : MonoBehaviour
                     continue;
 
                 var local = new Vector2Int(x, y);
-
-                var rotated = RotateLocalOffset(local, size, rotation);
-
-                yield return rotated;
+                if (!buildingData.isOccupationRotationDependent)
+                    yield return local;
+                else
+                    yield return RotateLocalOffset(local, size, rotation);
             }
         }
     }

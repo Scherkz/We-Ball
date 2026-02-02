@@ -16,4 +16,5 @@ MonoBehaviour:
   prefab: {fileID: 8889352517432693169, guid: bc910fa1d641e7c4da32911c4e30cd5c, type: 3}
   isAntiBuilding: 0
   cellCount: {x: 2, y: 3}
+  isOccupationRotationDependent: 1
   bitmask: 010101000100

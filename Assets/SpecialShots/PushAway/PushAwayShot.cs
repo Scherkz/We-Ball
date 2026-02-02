@@ -20,6 +20,8 @@ public class PushAwayShot : SpecialShot
     [SerializeField] private float speedWeight;
     private float distanceWeight;
 
+    [SerializeField] private AudioSource explosionSfx;
+    
     // Maximum speed a ball can reach with a standard shot, is used to calculate the speed factor
     private const float maxBallSpeed = 20f;
 
@@ -73,6 +75,9 @@ public class PushAwayShot : SpecialShot
 
     private void PushAwayImpact(Collision2D collision)
     {
+        if (explosionSfx != null)
+            explosionSfx.Play();
+        
         // Impact from current player position
         Vector2 impactPosition = transform.position;
         // Get all rigidbodies in a radius
